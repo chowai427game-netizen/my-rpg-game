@@ -145,7 +145,9 @@
             <strong style="color: #ffd700;">📢 深淵維護公告 (v1.4)：</strong><br>
             • 【系統】全面細分並新增 Tier 1 至 Tier 5 共 18 種隨機迷宮魔物！<br>
             • 【新手】實裝 B1-B10 新手保護安全島，恆定陰暗洞窟無異常。<br>
-            • 【聯網】全球共享中央英靈殿與臨終遺言實時通訊同步。
+            • 【新手】改善新手安全島，不會第一層完場。<br>
+            • 【聯網】全球共享中央英靈殿與臨終遺言實時通訊同步。<br>
+            • 【全新擴充】流浪黑市多樣化商品。<br>
         </div>
         
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
@@ -248,10 +250,10 @@
     // 🔔 PART 3 大幅擴充：全面實裝 Tier 1 至 Tier 5 五大生態階級魔物隨機庫
     const monsterDatabase = {
         tier1: [ // 🔰 B1 - B10F (新手村生態圈)
-            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 130, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 190, baseAtk: 11, baseGold: 38, baseExp: 30, color: "#dcdde1" },
-            { name: "🦇 吸血小蝙蝠", baseHp: 100, baseAtk: 6, baseGold: 16, baseExp: 14, color: "#7f8c8d" }
+            { name: "💧 藍色史萊姆", baseHp: 180, baseAtk: 3, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 100, baseAtk: 8, baseGold: 22, baseExp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 130, baseAtk: 10, baseGold: 38, baseExp: 30, color: "#dcdde1" },
+            { name: "🦇 吸血小蝙蝠", baseHp: 80, baseAtk: 4, baseGold: 16, baseExp: 14, color: "#7f8c8d" }
         ],
         tier2: [ // 🚨 B11 - B30F (初階地下城生態圈)
             { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
@@ -513,23 +515,32 @@
     // ==========================================
     async function triggerBattle(isBoss) {
         let baseData;
-        if (isBoss) { let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; baseData = bossMonsters[bossIdx]; } 
-        else {
-            // 🔔 PART 8 核心優化：根據當前推塔層數，精密分配對應的 Tier 1 ~ Tier 5 魔物池
+        if (isBoss) { 
+            let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; baseData = bossMonsters[bossIdx]; 
+        } else {
             let pool = monsterDatabase.tier1;
             if (dungeonFloor > 10 && dungeonFloor <= 30) pool = monsterDatabase.tier2;
             else if (dungeonFloor > 30 && dungeonFloor <= 50) pool = monsterDatabase.tier3;
             else if (dungeonFloor > 50 && dungeonFloor <= 80) pool = monsterDatabase.tier4;
             else if (dungeonFloor > 80) pool = monsterDatabase.tier5;
+            
             baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        let floorScale = 1 + (dungeonFloor - 1) * 0.25; let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
+        // 🔔【核心除錯判定】：如果是大 BOSS，倍率恆定為 1.0（使用手工設定的完美規格）
+        // 如果是普通小怪，才根據層數遞增 25% 難度
+        let floorScale = isBoss ? 1.0 : (1 + (dungeonFloor - 1) * 0.25); 
+        let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
         
         let monster = {
-            name: baseData.name, hp: Math.floor(baseData.baseHp * floorScale * mHpScale), maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
-            atk: Math.floor(baseData.baseAtk * floorScale), gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * (player.goldBonus || 1.0)),
-            exp: Math.floor(baseData.baseExp * floorScale * (player.perkExpBonus || 1.0)), acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), color: baseData.color
+            name: baseData.name, 
+            hp: Math.floor(baseData.baseHp * floorScale * mHpScale), 
+            maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
+            atk: Math.floor(baseData.baseAtk * floorScale), 
+            gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * (player.goldBonus || 1.0)),
+            exp: Math.floor(baseData.baseExp * floorScale * (player.perkExpBonus || 1.0)), 
+            acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
+            color: baseData.color
         };
 
         currentKillerName = monster.name;
@@ -603,7 +614,7 @@
                         if (pStatus.shield > 0) {
                             if (finalTaken <= pStatus.shield) { pStatus.shield -= finalTaken; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（完全被勇者護盾吸收！）`; }
                             else { let over = finalTaken - pStatus.shield; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（護盾粉碎吸收 ${pStatus.shield} 點，肉身承受 -${over} HP！）`; pStatus.shield = 0; player.hp -= over; }
-                        } else { player.hp -= finalTaken; roundLog += ` | 💥魔物反擊：勇者結結實實承受 -${finalTaken} HP！`; }
+                        } else { player.hp -= finalTaken; roundLog += ` | 💥魔物反擊：勇者肉身承受 -${finalTaken} HP！`; }
                     }
                 }
             }
@@ -680,24 +691,72 @@
         });
         updateUI();
     }
-
+    // ==========================================
+    // PART 8.5: 【全新擴充】流浪黑市多樣化商品清單
+    // ==========================================
     function triggerMerchantEvent() {
-        gameState = "MERCHANT"; addLog(`🧙【流浪黑市】一個斗篷怪人攔住了你。`);
+        gameState = "MERCHANT"; addLog(`🧙【流浪黑市】一個斗篷怪人露出詭異的笑容，攔住了你。`);
+        
+        // 🔮 擴充商品池：共有 6 種強大奇珍異寶供隨機輪替
         const items = [
-            { name: "🎒 補給生命藥水", desc: "立使生命值全滿", cost: 45, run: () => { player.hp = player.maxHp; addLog("🧙 生命值全滿！"); } },
-            { name: "🗡️ 元素磨刀石", desc: "永久提升 攻擊力 +8", cost: 60, run: () => { player.atk += 8; addLog("🧙 攻擊+8。"); } }
+            { 
+                name: "🎒 補給生命藥水", desc: "立即使當前生命值全面回滿", cost: 45, 
+                run: () => { player.hp = player.maxHp; addLog("🧙 「藥到病除！你的生命力重新燃燒！」"); } 
+            },
+            { 
+                name: "🗡️ 元素磨刀石", desc: "精心打磨武器，永久提升 攻擊力 +8", cost: 60, 
+                run: () => { player.atk += 8; addLog("🧙 「鋒利無比！武器散發出元素光芒（攻+8）。」"); } 
+            },
+            { 
+                name: "🛡️ 重型合金盾", desc: "改造防具，每場戰鬥開局直接獲得 100 點臨時【護盾】", cost: 70, 
+                run: () => { player.perkShieldStart += 100; addLog("🧙 「固若金湯！以後開局你都更安全（護盾+100）。」"); } 
+            },
+            { 
+                name: "🦅 鷹眼符文石", desc: "銘刻符文於雙眼，【暴擊率】永久提升 +6%", cost: 50, 
+                run: () => { player.critChance += 6; addLog("🧙 「看穿死穴！你的暴擊機率提升了 6%。」"); } 
+            },
+            { 
+                name: "👟 幽靈隱形斗篷", desc: "身輕如燕，【閃避率】永久提升 +5%", cost: 50, 
+                run: () => { player.dodgeChance += 5; addLog("🧙 「殘影步法！魔物更難觸碰到你（閃避+5%）。」"); } 
+            },
+            { 
+                name: "👼 復活十字架", desc: "【核心神物】戰死時自動消耗，當場以 35% 生命復活（可充能）", cost: 150, 
+                run: () => { 
+                    player.perkSecondWind = true; 
+                    player.usedSecondWindThisRun = false; // 核心：賦予權限並重置充能狀態
+                    addLog("🧙 「深淵契約！你獲得了（或重新充能了）一次免死復活的機會！」"); 
+                } 
+            }
         ];
-        let shuffled = items.sort(() => 0.5 - Math.random()); let onSale = shuffled.slice(0, 2);
-        const container = document.getElementById('merchant-choices-container'); container.innerHTML = "";
+
+        // 隨機打亂並抽取 2 款商品上架
+        let shuffled = items.sort(() => 0.5 - Math.random()); 
+        let onSale = shuffled.slice(0, 2);
+        
+        const container = document.getElementById('merchant-choices-container'); 
+        container.innerHTML = "";
+
+        // 渲染黑市商品按鈕
         onSale.forEach((item) => {
             let btn = document.createElement('button'); btn.className = "btn-game btn-merchant";
-            btn.innerHTML = `${item.name}<br><span style='color:#ffd700;'>${item.cost} G</span><br>(${item.desc})`;
-            btn.onclick = () => { if (player.gold < item.cost) { addLog("🧙 「金幣不足！」"); return; } player.gold -= item.cost; item.run(); leaveMerchant(); };
+            btn.innerHTML = `${item.name}<br><span style='color:#ffd700;font-size:14px;'>${item.cost} G</span><br><span style='font-size:11px;color:#aaa;'>(${item.desc})</span>`;
+            btn.onclick = () => { 
+                if (player.gold < item.cost) { addLog("🧙 「沒錢？深淵不相信眼淚，賺夠金幣再來！」"); return; } 
+                player.gold -= item.cost; 
+                item.run(); 
+                leaveMerchant(); 
+            };
             container.appendChild(btn);
         });
-        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 離開黑市";
-        leaveBtn.onclick = () => { leaveMerchant(); }; container.appendChild(leaveBtn); updateUI();
+
+        // 離開黑市按鈕
+        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 謝絕交易，繼續前進";
+        leaveBtn.onclick = () => { addLog("🏃 你告別了黑市商人。"); leaveMerchant(); }; 
+        container.appendChild(leaveBtn); 
+        updateUI();
     }
+
+    function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
 
     function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
     
