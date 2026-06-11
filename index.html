@@ -425,7 +425,9 @@
         } catch (e) { box.innerHTML = "<div style='color:#ff4757; font-size:11px;'>❌ 無法連線至中央英靈殿伺服器</div>"; }
     }
 
-    // 💾 核心功能升級：同時檢查活人存檔與死者遺產
+    // ==========================================
+    // PART 6.5: 【修復完成】雲端存檔與遺產智能偵測引擎
+    // ==========================================
     async function checkCloudLegacy() {
         let inputName = document.getElementById('player-name-input').value.trim();
         let legBox = document.getElementById('legacy-box'); 
@@ -437,6 +439,7 @@
             legBox.innerHTML = "請輸入名字以查詢雲端血脈..."; 
             activeBox.style.display = "none";
             startBtn.innerText = "開啟冒險之旅 🧭";
+            startBtn.style.backgroundColor = "#2ed573";
             currentLegacyData = null; currentActiveCharData = null; return; 
         }
         try {
@@ -450,12 +453,12 @@
                     activeBox.innerHTML = `🟢 <strong>偵測到現世活人存檔！</strong><br>
                     上次安全歇息於村莊：<span style="color:#fff;">Lv.${res.activeChar.lv} 勇者</span> (擁有 ${res.activeChar.gold} G)<br>
                     ⚠️ 點擊下方按鈕將【讀取存檔繼續冒險】，不消耗血脈繼承。`;
-                    activeBox.style.style.display = "block";
+                    activeBox.style.display = "block"; // 🔔【已修正】移除了多餘的 .style，恢復正常網頁渲染
                     startBtn.innerText = "繼續上次的冒險 (讀取存檔) 🧭";
                     startBtn.style.backgroundColor = "#3498db";
                 } else {
                     currentActiveCharData = null;
-                    activeBox.style.style.display = "none";
+                    activeBox.style.display = "none"; // 🔔【已修正】移除了多餘的 .style
                     startBtn.innerText = "開啟全新血脈冒險之旅 🧭";
                     startBtn.style.backgroundColor = "#2ed573";
                 }
