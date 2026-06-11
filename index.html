@@ -227,33 +227,33 @@
     ];
     let currentEnv = environmentsPool[0];
 
-    const monsterDatabase = {
+    const monsterData = {
         tier1: [ 
-            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 10, baseexp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 140, baseAtk: 7, baseGold: 22, baseexp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 210, baseAtk: 12, baseGold: 40, baseexp: 32, color: "#dcdde1" }
+            { name: "💧 藍色史萊姆", Hp: 80, Atk: 4, Gold: 10, exp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", Hp: 140, Atk: 7, Gold: 22, exp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", Hp: 210, Atk: 12, Gold: 40, exp: 32, color: "#dcdde1" }
         ],
         tier2: [ 
-            { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseexp: 55, color: "#74b9ff" },
-            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseexp: 75, color: "#a4b0be" }
+            { name: "🐺 嗜血影狼", Hp: 320, Atk: 18, Gold: 65, exp: 55, color: "#74b9ff" },
+            { name: "🐗 荒野半獸人", Hp: 460, Atk: 24, Gold: 90, exp: 75, color: "#a4b0be" }
         ],
         abyss: [ 
-            { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseexp: 450, color: "#ff4757" } 
+            { name: "👁️ 深淵凝視者", Hp: 2000, Atk: 95, Gold: 500, exp: 450, color: "#ff4757" } 
         ]
     };
 	
 // 10 隻大 BOSS 獨立史詩領主
     const bossMonsters = [
-        { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseexp: 150, acc: 25, color: "#ff9f43" }, 
-        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseexp: 350, acc: 45, color: "#9b59b6" }, 
-        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseexp: 800, acc: 65, color: "#ff4757" },
-        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseexp: 1400, acc: 75, color: "#74b9ff" },
-        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseexp: 2200, acc: 85, color: "#a55eee" },
-        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseexp: 3500, acc: 90, color: "#f1c40f" },
-        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseexp: 5000, acc: 95, color: "#e67e22" },
-        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseexp: 7500, acc: 100, color: "#2980b9" },
-        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseexp: 11000, acc: 110, color: "#c0392b" },
-        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseexp: 20000, acc: 120, color: "#10ac84" }
+        { name: "👿 地獄三頭犬 (10F 獄門守護者)", Hp: 500, Atk: 28, Gold: 250, exp: 150, acc: 25, color: "#ff9f43" }, 
+        { name: "🧙 墮落大巫師 (20F 秘術主宰)", Hp: 1100, Atk: 52, Gold: 500, exp: 350, acc: 45, color: "#9b59b6" }, 
+        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", Hp: 2500, Atk: 90, Gold: 1000, exp: 800, acc: 65, color: "#ff4757" },
+        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", Hp: 5000, Atk: 140, Gold: 1800, exp: 1400, acc: 75, color: "#74b9ff" },
+        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", Hp: 8000, Atk: 200, Gold: 2800, exp: 2200, acc: 85, color: "#a55eee" },
+        { name: "👼 墮落熾天使 (60F 晨星之暗)", Hp: 12000, Atk: 280, Gold: 4000, exp: 3500, acc: 90, color: "#f1c40f" },
+        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", Hp: 18000, Atk: 380, Gold: 6000, exp: 5000, acc: 95, color: "#e67e22" },
+        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", Hp: 26000, Atk: 500, Gold: 9000, exp: 7500, acc: 100, color: "#2980b9" },
+        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", Hp: 38000, Atk: 680, Gold: 14000, exp: 11000, acc: 110, color: "#c0392b" },
+        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", Hp: 60000, Atk: 990, Gold: 25000, exp: 20000, acc: 120, color: "#10ac84" }
     ];
 
     function getUpgradeCost(type) {
@@ -493,27 +493,27 @@
     }
 // 🚀 優化點：重裝最細緻、100% 回合制完整戰鬥引擎
     async function triggerBattle(isBoss) {
-        let baseData;
+        let Data;
         if (isBoss) { 
-            let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; baseData = bossMonsters[bossIdx]; 
+            let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; Data = bossMonsters[bossIdx]; 
         } else {
-            let pool = monsterDatabase.tier1;
-            if (dungeonFloor > 25) pool = monsterDatabase.tier2; 
-            if (dungeonFloor > 50) pool = monsterDatabase.abyss;
-            baseData = pool[Math.floor(Math.random() * pool.length)];
+            let pool = monsterData.tier1;
+            if (dungeonFloor > 25) pool = monsterData.tier2; 
+            if (dungeonFloor > 50) pool = monsterData.abyss;
+            Data = pool[Math.floor(Math.random() * pool.length)];
         }
 
         let floorScale = 1 + (dungeonFloor - 1) * 0.25; 
         let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
         let monster = {
-            name: baseData.name, 
-            hp: Math.floor(baseData.baseHp * floorScale * mHpScale), 
-            maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
-            atk: Math.floor(baseData.baseAtk * floorScale), 
-            gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * player.goldBonus),
-            exp: Math.floor(baseData.baseexp * floorScale * player.perkexpBonus), 
-            acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
-            color: baseData.color
+            name: Data.name, 
+            hp: Math.floor(Data.Hp * floorScale * mHpScale), 
+            maxHp: Math.floor(Data.Hp * floorScale * mHpScale),
+            atk: Math.floor(Data.Atk * floorScale), 
+            gold: Math.floor(Data.Gold * floorScale * (Math.random() * 0.3 + 0.85) * player.goldBonus),
+            exp: Math.floor(Data.exp * floorScale * player.perkexpBonus), 
+            acc: isBoss ? Data.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
+            color: Data.color
         };
 
         currentKillerName = monster.name;
