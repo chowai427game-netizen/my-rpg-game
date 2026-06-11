@@ -105,6 +105,7 @@
     <div class="location-bar" id="location-text">🔮 命運的起點</div>
     <div class="env-bar" id="env-text" style="display: none;">環境：無異常</div>
     
+    <!-- 封面角色命名與傳承面板 -->
     <div class="dynamic-panel title-panel-style" id="title-box">
         <h1 style="color: #ffd700; font-size: 26px; margin: 0 0 5px 0; text-shadow: 0 0 10px rgba(255,215,0,0.4);">命運深淵</h1>
         <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端資料庫版】<br>20隨機災厄房 × 30極致構築天賦</p>
@@ -116,6 +117,7 @@
         <button onclick="handleStartGame()" class="btn-game btn-explore" style="width: 80%; padding: 14px; font-size: 18px; box-shadow: 0 4px 10px rgba(46,213,115,0.3);">開啟冒險之旅 🧭</button>
     </div>
 
+    <!-- 玩家核心數值面板 -->
     <div class="status-panel" id="status-panel-box" style="display: none;">
         <div class="status-item full-row" style="color: #ffd700; font-weight: bold; font-size: 14px; border-bottom: 1px solid #222; padding-bottom: 4px; margin-bottom: 4px;">👤 勇者大名: <span id="player-name-display">--</span></div>
         <div class="status-item">等級: <span id="lv" style="color: #00ffff; font-weight:bold;">1</span></div>
@@ -124,6 +126,7 @@
         <div class="status-item">基礎攻擊: <span id="atk" style="color: #ff6b81;">15</span></div>
         <div class="status-item" style="color: #e67e22;">🔥 戰鬥怒氣值: <span id="stat-rage" class="rage">0 / 100</span></div>
         
+        <!-- 金幣與收益加成區 -->
         <div class="status-item" style="color: #ffa500; font-weight: bold;">💰 擁有金幣: <span id="gold" class="gold">0</span> G</div>
         <div class="status-item" style="color: #f39c12;">🪙 金幣收益加成: <span id="stat-gold-bonus">100%</span></div>
         
@@ -135,6 +138,7 @@
         <div class="status-item full-row" style="color: #ff3f34; font-size:11px;" id="stat-curse-log"></div>
     </div>
 
+    <!-- 地表皇家訓練所 -->
     <div class="dynamic-panel shop-style" id="shop-box" style="display: none;">
         <div class="shop-title panel-title">🏋️ 皇家訓練所</div>
         <div class="shop-grid grid-layout">
@@ -143,20 +147,24 @@
         </div>
     </div>
 
+    <!-- 🎁 BOSS 命運戰利品面板 -->
     <div class="dynamic-panel reward-style" id="reward-box" style="display: none;">
         <div class="panel-title" style="color: #ffd700;">🎁 擊敗層級領主！請抉擇系統派發的命運天賦：</div>
         <div class="reward-list flex-layout" id="reward-choices-container"></div>
     </div>
 
+    <!-- 地下城流浪黑市商人面板 -->
     <div class="dynamic-panel merchant-style" id="merchant-box" style="display: none;">
         <div class="panel-title" style="color: #00cea6;">🧙 偶遇黑市流浪商人：嘿！要用金幣換點好東西嗎？</div>
         <div class="grid-layout" id="merchant-choices-container"></div>
     </div>
 
+    <!-- 冒險日誌 -->
     <div class="log-panel" id="log-box" style="display: none;">
         <p style="color: #888;">【系統】線上通訊模組加載完成。</p>
     </div>
 
+    <!-- 底部行動按鈕 -->
     <div class="action-panel" id="action-panel" style="display: none;">
         <button id="btn-action1" onclick="handleAction1()" class="btn-game btn-action btn-explore">⚔️ 進入地下城</button>
         <button id="btn-action2" onclick="handleAction2()" class="btn-game btn-action btn-rest">⛺ 在村莊休息</button>
@@ -164,7 +172,7 @@
 </div>
 
 <script>
-    // 💡 填入你在 Render 拿到的中央伺服器專屬網址（尾端不要加斜線 /）
+    // 💡 已經幫你自動換成真實的 Render 中央伺服器專屬網址
     const SERVER_URL = "https://rpg-backend-fjvg.onrender.com";
 
     let player = {
@@ -228,7 +236,15 @@
         { name: "🐉 紅蓮噴火龍 (20F 領主)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" }
     ];
 
-    const logBox = document.getElementById('log-box');
+    // 💡 補回被我不小心刪除的核心計算函數
+    function getUpgradeCost(type) { 
+        return type === 'atk' ? (30 + player.atkUpgrades * 25) : (25 + player.hpUpgrades * 20); 
+    }
+
+    function addLog(message) { 
+        const logBox = document.getElementById('log-box'); 
+        if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } 
+    }
 
     // 📡 【即時雲端偵測】
     async function checkCloudLegacy() {
@@ -405,7 +421,6 @@
         }
     }
 
-    // ⚡ 核心復活：重裝 100% Turn-by-turn 回合制真實戰鬥引擎！
     function triggerBattle(isBoss) {
         let baseData;
         if (isBoss) {
@@ -444,7 +459,6 @@
             combatHtml += `<br><span style='color: #888;'>[第 ${round} 回合]</span> `;
             pRoundCombo++;
 
-            // 環境與持續傷害觸發
             if (currentEnv.effect === "env_thunder" && round % 3 === 0) {
                 if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); combatHtml += `<span style='color:#e67e22;'>⚡天雷劈中勇者-25</span> | `; }
                 else { monster.hp = Math.max(1, monster.hp - 25); combatHtml += `<span style='color:#e67e22;'>⚡天雷劈中怪物-25</span> | `; }
@@ -493,7 +507,6 @@
                 if (player.perkBattleFocus) pDmgOut = Math.floor(pDmgOut * (1 + pRoundCombo * 0.04));
                 if (currentEnv.effect === "env_blood") pDmgOut = Math.floor(pDmgOut * 1.4);
 
-                // 計算扣盾/扣血
                 if (mStatus.shield > 0) {
                     if (pDmgOut <= mStatus.shield) { mStatus.shield -= pDmgOut; }
                     else { let over = pDmgOut - mStatus.shield; mStatus.shield = 0; monster.hp -= over; }
@@ -545,7 +558,6 @@
                 combatHtml += `<br>`;
             }
 
-            // 涅槃復活判定
             if (player.hp <= 0) {
                 if (player.perkSecondWind && !player.usedSecondWindThisRun) {
                     player.usedSecondWindThisRun = true; player.hp = Math.floor(player.maxHp * 0.35);
@@ -556,7 +568,6 @@
         }
         combatHtml += `</div>`; addLog(combatHtml);
 
-        // 戰後結算
         if (player.hp > 0 && monster.hp <= 0) {
             if (player.perkSoulHarvest) { player.hp = Math.min(player.maxHp, player.hp + Math.floor(player.maxHp * 0.12)); }
             player.gold += monster.gold; player.exp += monster.exp;
@@ -564,12 +575,11 @@
             checkLevelUp();
             if (isBoss) { gameState = "REWARD"; startRewardPhase(); } else { advanceFloor(); }
         } else {
-            // 💀 真正戰死，打包上傳雲端資料庫！
             saveLegacyToCloud();
         }
     }
 
-    // 📤 【雲端自動存盤與傳承】
+    // 📤 【雲端自動存盤】
     async function saveLegacyToCloud() {
         let legacyGold = Math.floor(player.gold * 0.20);
         let legacyAtk = Math.floor(dungeonFloor * 0.5);
@@ -597,7 +607,6 @@
             addLog(`<span style='color:#ff4757;'>❌ 雲端備份失敗，請檢查網絡或 Render 後端。</span>`);
         }
         
-        // 重設狀態返回封面
         dungeonFloor = 0; gameState = "TITLE"; currentLegacyData = null;
         document.getElementById('player-name-input').value = player.name;
         checkCloudLegacy();
@@ -682,6 +691,7 @@
 
     function advanceFloor() { dungeonFloor++; gameState = "DUNGEON"; rollNextEnvironment(); addLog(`🪜 踏入 <strong>地下城 B${dungeonFloor}F</strong>...`); updateUI(); }
 
+    // 啟動首頁渲染
     updateUI();
 </script>
 
