@@ -12,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100vh;p
             margin: 0;
             padding: 20px 0;
         }
@@ -188,7 +188,7 @@
     const sleep = ms => new Promise(res => setTimeout(res, ms));
 
     let player = {
-        name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextExp: 30,
+        name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextexp: 30,
         atkUpgrades: 0, hpUpgrades: 0,
         
         critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0,
@@ -229,31 +229,31 @@
 
     const monsterDatabase = {
         tier1: [ 
-            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 10, baseExp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 140, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 210, baseAtk: 12, baseGold: 40, baseExp: 32, color: "#dcdde1" }
+            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 10, baseexp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 140, baseAtk: 7, baseGold: 22, baseexp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 210, baseAtk: 12, baseGold: 40, baseexp: 32, color: "#dcdde1" }
         ],
         tier2: [ 
-            { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
-            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" }
+            { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseexp: 55, color: "#74b9ff" },
+            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseexp: 75, color: "#a4b0be" }
         ],
         abyss: [ 
-            { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseExp: 450, color: "#ff4757" } 
+            { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseexp: 450, color: "#ff4757" } 
         ]
     };
 	
 // 10 隻大 BOSS 獨立史詩領主
     const bossMonsters = [
-        { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
-        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
-        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" },
-        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
-        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" },
-        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseExp: 3500, acc: 90, color: "#f1c40f" },
-        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseExp: 5000, acc: 95, color: "#e67e22" },
-        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseExp: 7500, acc: 100, color: "#2980b9" },
-        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseExp: 11000, acc: 110, color: "#c0392b" },
-        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseExp: 20000, acc: 120, color: "#10ac84" }
+        { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseexp: 150, acc: 25, color: "#ff9f43" }, 
+        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseexp: 350, acc: 45, color: "#9b59b6" }, 
+        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseexp: 800, acc: 65, color: "#ff4757" },
+        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseexp: 1400, acc: 75, color: "#74b9ff" },
+        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseexp: 2200, acc: 85, color: "#a55eee" },
+        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseexp: 3500, acc: 90, color: "#f1c40f" },
+        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseexp: 5000, acc: 95, color: "#e67e22" },
+        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseexp: 7500, acc: 100, color: "#2980b9" },
+        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseexp: 11000, acc: 110, color: "#c0392b" },
+        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseexp: 20000, acc: 120, color: "#10ac84" }
     ];
 
     function getUpgradeCost(type) {
@@ -322,7 +322,7 @@
             const setStyle = (id, prop, val) => { const el = document.getElementById(id); if(el) el.style[prop] = val; };
 
             setTxt('lv', player.lv); setTxt('hp', player.hp); setTxt('max-hp', player.maxHp);
-            setTxt('atk', player.atk); setTxt('gold', player.gold); setTxt('exp-text', `${player.exp} / ${player.nextExp}`);
+            setTxt('atk', player.atk); setTxt('gold', player.gold); setTxt('exp-text', `${player.exp} / ${player.nextexp}`);
             setTxt('stat-rage', `${player.rage} / 100`); setTxt('stat-gold-bonus', `${Math.round(player.goldBonus * 100)}%`);
             setTxt('stat-crit', `${player.critChance}%`); setTxt('stat-dodge', `${player.dodgeChance}%`);
             setTxt('stat-vamp', `${player.vampRate}%`); setTxt('stat-regen', `${player.regenPower} HP`);
@@ -430,7 +430,7 @@
         let inputName = document.getElementById('player-name-input').value.trim();
         if (inputName === "") { inputName = "無名勇者"; }
         
-        player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextExp = 30;
+        player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextexp = 30;
         player.atkUpgrades = 0; player.hpUpgrades = 0; player.critChance = 0; player.dodgeChance = 0; player.vampRate = 0; player.regenPower = 0; player.rage = 0; player.goldBonus = 1.0;
         player.perkBurnAttack = false; player.perkPoisonAttack = false; player.perkShieldStart = 0; player.perkCritMult3 = false; player.perkThorns = 0;
         player.perkExecute = false; player.perkDoubleStrike = 0; player.perkStunChance = 0; player.perkBerserk = false; player.perkFlatBlock = 0;
@@ -511,7 +511,7 @@
             maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
             atk: Math.floor(baseData.baseAtk * floorScale), 
             gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * player.goldBonus),
-            exp: Math.floor(baseData.baseExp * floorScale * player.perkExpBonus), 
+            exp: Math.floor(baseData.baseexp * floorScale * player.perkexpBonus), 
             acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
             color: baseData.color
         };
@@ -692,7 +692,7 @@
     function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
     function checkLevelUp() {
         let leveled = false;
-        while (player.exp >= player.nextExp) { player.exp -= player.nextExp; player.lv++; player.maxHp += 22; player.atk += 6; player.nextExp = Math.floor(player.nextExp * 1.45); leveled = true; }
+        while (player.exp >= player.nextexp) { player.exp -= player.nextexp; player.lv++; player.maxHp += 22; player.atk += 6; player.nextexp = Math.floor(player.nextexp * 1.45); leveled = true; }
         if (leveled) { player.hp = player.maxHp; addLog(`✨ 恭喜突破！升到等級 Lv.${player.lv}！`); }
     }
 
