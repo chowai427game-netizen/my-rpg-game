@@ -203,7 +203,7 @@
     let dungeonFloor = 0;
     let gameState = "TITLE"; 
     let currentLegacyData = null;
-    let currentKillerName = "未知魔物"; // 紀錄死因
+    let currentKillerName = "未知魔物";
 
     const environmentsPool = [
         { name: "🪵 陰暗洞窟", desc: "環境正常，四周只有水滴聲，適合新手鍛鍊。", color: "#444", effect: "none" },
@@ -239,8 +239,7 @@
             { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseExp: 450, color: "#ff4757" }
         ]
     };
-
-    // 10 隻大 BOSS 獨立史詩領主
+// 10 隻大 BOSS 獨立史詩領主
     const bossMonsters = [
         { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
         { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
@@ -262,8 +261,7 @@
         const logBox = document.getElementById('log-box'); 
         if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } 
     }
-
-    // 🪦 本地英靈殿儲存與讀取系統
+ // 🪦 本地英靈殿儲存與讀取系統
     function saveTombstoneLocal(killer) {
         try {
             let records = JSON.parse(localStorage.getItem('destiny_tombstones')) || [];
@@ -314,8 +312,7 @@
             legBox.innerHTML = `❌ 伺服器休眠中或網址設定錯誤，請稍後。`;
         }
     }
-
-    // 環境大輪替：每到 11, 21, 31 層才更換
+// 環境大輪替：每到 11, 21, 31 層才更換
     function rollNextEnvironment() {
         if (dungeonFloor === 0) { currentEnv = environmentsPool[0]; return; }
         currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
@@ -327,6 +324,7 @@
         }
     }
 
+    // 💡 徹底修正：補回正確的 display 參數，確保切換畫面正常運作！
     function updateUI() {
         try {
             const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
@@ -354,46 +352,84 @@
             const btn2 = document.getElementById('btn-action2');
 
             if (gameState === "TITLE") {
-                setStyle('title-box', 'display', 'block'); setStyle('status-panel-box', 'display', 'none'); 
-                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none');
-                setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
-                setStyle('gameover-box', 'display', 'none'); setStyle('env-text', 'display', 'none'); setStyle('log-box', 'display', 'none');
+                setStyle('title-box', 'display', 'block'); 
+                setStyle('status-panel-box', 'display', 'none'); 
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'none');
+                setStyle('merchant-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); 
+                setStyle('gameover-box', 'display', 'none'); 
+                setStyle('env-text', 'display', 'none'); 
+                setStyle('log-box', 'display', 'none');
                 if(locText) { locText.innerText = "🔮 命運的起點"; locText.style.color = "#aaa"; }
                 renderTombstones();
                 return;
             }
 
             if (gameState === "BATTLE") {
-                setStyle('title-box', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
-                setStyle('shop-box', 'none'); setStyle('reward-box', 'none'); setStyle('merchant-box', 'none'); setStyle('gameover-box', 'none');
+                setStyle('title-box', 'display', 'none'); 
+                setStyle('status-panel-box', 'display', 'grid'); 
+                setStyle('log-box', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'none'); 
+                setStyle('merchant-box', 'display', 'none'); 
+                setStyle('gameover-box', 'display', 'none');
                 setStyle('action-panel', 'display', 'none');
                 if(locText) { locText.innerText = `⚔️ 激烈交戰中... B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
                 return;
             }
 
             if (gameState === "GAMEOVER") {
-                setStyle('title-box', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
-                setStyle('shop-box', 'none'); setStyle('reward-box', 'none'); setStyle('merchant-box', 'none'); setStyle('action-panel', 'none');
+                setStyle('title-box', 'display', 'none'); 
+                setStyle('status-panel-box', 'display', 'grid'); 
+                setStyle('log-box', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'none'); 
+                setStyle('merchant-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none');
                 setStyle('gameover-box', 'display', 'block');
                 setTxt('go-floor', dungeonFloor);
                 if(locText) { locText.innerText = `💀 戰報停留：勇者命喪 B${dungeonFloor}F`; locText.style.color = "#e74c3c"; }
                 return;
             }
 
-            setStyle('title-box', 'none'); setStyle('gameover-box', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
-            if (gameState === "REWARD") { setStyle('shop-box', 'none'); setStyle('merchant-box', 'none'); setStyle('action-panel', 'none'); setStyle('reward-box', 'block'); setStyle('env-text', 'none'); return; }
-            if (gameState === "MERCHANT") { setStyle('shop-box', 'none'); setStyle('reward-box', 'none'); setStyle('action-panel', 'none'); setStyle('merchant-box', 'block'); setStyle('env-text', 'none'); return; }
+            // 修正正常探索與村莊介面的 display 隱藏規則
+            setStyle('title-box', 'display', 'none'); 
+            setStyle('gameover-box', 'display', 'none'); 
+            setStyle('status-panel-box', 'display', 'grid'); 
+            setStyle('log-box', 'display', 'block');
+            
+            if (gameState === "REWARD") { 
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('merchant-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'block'); 
+                setStyle('env-text', 'display', 'none'); 
+                return; 
+            }
+            if (gameState === "MERCHANT") { 
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); 
+                setStyle('merchant-box', 'display', 'block'); 
+                setStyle('env-text', 'display', 'none'); 
+                return; 
+            }
 
-            setStyle('reward-box', 'none'); setStyle('merchant-box', 'none'); setStyle('action-panel', 'flex');
+            setStyle('reward-box', 'display', 'none'); 
+            setStyle('merchant-box', 'display', 'none'); 
+            setStyle('action-panel', 'display', 'flex');
 
             if (dungeonFloor === 0) {
                 if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
-                setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
+                setStyle('env-text', 'display', 'none'); 
+                setStyle('shop-box', 'display', 'block');
                 if(btn1) btn1.innerText = "⚔️ 進入地下城";
                 if(btn2) btn2.innerText = "⛺ 在村莊休息";
             } else {
                 if(locText) { locText.innerText = `🚨 目前位置：地下城 B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
-                setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); 
+                setStyle('env-text', 'display', 'block');
                 const envText = document.getElementById('env-text');
                 if(envText) { envText.innerText = `【當前環境房】➔ ${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
                 if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
@@ -466,8 +502,7 @@
             } else { await triggerBattle(false); }
         }
     }
-
-    // 🚀 優化點：重裝最細緻、100% 回合制完整戰鬥引擎
+// 🚀 優化點：重裝最細緻、100% 回合制完整戰鬥引擎
     async function triggerBattle(isBoss) {
         let baseData;
         if (isBoss) {
@@ -507,8 +542,7 @@
         while (monster.hp > 0 && player.hp > 0) {
             let roundLog = `<span style='color: #888;'>[第 ${round} 回合]</span> `;
             pRoundCombo++;
-
-            // 環境與持續傷害結算
+// 環境與持續傷害結算
             if (currentEnv.effect === "env_thunder" && round % 3 === 0) {
                 if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡天雷劈中勇者-25 HP</span> | `; }
                 else { monster.hp = Math.max(1, monster.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡天雷劈中怪物-25 HP</span> | `; }
@@ -524,8 +558,7 @@
                 let actualRegen = (currentEnv.effect === "poison") ? Math.floor(player.regenPower * 0.5) : player.regenPower;
                 player.hp = Math.min(player.maxHp, player.hp + actualRegen); roundLog += `<span style='color:#9b59b6;'>✨生命再生+${actualRegen}</span> | `;
             }
-
-            // --- 勇者攻擊階段 (巨細靡遺戰報) ---
+             // --- 勇者攻擊階段 (巨細靡遺戰報) ---
             let isUlt = (player.rage >= 100);
             let pActualAtk = player.atk;
             if (currentEnv.effect === "env_balance") { pActualAtk = Math.floor(pActualAtk * 1.4); roundLog += `[天平加攻] `; }
@@ -561,7 +594,6 @@
                 }
                 if (player.perkBattleFocus) pDmgOut = Math.floor(pDmgOut * (1 + pRoundCombo * 0.04));
                 if (currentEnv.effect === "env_blood") pDmgOut = Math.floor(pDmgOut * 1.4);
-
                 // 扣減魔物護盾與血量
                 if (mStatus.shield > 0) {
                     if (pDmgOut <= mStatus.shield) { mStatus.shield -= pDmgOut; roundLog += `(敵盾吸收)`; }
@@ -578,8 +610,7 @@
                 }
                 if (player.perkExecute && !isBoss && (monster.hp / monster.maxHp) <= 0.2) { monster.hp = 0; roundLog += `【☠️死神秒殺】`; }
             }
-
-            // --- 魔物反擊階段 ---
+        // --- 魔物反擊階段 ---
             if (monster.hp > 0) {
                 if (mStatus.stunned > 0) {
                     mStatus.stunned--; roundLog += ` | <span style='color:#3498db;'>敵暈眩無法行動！</span>`;
@@ -610,10 +641,8 @@
 
             roundLog += ` ➔ 勇者HP: ${Math.max(0, player.hp)} | 敵HP: ${Math.max(0, monster.hp)}`;
             addLog(`<div style="border-bottom: 1px solid #2d2d2d; padding-bottom:4px; line-height:1.4;">${roundLog}</div>`);
-
             // ⏱️ 動作精密延遲 2 秒
             await sleep(2000);
-
             // 鳳凰涅槃復活判定
             if (player.hp <= 0) {
                 if (player.perkSecondWind && !player.usedSecondWindThisRun) {
@@ -624,7 +653,6 @@
             }
             round++; if (round > 60) break;
         }
-
         // 戰後結算
         if (player.hp > 0 && monster.hp <= 0) {
             if (player.perkSoulHarvest) {
@@ -636,20 +664,18 @@
             checkLevelUp();
             if (isBoss) { gameState = "REWARD"; startRewardPhase(); } else { advanceFloor(); }
         } else {
-            // ☠️ 進入戰死留步結算狀態
             gameState = "GAMEOVER";
             updateUI();
         }
     }
 
-    // 🪦 點擊按鈕手動上傳並歸位
     async function confirmDeathAndUpload() {
         let legacyGold = Math.floor(player.gold * 0.20);
         let legacyAtk = Math.floor(dungeonFloor * 0.5);
         let legacyHp = Math.floor(dungeonFloor * 3);
 
         addLog(`💸 正在傳輸血脈數據至雲端 MongoDB...`);
-        saveTombstoneLocal(currentKillerName); // 立刻在本機英靈殿寫入墓碑
+        saveTombstoneLocal(currentKillerName); 
 
         try {
             let response = await fetch(`${SERVER_URL}/api/save`, {
@@ -665,7 +691,6 @@
             console.log("本地備份已留存");
         }
         
-        // 真正返回封面
         dungeonFloor = 0; 
         gameState = "TITLE"; 
         currentLegacyData = null;
@@ -734,13 +759,11 @@
     function advanceFloor() { 
         dungeonFloor++; 
         gameState = "DUNGEON"; 
-        // 每到 11, 21, 31 層更換一次迷宮天然環境
         if (dungeonFloor % 10 === 1) { rollNextEnvironment(); } 
         addLog(`🪜 踏入 <strong>地下城 B${dungeonFloor}F</strong>...`); 
         updateUI(); 
     }
 
-    // 🚀 安全錨定：在 window.onload 觸發保證 100% 點得到按鈕
     window.onload = function() {
         updateUI();
     };
