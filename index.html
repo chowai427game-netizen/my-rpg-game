@@ -117,7 +117,7 @@
     
     <div class="dynamic-panel title-panel-style" id="title-box">
         <h1 style="color: #ffd700; font-size: 26px; margin: 0 0 5px 0; text-shadow: 0 0 10px rgba(255,215,0,0.4);">命運深淵</h1>
-        <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版 v0.0.3】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
+        <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版 v0.0.4】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
         <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()">
         <br>
@@ -323,18 +323,25 @@
 
             setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'flex');
 
+
             if (dungeonFloor === 0) {
-                if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
-                setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
-                if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
-            } else {
-                if(locText) { locText.innerText = `🚨 目前位置：地下城 B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
-                setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block');
-                const envText = document.getElementById('env-text');
-                if(envText) { envText.innerText = `【當前環境房】➔ ${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
-                if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
-                if(btn2) btn2.innerText = "🏃 撤退回地表";
+            if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
+            setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
+            if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
+        } else {
+            // 🔔 新增：頭 10 層顯示綠色新手試煉高亮，B11F 開始變回紅色危險警報
+            if(locText) { 
+                locText.innerText = dungeonFloor <= 10 ? `🔰 新手試煉：地下城 B${dungeonFloor}F` : `🚨 目前位置：地下城 B${dungeonFloor}F`; 
+                locText.style.color = dungeonFloor <= 10 ? "#2ecc71" : "#ff4757"; 
             }
+            setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block');
+            const envText = document.getElementById('env-text');
+            // 🔔 新增：新手專屬環境標題提示
+            let envPrefix = dungeonFloor <= 10 ? "🔰【新手安全島】➔ " : "【當前環境房】➔ ";
+            if(envText) { envText.innerText = `${envPrefix}${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
+            if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
+            if(btn2) btn2.innerText = "🏃 撤退回地表";
+        }
         } catch(e) { console.error("UI渲染錯誤阻斷:", e); }
     }
 
@@ -400,8 +407,13 @@
         updateUI();
     }
 
+    // 🔔 核心修正：控制隨機環境的輪替，將頭 10 層保護起來
     function rollNextEnvironment() {
-        if (dungeonFloor === 0) { currentEnv = environmentsPool[0]; return; }
+        if (dungeonFloor <= 10) { 
+            currentEnv = environmentsPool[0]; // 恆定為無異常的陰暗洞窟，保護新手不抽到隨機陷阱
+            return; 
+        }
+        // B11F 開始才激活全隨機地獄天候與機關扣血
         currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
         if (currentEnv.effect === "env_trap_hp") {
             let trapDmg = Math.floor(player.maxHp * 0.15); player.hp = Math.max(1, player.hp - trapDmg);
