@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>命運深淵：血脈傳承 MMORPG 線上版</title>
+
     <!-- // ========================================== -->
     <!-- // PART 2: CSS 視覺主題與樣式排版區            -->
     <!-- // ========================================== -->
@@ -53,21 +54,13 @@
             padding: 30px 20px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
         }
-
-        /* 🔔 新增：更新通知公告欄滾動容器樣式 */
+        
         .notice-container {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid #444;
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 15px;
-            font-size: 11px;
-            text-align: left;
-            color: #ccc;
-            max-height: 90px;
-            overflow-y: auto;
-            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.4); border: 1px solid #444; border-radius: 6px;
+            padding: 10px; margin-bottom: 15px; font-size: 11px; text-align: left; color: #ccc;
+            max-height: 90px; overflow-y: auto; line-height: 1.5;
         }
+
         .name-input {
             width: 75%; padding: 12px; font-size: 15px; background: #111; color: #fff;
             border: 1px solid #444; border-radius: 6px; text-align: center; margin-bottom: 15px; outline: none;
@@ -75,26 +68,22 @@
         .name-input:focus { border: 1px solid #ffd700; }
 
         .legacy-container {
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid #2ecc71;
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 15px;
-            font-size: 12px;
-            color: #2ecc71;
-            text-align: left;
-            line-height: 1.5;
+            background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71; border-radius: 6px;
+            padding: 10px; margin-bottom: 15px; font-size: 12px; color: #2ecc71; text-align: left; line-height: 1.5;
         }
 
+        /* 💾 新增：現世存檔偵測高亮容器 */
+        .active-save-container {
+            background: rgba(52, 152, 219, 0.15); border: 1px solid #3498db; border-radius: 6px;
+            padding: 10px; margin-bottom: 15px; font-size: 12px; color: #54a0ff; text-align: left; line-height: 1.5;
+        }
+
+        /* 💾 新增：村莊內安全儲存點面板樣式 */
+        .savepoint-style { background: #1a252f; border: 1px dashed #f1c40f; text-align: center; padding: 12px; }
+
         .tombstone-container {
-            background: rgba(20, 20, 20, 0.9);
-            border: 1px dashed #e74c3c;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 15px;
-            text-align: left;
-            max-height: 180px;
-            overflow-y: auto;
+            background: rgba(20, 20, 20, 0.9); border: 1px dashed #e74c3c; border-radius: 6px;
+            padding: 12px; margin-top: 15px; text-align: left; max-height: 180px; overflow-y: auto;
         }
 
         .shop-style { background: #1e1e1e; border: 1px solid #5758bb; }
@@ -128,35 +117,38 @@
 
 <div class="game-container">
     <h2>⚔️ 命運深淵 ⚔️</h2>
-
+    
     <!-- // ========================================== -->
     <!-- // PART 1: HTML 遊戲畫面主結構區               -->
     <!-- // ========================================== -->
     <div class="location-bar" id="location-text">🔮 命運的起點</div>
     <div class="env-bar" id="env-text" style="display: none;">環境：無異常</div>
-
+    
     <!-- 1.1 遊戲封面區 -->
     <div class="dynamic-panel title-panel-style" id="title-box">
         <h1 style="color: #ffd700; font-size: 26px; margin: 0 0 5px 0; text-shadow: 0 0 10px rgba(255,215,0,0.4);">命運深淵</h1>
-        <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版 v0.0.4】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
-
-        <!-- 📢 1.1B 新增：最新線上版本更新公告欄 -->
-        <div class="notice-container">
-            <strong style="color: #ffd700;">📢 深淵維護公告 (v1.4)：</strong><br>
-            • 【系統】全面細分並新增 Tier 1 至 Tier 5 共 18 種隨機迷宮魔物！<br>
-            • 【新手】實裝 B1-B10 新手保護安全島，恆定陰暗洞窟無異常。<br>
-            • 【新手】改善新手安全島，不會第一層完場。<br>
-            • 【聯網】全球共享中央英靈殿與臨終遺言實時通訊同步。<br>
-            • 【全新擴充】流浪黑市多樣化商品。<br>
-        </div>
+        <p style="color: #bbb; font-size: 12px; margin-bottom: 12px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版】</p>
         
+        <div class="notice-container">
+            <strong style="color: #ffd700;">📢 深淵維護公告 (v1.5)：</strong><br>
+            • 【全新】實裝「村莊儲存點系統」！未戰死前返回地表可隨時上傳鎖定活人進度。<br>
+            • 【系統】新增 Tier 1 至 Tier 5 共 18 種豐富隨機迷宮魔物生態圈。<br>
+            • 【平衡】徹底修復第 10 層大 Boss 倍率堆疊產生 2000HP 的嚴重超標 Bug。
+        </div>
+
+        <!-- 💾 容器 A：遺產顯示欄位 -->
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
+        <!-- 💾 容器 B：新增活人存檔提示欄位 -->
+        <div id="active-save-box" class="active-save-container" style="display: none;"></div>
+
         <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()">
         <br>
-        <button onclick="handleStartGame()" class="btn-game btn-explore" style="width: 80%; padding: 14px; font-size: 18px; box-shadow: 0 4px 10px rgba(46,213,115,0.3);">開啟冒險之旅 🧭</button>
+        <!-- 💾 核心功能按鈕（會由代碼自動切換文字與事件） -->
+        <button id="start-game-btn" onclick="handleStartGame()" class="btn-game btn-explore" style="width: 80%; padding: 14px; font-size: 18px; box-shadow: 0 4px 10px rgba(46,213,115,0.3);">開啟冒險之旅 🧭</button>
         <div id="tombstone-box" class="tombstone-container">正在從中央資料庫喚醒全球墓碑...</div>
     </div>
 
+    <!-- 1.2 勇者狀態數據面板 -->
     <div class="status-panel" id="status-panel-box" style="display: none;">
         <div class="status-item full-row" style="color: #ffd700; font-weight: bold; font-size: 14px; border-bottom: 1px solid #222; padding-bottom: 4px; margin-bottom: 4px;">👤 勇者大名: <span id="player-name-display">--</span></div>
         <div class="status-item">等級: <span id="lv" style="color: #00ffff; font-weight:bold;">1</span></div>
@@ -172,6 +164,14 @@
         <div class="status-item full-row" style="color: #e67e22; font-size:11px;" id="stat-perk-log">已覺醒天賦：無</div>
     </div>
 
+    <!-- 💾 1.2B 【全新】村莊皇家旅店雲端儲存點 -->
+    <div class="dynamic-panel savepoint-style" id="savepoint-box" style="display: none;">
+        <span style="color: #f1c40f; font-weight: bold; font-size: 13px;">⛺ 皇家安穩旅店儲存點</span><br>
+        <span style="color: #aaa; font-size: 11px;">你可以隨時在此備份現世進度，收工下次再續冒險。</span><br>
+        <button class="btn-game" onclick="saveActiveProgressToCloud()" style="background: #f1c40f; color: #111; padding: 6px 15px; font-size: 12px; margin-top: 6px;">💾 儲存目前進度至雲端</button>
+    </div>
+
+    <!-- 1.3 村莊皇家訓練所 -->
     <div class="dynamic-panel shop-style" id="shop-box" style="display: none;">
         <div class="shop-title panel-title">🏋️ 皇家訓練所</div>
         <div class="shop-grid grid-layout">
@@ -180,16 +180,19 @@
         </div>
     </div>
 
+    <!-- 1.4 BOSS 命運戰利品選擇區 -->
     <div class="dynamic-panel reward-style" id="reward-box" style="display: none;">
         <div class="panel-title" style="color: #ffd700;">🎁 擊敗層級領主！請抉擇系統派發的命運天賦：</div>
         <div class="reward-list flex-layout" id="reward-choices-container"></div>
     </div>
 
+    <!-- 1.5 地下城黑市商人區 -->
     <div class="dynamic-panel merchant-style" id="merchant-box" style="display: none;">
         <div class="panel-title" style="color: #00cea6;">🧙 偶遇黑市流浪商人：嘿！要用金幣換點好東西嗎？</div>
         <div class="grid-layout" id="merchant-choices-container"></div>
     </div>
 
+    <!-- 1.6 戰死留步結算面板 -->
     <div class="dynamic-panel reward-style" id="gameover-box" style="display: none; border-color: #ff4757; background: linear-gradient(135deg, #2c1a1a 0%, #121212 100%); text-align: center;">
         <div class="panel-title" style="color: #ff4757; font-size: 18px;">☠️ 勇者魂歸深淵 ☠️</div>
         <p style="font-size: 12px; color: #bbb; margin-bottom: 12px;">你在第 <span id="go-floor" class="highlight">0</span> 層被魔物終結。請留低你嘅跨服臨終遺言：</p>
@@ -197,10 +200,12 @@
         <button onclick="confirmDeathAndUpload()" class="btn-game btn-action" style="background-color: #e74c3c; width: 85%; padding: 14px; font-size: 15px; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">🪦 刻上遺言，全球共享傳承</button>
     </div>
 
+    <!-- 1.7 歷史冒險日誌輸出區 -->
     <div class="log-panel" id="log-box" style="display: none;">
         <p style="color: #888;">【系統】線上通訊模組加載完成。</p>
     </div>
 
+    <!-- 1.8 底部核心操作按鈕 -->
     <div class="action-panel" id="action-panel" style="display: none;">
         <button id="btn-action1" onclick="handleAction1()" class="btn-game btn-action btn-explore">⚔️ 進入地下城</button>
         <button id="btn-action2" onclick="handleAction2()" class="btn-game btn-action btn-rest">⛺ 在村莊休息</button>
@@ -217,7 +222,7 @@
     let player = {
         name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextExp: 30,
         atkUpgrades: 0, hpUpgrades: 0, critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0, rage: 0, goldBonus: 1.0,
-        perkExpBonus: 1.0, // 👈 【修復】補回全域經驗加成核心變數，防止出現 NaN
+        perkExpBonus: 1.0,
         perkBurnAttack: false, perkPoisonAttack: false, perkShieldStart: 0, perkCritMult3: false, perkThorns: 0,
         perkExecute: false, perkDoubleStrike: 0, perkStunChance: 0, perkBerserk: false, perkFlatBlock: 0,
         perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: ""
@@ -225,7 +230,8 @@
 
     let dungeonFloor = 0; 
     let gameState = "TITLE"; 
-    let currentLegacyData = null; 
+    let currentLegacyData = null;
+    let currentActiveCharData = null; // 💾 新增：暫存從雲端抓取下來的現世活人完整對象
     let currentKillerName = "未知魔物";
 
     const environmentsPool = [
@@ -243,37 +249,36 @@
         { name: "🪙 黃金聖殿", desc: "神祇眷顧之所，在此層擊殺怪物獲得的金幣量疯狂翻倍(200%)！", color: "#f1c40f", effect: "env_gold" },
         { name: "🧬 能量湧動", desc: "魔力泉源噴發，勇者在戰鬥中每回合獲得的怒氣值直接翻倍！", color: "#10ac84", effect: "env_rageboost" },
         { name: "🦷 刀刃機關房", desc: "【陷阱事件】四周飛刀橫飛，戰鬥中勇者每回合固定受到 8 點外傷！", color: "#7f8c8d", effect: "env_blades" },
-        { name: "🩸 狂熱血池", desc: "殺戮詛咒！全場造成傷害飇升 40%，打擊力瘋狂拉高！", color: "#c0392b", effect: "env_blood" }
+        { name: "🩸 狂熱血池", desc: "殺戮詛詛！全場造成傷害飇升 40%，打擊力瘋狂拉高！", color: "#c0392b", effect: "env_blood" }
     ];
     let currentEnv = environmentsPool[0];
 
-    // 🔔 PART 3 大幅擴充：全面實裝 Tier 1 至 Tier 5 五大生態階級魔物隨機庫
     const monsterDatabase = {
-        tier1: [ // 🔰 B1 - B10F (新手村生態圈)
-            { name: "💧 藍色史萊姆", baseHp: 180, baseAtk: 3, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 100, baseAtk: 8, baseGold: 22, baseExp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 130, baseAtk: 10, baseGold: 38, baseExp: 30, color: "#dcdde1" },
-            { name: "🦇 吸血小蝙蝠", baseHp: 80, baseAtk: 4, baseGold: 16, baseExp: 14, color: "#7f8c8d" }
+        tier1: [ 
+            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 130, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 190, baseAtk: 11, baseGold: 38, baseExp: 30, color: "#dcdde1" },
+            { name: "🦇 吸血小蝙蝠", baseHp: 100, baseAtk: 6, baseGold: 16, baseExp: 14, color: "#7f8c8d" }
         ],
-        tier2: [ // 🚨 B11 - B30F (初階地下城生態圈)
+        tier2: [ 
             { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
             { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" },
             { name: "🗿 巨石守衛", baseHp: 600, baseAtk: 16, baseGold: 110, baseExp: 90, color: "#95a5a6" },
             { name: "🕷️ 毒寡婦蜘蛛", baseHp: 380, baseAtk: 22, baseGold: 80, baseExp: 70, color: "#10ac84" }
         ],
-        tier3: [ // ⚡ B31 - B50F (中階核心深淵生態圈)
+        tier3: [ 
             { name: "🦎 深淵蜥蜴人", baseHp: 950, baseAtk: 42, baseGold: 180, baseExp: 160, color: "#1dd1a1" },
             { name: "👻 驚悚怨恨女妖", baseHp: 800, baseAtk: 48, baseGold: 210, baseExp: 190, color: "#a55eee" },
             { name: "🧟 腐爛喪屍犬", baseHp: 1100, baseAtk: 38, baseGold: 170, baseExp: 150, color: "#ff9ff3" },
             { name: "🦅 雙頭奇美拉", baseHp: 1400, baseAtk: 55, baseGold: 260, baseExp: 240, color: "#ff9f43" }
         ],
-        tier4: [ // 💥 B51 - B80F (高階煉獄王國生態圈)
+        tier4: [ 
             { name: "🌋 熔岩火巨魔", baseHp: 2800, baseAtk: 88, baseGold: 450, baseExp: 400, color: "#ee5253" },
             { name: "🧞 虛空夢魘撕裂者", baseHp: 2400, baseAtk: 110, baseGold: 520, baseExp: 460, color: "#5f27cd" },
             { name: "⚔️ 墮落帝國聖騎士", baseHp: 3500, baseAtk: 82, baseGold: 600, baseExp: 520, color: "#ffced6" },
             { name: "🔮 混亂詛咒魔眼", baseHp: 2000, baseAtk: 125, baseGold: 480, baseExp: 430, color: "#00d2d3" }
         ],
-        tier5: [ // ☠️ B81F+ (終焉神域太古生態圈)
+        tier5: [ 
             { name: "👁️ 深淵凝視支配者", baseHp: 6500, baseAtk: 195, baseGold: 1200, baseExp: 1100, color: "#ff4757" },
             { name: "🐉 遠古太古骨龍幼崽", baseHp: 8500, baseAtk: 170, baseGold: 1600, baseExp: 1400, color: "#ffffff" },
             { name: "🧙 禁忌黑闇煉金術師", baseHp: 5500, baseAtk: 230, baseGold: 1450, baseExp: 1300, color: "#ff9f43" },
@@ -342,6 +347,7 @@
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none');
                 setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
                 setStyle('gameover-box', 'display', 'none'); setStyle('env-text', 'display', 'none'); setStyle('log-box', 'display', 'none');
+                setStyle('savepoint-box', 'display', 'none'); // 隱藏儲存點
                 if(locText) { locText.innerText = "🔮 命運的起點"; locText.style.color = "#aaa"; }
                 fetchGlobalTombstones(); 
                 return;
@@ -349,14 +355,14 @@
             if (gameState === "BATTLE") {
                 setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
-                setStyle('gameover-box', 'display', 'none'); setStyle('action-panel', 'display', 'none');
+                setStyle('gameover-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); setStyle('savepoint-box', 'display', 'none');
                 if(locText) { locText.innerText = `⚔️ 激烈交戰中... B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
                 return;
             }
             if (gameState === "GAMEOVER") {
                 setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); setStyle('gameover-box', 'display', 'block');
+                setStyle('action-panel', 'display', 'none'); setStyle('gameover-box', 'block'); setStyle('savepoint-box', 'display', 'none');
                 setTxt('go-floor', dungeonFloor);
                 if(locText) { locText.innerText = `💀 戰報停留：勇者命喪 B${dungeonFloor}F`; locText.style.color = "#e74c3c"; }
                 return;
@@ -366,35 +372,34 @@
             setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
             
             if (gameState === "REWARD") { 
-                setStyle('shop-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); setStyle('reward-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); return; 
+                setStyle('shop-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
+                setStyle('reward-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); return; 
             }
             if (gameState === "MERCHANT") { 
-                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); setStyle('merchant-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); return; 
+                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
+                setStyle('merchant-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); return; 
             }
 
             setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'flex');
 
-
             if (dungeonFloor === 0) {
-            if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
-            setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
-            if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
-        } else {
-            // 🔔 新增：頭 10 層顯示綠色新手試煉高亮，B11F 開始變回紅色危險警報
-            if(locText) { 
-                locText.innerText = dungeonFloor <= 10 ? `🔰 新手試煉：地下城 B${dungeonFloor}F` : `🚨 目前位置：地下城 B${dungeonFloor}F`; 
-                locText.style.color = dungeonFloor <= 10 ? "#2ecc71" : "#ff4757"; 
+                if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
+                setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
+                setStyle('savepoint-box', 'display', 'block'); // ⛺ 只有在村莊時，才亮出雲端儲存點面板
+                if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
+            } else {
+                if(locText) { 
+                    locText.innerText = dungeonFloor <= 10 ? `🔰 新手試煉：地下城 B${dungeonFloor}F` : `🚨 目前位置：地下城 B${dungeonFloor}F`; 
+                    locText.style.color = dungeonFloor <= 10 ? "#2ecc71" : "#ff4757"; 
+                }
+                setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block'); setStyle('savepoint-box', 'display', 'none');
+                const envText = document.getElementById('env-text');
+                
+                let envPrefix = dungeonFloor <= 10 ? "🔰【新手安全島】➔ " : "【當前環境房】➔ ";
+                if(envText) { envText.innerText = `${envPrefix}${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
+                if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
+                if(btn2) btn2.innerText = "🏃 撤退回地表";
             }
-            setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block');
-            const envText = document.getElementById('env-text');
-            // 🔔 新增：新手專屬環境標題提示
-            let envPrefix = dungeonFloor <= 10 ? "🔰【新手安全島】➔ " : "【當前環境房】➔ ";
-            if(envText) { envText.innerText = `${envPrefix}${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
-            if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
-            if(btn2) btn2.innerText = "🏃 撤退回地表";
-        }
         } catch(e) { console.error("UI渲染錯誤阻斷:", e); }
     }
 
@@ -420,19 +425,72 @@
         } catch (e) { box.innerHTML = "<div style='color:#ff4757; font-size:11px;'>❌ 無法連線至中央英靈殿伺服器</div>"; }
     }
 
+    // 💾 核心功能升級：同時檢查活人存檔與死者遺產
     async function checkCloudLegacy() {
         let inputName = document.getElementById('player-name-input').value.trim();
-        let legBox = document.getElementById('legacy-box'); if (!legBox) return;
-        if (inputName === "") { legBox.innerHTML = "請輸入名字以查詢雲端血脈..."; currentLegacyData = null; return; }
+        let legBox = document.getElementById('legacy-box'); 
+        let activeBox = document.getElementById('active-save-box');
+        let startBtn = document.getElementById('start-game-btn');
+        if (!legBox || !activeBox || !startBtn) return;
+
+        if (inputName === "") { 
+            legBox.innerHTML = "請輸入名字以查詢雲端血脈..."; 
+            activeBox.style.display = "none";
+            startBtn.innerText = "開啟冒險之旅 🧭";
+            currentLegacyData = null; currentActiveCharData = null; return; 
+        }
         try {
             let response = await fetch(`${SERVER_URL}/api/load/${encodeURIComponent(inputName)}`);
             let res = await response.json();
-            if (res.success && res.found) {
-                currentLegacyData = res.data;
-                legBox.innerHTML = `🎁 <strong>雲端血脈庇佑 (傳承自前代 B${res.data.lastFloor}F)：</strong><br>
-                初始資金 <span class="gold">+${res.data.legacyGold} G</span> | 基礎攻擊 <span style="color:#ff6b81;">+${res.data.legacyAtk}</span> | 最大生命 <span class="highlight">+${res.data.legacyHp}</span>`;
-            } else { currentLegacyData = null; legBox.innerHTML = `🍂 <strong>查無雲端遺產：</strong><br>你是該家族的第一代始祖勇者。前進深淵吧！`; }
-        } catch (e) { legBox.innerHTML = `❌ 伺服器同步中...`; }
+            
+            if (res.success) {
+                // 1. 處理活人存檔 (優先級最高)
+                if (res.activeChar) {
+                    currentActiveCharData = res.activeChar;
+                    activeBox.innerHTML = `🟢 <strong>偵測到現世活人存檔！</strong><br>
+                    上次安全歇息於村莊：<span style="color:#fff;">Lv.${res.activeChar.lv} 勇者</span> (擁有 ${res.activeChar.gold} G)<br>
+                    ⚠️ 點擊下方按鈕將【讀取存檔繼續冒險】，不消耗血脈繼承。`;
+                    activeBox.style.style.display = "block";
+                    startBtn.innerText = "繼續上次的冒險 (讀取存檔) 🧭";
+                    startBtn.style.backgroundColor = "#3498db";
+                } else {
+                    currentActiveCharData = null;
+                    activeBox.style.style.display = "none";
+                    startBtn.innerText = "開啟全新血脈冒險之旅 🧭";
+                    startBtn.style.backgroundColor = "#2ed573";
+                }
+
+                // 2. 處理死者遺產種子
+                if (res.legacy) {
+                    currentLegacyData = res.legacy;
+                    legBox.innerHTML = `🎁 <strong>雲端血脈庇佑 (傳承自前代 B${res.legacy.lastFloor}F)：</strong><br>
+                    初始資金 <span class="gold">+${res.legacy.legacyGold} G</span> | 基礎攻擊 <span style="color:#ff6b81;">+${res.legacy.legacyAtk}</span> | 最大生命 <span class="highlight">+${res.legacy.legacyHp}</span>`;
+                } else {
+                    currentLegacyData = null;
+                    legBox.innerHTML = `🍂 <strong>查無雲端遺產：</strong><br>你是該家族的第一代始祖勇者。前進深淵吧！`;
+                }
+            }
+        } catch (e) { legBox.innerHTML = `❌ 伺服器通訊中...`; }
+    }
+
+    // 💾 【全新核心 API 連線】：將目前活著的人物完整物件打包拋給 MongoDB
+    async function saveActiveProgressToCloud() {
+        if (!player.name || player.name === "無名勇者") { alert("❌ 匿名狀態下無法儲存存檔！"); return; }
+        addLog(`💾 正在連網上傳玩家【${player.name}】的現世進度至中央資料庫...`);
+        try {
+            let response = await fetch(`${SERVER_URL}/api/active/save`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: player.name, player: player })
+            });
+            let res = await response.json();
+            if (res.success) {
+                addLog(`✨【系統】${res.message}`);
+                alert("💾 雲端儲存點同步完成！下次登入輸入相同大名即可無縫讀檔！");
+            }
+        } catch (e) {
+            alert("❌ 網絡逾時，儲存失敗！");
+        }
     }
 
     // ==========================================
@@ -442,6 +500,17 @@
         let inputName = document.getElementById('player-name-input').value.trim();
         if (inputName === "") { inputName = "無名勇者"; }
         
+        // 💾 核心分支控制：如果雲端有活人存檔，直接完美拷貝讀檔，跳過全新開局
+        if (currentActiveCharData) {
+            player = currentActiveCharData; // 直接將全域 player 覆蓋成存檔物件
+            gameState = "VILLAGE"; dungeonFloor = 0;
+            document.getElementById('log-box').innerHTML = `<p style="color: #3498db;">【系統】現世備份進度加載成功。歡迎回來，${player.name}！</p>`;
+            addLog(`⛺ <strong>${player.name}</strong> 從皇家旅店清醒，拿起了裝備準備再次出征！`);
+            updateUI();
+            return;
+        }
+
+        // 否則，走傳統 roguelike 全新轉世開局
         player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextExp = 30;
         player.atkUpgrades = 0; player.hpUpgrades = 0; player.critChance = 0; player.dodgeChance = 0; player.vampRate = 0; player.regenPower = 0; player.rage = 0; player.goldBonus = 1.0;
         player.perkExpBonus = 1.0;
@@ -460,13 +529,8 @@
         updateUI();
     }
 
-    // 🔔 核心修正：控制隨機環境的輪替，將頭 10 層保護起來
     function rollNextEnvironment() {
-        if (dungeonFloor <= 10) { 
-            currentEnv = environmentsPool[0]; // 恆定為無異常的陰暗洞窟，保護新手不抽到隨機陷阱
-            return; 
-        }
-        // B11F 開始才激活全隨機地獄天候與機關扣血
+        if (dungeonFloor <= 10) { currentEnv = environmentsPool[0]; return; }
         currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
         if (currentEnv.effect === "env_trap_hp") {
             let trapDmg = Math.floor(player.maxHp * 0.15); player.hp = Math.max(1, player.hp - trapDmg);
@@ -477,7 +541,7 @@
     async function handleAction1() {
         if (dungeonFloor === 0) {
             dungeonFloor = 1; gameState = "DUNGEON"; rollNextEnvironment(); 
-            addLog(`🪵 <strong>${player.name}</strong> 提劍步入 <strong>地下城 B1F</strong>...`); updateUI();
+            addLog(`🪵 <strong>${player.name}</strong> 提劍步入 <strong>地下城 B1F (新手試煉區)</strong>...`); updateUI();
         } else { await exploreDungeon(); }
     }
 
@@ -527,20 +591,14 @@
             baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        // 🔔【核心除錯判定】：如果是大 BOSS，倍率恆定為 1.0（使用手工設定的完美規格）
-        // 如果是普通小怪，才根據層數遞增 25% 難度
+        // 🔔 前一動修復判定：Boss 恆定原廠比例，拒絕 2000HP 崩壞
         let floorScale = isBoss ? 1.0 : (1 + (dungeonFloor - 1) * 0.25); 
         let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
         
         let monster = {
-            name: baseData.name, 
-            hp: Math.floor(baseData.baseHp * floorScale * mHpScale), 
-            maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
-            atk: Math.floor(baseData.baseAtk * floorScale), 
-            gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * (player.goldBonus || 1.0)),
-            exp: Math.floor(baseData.baseExp * floorScale * (player.perkExpBonus || 1.0)), 
-            acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
-            color: baseData.color
+            name: baseData.name, hp: Math.floor(baseData.baseHp * floorScale * mHpScale), maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
+            atk: Math.floor(baseData.baseAtk * floorScale), gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * (player.goldBonus || 1.0)),
+            exp: Math.floor(baseData.baseExp * floorScale * (player.perkExpBonus || 1.0)), acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), color: baseData.color
         };
 
         currentKillerName = monster.name;
@@ -614,7 +672,7 @@
                         if (pStatus.shield > 0) {
                             if (finalTaken <= pStatus.shield) { pStatus.shield -= finalTaken; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（完全被勇者護盾吸收！）`; }
                             else { let over = finalTaken - pStatus.shield; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（護盾粉碎吸收 ${pStatus.shield} 點，肉身承受 -${over} HP！）`; pStatus.shield = 0; player.hp -= over; }
-                        } else { player.hp -= finalTaken; roundLog += ` | 💥魔物反擊：勇者肉身承受 -${finalTaken} HP！`; }
+                        } else { player.hp -= finalTaken; roundLog += ` | 💥魔物反擊：勇者結結實實承受 -${finalTaken} HP！`; }
                     }
                 }
             }
@@ -645,6 +703,33 @@
         }
     }
 
+    // ==========================================
+    // PART 8.5: 流浪黑市多樣化商品清單
+    // ==========================================
+    function triggerMerchantEvent() {
+        gameState = "MERCHANT"; addLog(`🧙【流浪黑市】一個斗篷怪人露出詭異的笑容，攔住了你。`);
+        const items = [
+            { name: "🎒 補給生命藥水", desc: "當前生命全面回滿", cost: 45, run: () => { player.hp = player.maxHp; addLog("🧙 「生命力重新燃燒！」"); } },
+            { name: "🗡️ 元素磨刀石", desc: "永久提升 攻擊力 +8", cost: 60, run: () => { player.atk += 8; addLog("🧙 「武器散發出光芒（攻+8）。」"); } },
+            { name: "🛡️ 重型合金盾", desc: "每場戰鬥開局獲得 100 護盾", cost: 70, run: () => { player.perkShieldStart += 100; addLog("🧙 「開局防護提升（護盾+100）。」"); } },
+            { name: "🦅 鷹眼符文石", desc: "【暴擊率】永久提升 +6%", cost: 50, run: () => { player.critChance += 6; addLog("🧙 「暴擊機率提升了 6%。」"); } },
+            { name: "Sneak 幽靈隱形斗篷", desc: "【閃避率】永久提升 +5%", cost: 50, run: () => { player.dodgeChance += 5; addLog("🧙 「魔物更難觸碰到你（閃避+5%）。」"); } },
+            { name: "👼 復活十字架", desc: "戰死當場以 35% 生命復活（可充能）", cost: 150, run: () => { player.perkSecondWind = true; player.usedSecondWindThisRun = false; addLog("🧙 「獲得了一次免死復活的機會！」"); } }
+        ];
+        let shuffled = items.sort(() => 0.5 - Math.random()); let onSale = shuffled.slice(0, 2);
+        const container = document.getElementById('merchant-choices-container'); container.innerHTML = "";
+
+        onSale.forEach((item) => {
+            let btn = document.createElement('button'); btn.className = "btn-game btn-merchant";
+            btn.innerHTML = `${item.name}<br><span style='color:#ffd700;font-size:14px;'>${item.cost} G</span><br><span style='font-size:11px;color:#aaa;'>(${item.desc})</span>`;
+            btn.onclick = () => { if (player.gold < item.cost) { addLog("🧙 「賺夠金幣再來！」"); return; } player.gold -= item.cost; item.run(); leaveMerchant(); };
+            container.appendChild(btn);
+        });
+        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 謝絕交易，繼續前進";
+        leaveBtn.onclick = () => { addLog("🏃 你告別了黑市商人。"); leaveMerchant(); }; container.appendChild(leaveBtn); updateUI();
+    }
+    function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
+
     async function confirmDeathAndUpload() {
         let inputWords = document.getElementById('player-words-input').value.trim();
         if (inputWords === "") { inputWords = "沒想到會慘死在這裡...後代幫我報仇啊！"; }
@@ -663,10 +748,10 @@
                     cause: currentKillerName, lastWords: inputWords 
                 })
             });
-            alert("🪦 你的墓碑已成功立在全球英靈殿！");
+            alert("🪦 你的墓碑已成功立在全球英靈殿！現世存檔已安全抹除清空。");
         } catch (e) { console.log("備份留存"); }
         
-        dungeonFloor = 0; gameState = "TITLE"; currentLegacyData = null;
+        dungeonFloor = 0; gameState = "TITLE"; currentLegacyData = null; currentActiveCharData = null;
         document.getElementById('player-name-input').value = player.name;
         await checkCloudLegacy();
         updateUI();
@@ -691,74 +776,6 @@
         });
         updateUI();
     }
-    // ==========================================
-    // PART 8.5: 【全新擴充】流浪黑市多樣化商品清單
-    // ==========================================
-    function triggerMerchantEvent() {
-        gameState = "MERCHANT"; addLog(`🧙【流浪黑市】一個斗篷怪人露出詭異的笑容，攔住了你。`);
-        
-        // 🔮 擴充商品池：共有 6 種強大奇珍異寶供隨機輪替
-        const items = [
-            { 
-                name: "🎒 補給生命藥水", desc: "立即使當前生命值全面回滿", cost: 45, 
-                run: () => { player.hp = player.maxHp; addLog("🧙 「藥到病除！你的生命力重新燃燒！」"); } 
-            },
-            { 
-                name: "🗡️ 元素磨刀石", desc: "精心打磨武器，永久提升 攻擊力 +8", cost: 60, 
-                run: () => { player.atk += 8; addLog("🧙 「鋒利無比！武器散發出元素光芒（攻+8）。」"); } 
-            },
-            { 
-                name: "🛡️ 重型合金盾", desc: "改造防具，每場戰鬥開局直接獲得 100 點臨時【護盾】", cost: 70, 
-                run: () => { player.perkShieldStart += 100; addLog("🧙 「固若金湯！以後開局你都更安全（護盾+100）。」"); } 
-            },
-            { 
-                name: "🦅 鷹眼符文石", desc: "銘刻符文於雙眼，【暴擊率】永久提升 +6%", cost: 50, 
-                run: () => { player.critChance += 6; addLog("🧙 「看穿死穴！你的暴擊機率提升了 6%。」"); } 
-            },
-            { 
-                name: "👟 幽靈隱形斗篷", desc: "身輕如燕，【閃避率】永久提升 +5%", cost: 50, 
-                run: () => { player.dodgeChance += 5; addLog("🧙 「殘影步法！魔物更難觸碰到你（閃避+5%）。」"); } 
-            },
-            { 
-                name: "👼 復活十字架", desc: "【核心神物】戰死時自動消耗，當場以 35% 生命復活（可充能）", cost: 150, 
-                run: () => { 
-                    player.perkSecondWind = true; 
-                    player.usedSecondWindThisRun = false; // 核心：賦予權限並重置充能狀態
-                    addLog("🧙 「深淵契約！你獲得了（或重新充能了）一次免死復活的機會！」"); 
-                } 
-            }
-        ];
-
-        // 隨機打亂並抽取 2 款商品上架
-        let shuffled = items.sort(() => 0.5 - Math.random()); 
-        let onSale = shuffled.slice(0, 2);
-        
-        const container = document.getElementById('merchant-choices-container'); 
-        container.innerHTML = "";
-
-        // 渲染黑市商品按鈕
-        onSale.forEach((item) => {
-            let btn = document.createElement('button'); btn.className = "btn-game btn-merchant";
-            btn.innerHTML = `${item.name}<br><span style='color:#ffd700;font-size:14px;'>${item.cost} G</span><br><span style='font-size:11px;color:#aaa;'>(${item.desc})</span>`;
-            btn.onclick = () => { 
-                if (player.gold < item.cost) { addLog("🧙 「沒錢？深淵不相信眼淚，賺夠金幣再來！」"); return; } 
-                player.gold -= item.cost; 
-                item.run(); 
-                leaveMerchant(); 
-            };
-            container.appendChild(btn);
-        });
-
-        // 離開黑市按鈕
-        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 謝絕交易，繼續前進";
-        leaveBtn.onclick = () => { addLog("🏃 你告別了黑市商人。"); leaveMerchant(); }; 
-        container.appendChild(leaveBtn); 
-        updateUI();
-    }
-
-    function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
-
-    function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
     
     function checkLevelUp() {
         let leveled = false;
