@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>命運深淵：血脈傳承 MMORPG 線上版</title>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;p
+            min-height: 100vh;
             margin: 0;
             padding: 20px 0;
         }
@@ -68,7 +69,6 @@
             line-height: 1.5;
         }
 
-        /* 全服共享英靈殿容器 */
         .tombstone-container {
             background: rgba(20, 20, 20, 0.9);
             border: 1px dashed #e74c3c;
@@ -117,14 +117,11 @@
     
     <div class="dynamic-panel title-panel-style" id="title-box">
         <h1 style="color: #ffd700; font-size: 26px; margin: 0 0 5px 0; text-shadow: 0 0 10px rgba(255,215,0,0.4);">命運深淵</h1>
-        <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版v.0.0.2】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
-        
+        <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
-
         <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()">
         <br>
         <button onclick="handleStartGame()" class="btn-game btn-explore" style="width: 80%; padding: 14px; font-size: 18px; box-shadow: 0 4px 10px rgba(46,213,115,0.3);">開啟冒險之旅 🧭</button>
-        
         <div id="tombstone-box" class="tombstone-container">正在從中央資料庫喚醒全球墓碑...</div>
     </div>
 
@@ -135,13 +132,10 @@
         <div class="status-item">生命值: <span id="hp" class="highlight">100</span> / <span id="max-hp">100</span></div>
         <div class="status-item">基礎攻擊: <span id="atk" style="color: #ff6b81;">15</span></div>
         <div class="status-item" style="color: #e67e22;">🔥 戰鬥怒氣值: <span id="stat-rage" class="rage">0 / 100</span></div>
-        
         <div class="status-item" style="color: #ffa500; font-weight: bold;">💰 擁有金幣: <span id="gold" class="gold">0</span> G</div>
         <div class="status-item" style="color: #f39c12;">🪙 金幣收益加成: <span id="stat-gold-bonus">100%</span></div>
-        
         <div class="status-item full-row" style="color: #e74c3c;">💥 暴擊率: <span id="stat-crit">0%</span> | <span style="color: #3498db;">🏃 閃避率: <span id="stat-dodge">0%</span></span></div>
         <div class="status-item full-row" style="color: #2ecc71;">🩸 吸血率: <span id="stat-vamp">0%</span> | <span style="color: #9b59b6;">🧬 每回合再生: <span id="stat-regen">0 HP</span></span></div>
-        
         <div class="status-item full-row" style="color: #2ecc71; font-size:11px;" id="stat-legacy-log"></div>
         <div class="status-item full-row" style="color: #e67e22; font-size:11px;" id="stat-perk-log">已覺醒天賦：無</div>
     </div>
@@ -167,9 +161,7 @@
     <div class="dynamic-panel reward-style" id="gameover-box" style="display: none; border-color: #ff4757; background: linear-gradient(135deg, #2c1a1a 0%, #121212 100%); text-align: center;">
         <div class="panel-title" style="color: #ff4757; font-size: 18px;">☠️ 勇者魂歸深淵 ☠️</div>
         <p style="font-size: 12px; color: #bbb; margin-bottom: 12px;">你在第 <span id="go-floor" class="highlight">0</span> 層被魔物終結。請留低你嘅跨服臨終遺言：</p>
-        
         <input type="text" id="player-words-input" class="name-input" placeholder="留低遺言（例如：朋友，同我報仇..）" maxlength="35" style="width:85%; border-color:#e74c3c; margin-bottom:15px;"><br>
-        
         <button onclick="confirmDeathAndUpload()" class="btn-game btn-action" style="background-color: #e74c3c; width: 85%; padding: 14px; font-size: 15px; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">🪦 刻上遺言，全球共享傳承</button>
     </div>
 
@@ -184,26 +176,22 @@
 </div>
 
 <script>
+    // ==========================================
+    // PART 3: 核心全域變數與資料庫數據設定區         
+    // ==========================================
     const SERVER_URL = "https://rpg-backend-fjvg.onrender.com";
     const sleep = ms => new Promise(res => setTimeout(res, ms));
 
     let player = {
-        name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextexp: 30,
-        atkUpgrades: 0, hpUpgrades: 0,
-        
-        critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0,
-        rage: 0, goldBonus: 1.0,
-
-        
-        perkBurnAttack: false, perkPoisonAttack: false, perkShieldStart: 0, 
-        perkCritMult3: false, perkThorns: 0, perkExecute: false, perkDoubleStrike: 0, 
-        perkStunChance: 0, perkBerserk: false, perkFlatBlock: 0,perkFirstStrike: false, perkSoulHarvest: false, 
-        
-        usedSecondWindThisRun: false, 
-        inheritedLog: ""
+        name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextExp: 30,
+        atkUpgrades: 0, hpUpgrades: 0, critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0, rage: 0, goldBonus: 1.0,
+        perkExpBonus: 1.0, // 👈 【修復】補回全域經驗加成核心變數，防止出現 NaN
+        perkBurnAttack: false, perkPoisonAttack: false, perkShieldStart: 0, perkCritMult3: false, perkThorns: 0,
+        perkExecute: false, perkDoubleStrike: 0, perkStunChance: 0, perkBerserk: false, perkFlatBlock: 0,
+        perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: ""
     };
 
-    let dungeonFloor = 0;
+    let dungeonFloor = 0; 
     let gameState = "TITLE"; 
     let currentLegacyData = null; 
     let currentKillerName = "未知魔物";
@@ -227,107 +215,62 @@
     ];
     let currentEnv = environmentsPool[0];
 
-    const monsterData = {
+    const monsterDatabase = {
         tier1: [ 
-            { name: "💧 藍色史萊姆", Hp: 80, Atk: 4, Gold: 10, exp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", Hp: 140, Atk: 7, Gold: 22, exp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", Hp: 210, Atk: 12, Gold: 40, exp: 32, color: "#dcdde1" }
+            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 10, baseExp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 140, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 210, baseAtk: 12, baseGold: 40, baseExp: 32, color: "#dcdde1" }
         ],
         tier2: [ 
-            { name: "🐺 嗜血影狼", Hp: 320, Atk: 18, Gold: 65, exp: 55, color: "#74b9ff" },
-            { name: "🐗 荒野半獸人", Hp: 460, Atk: 24, Gold: 90, exp: 75, color: "#a4b0be" }
+            { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
+            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" }
         ],
-        abyss: [ 
-            { name: "👁️ 深淵凝視者", Hp: 2000, Atk: 95, Gold: 500, exp: 450, color: "#ff4757" } 
-        ]
+        abyss: [ { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseExp: 450, color: "#ff4757" } ]
     };
-	
-// 10 隻大 BOSS 獨立史詩領主
+
     const bossMonsters = [
-        { name: "👿 地獄三頭犬 (10F 獄門守護者)", Hp: 500, Atk: 28, Gold: 250, exp: 150, acc: 25, color: "#ff9f43" }, 
-        { name: "🧙 墮落大巫師 (20F 秘術主宰)", Hp: 1100, Atk: 52, Gold: 500, exp: 350, acc: 45, color: "#9b59b6" }, 
-        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", Hp: 2500, Atk: 90, Gold: 1000, exp: 800, acc: 65, color: "#ff4757" },
-        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", Hp: 5000, Atk: 140, Gold: 1800, exp: 1400, acc: 75, color: "#74b9ff" },
-        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", Hp: 8000, Atk: 200, Gold: 2800, exp: 2200, acc: 85, color: "#a55eee" },
-        { name: "👼 墮落熾天使 (60F 晨星之暗)", Hp: 12000, Atk: 280, Gold: 4000, exp: 3500, acc: 90, color: "#f1c40f" },
-        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", Hp: 18000, Atk: 380, Gold: 6000, exp: 5000, acc: 95, color: "#e67e22" },
-        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", Hp: 26000, Atk: 500, Gold: 9000, exp: 7500, acc: 100, color: "#2980b9" },
-        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", Hp: 38000, Atk: 680, Gold: 14000, exp: 11000, acc: 110, color: "#c0392b" },
-        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", Hp: 60000, Atk: 990, Gold: 25000, exp: 20000, acc: 120, color: "#10ac84" }
+        { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
+        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
+        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" },
+        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
+        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" },
+        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseExp: 3500, acc: 90, color: "#f1c40f" },
+        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseExp: 5000, acc: 95, color: "#e67e22" },
+        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseExp: 7500, acc: 100, color: "#2980b9" },
+        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseExp: 11000, acc: 110, color: "#c0392b" },
+        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseExp: 20000, acc: 120, color: "#10ac84" }
     ];
 
-    function getUpgradeCost(type) {
-        return type === 'atk' ? (30 + player.atkUpgrades * 25) : (25 + player.hpUpgrades * 20); 
-    }
-    
-    function addLog(message) {
-        const logBox = document.getElementById('log-box'); 
-        if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } 
-    }
+    // ==========================================
+    // PART 4: 基礎輔助工具函數區                     
+    // ==========================================
+    function getUpgradeCost(type) { return type === 'atk' ? (30 + player.atkUpgrades * 25) : (25 + player.hpUpgrades * 20); }
+    function addLog(message) { const logBox = document.getElementById('log-box'); if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } }
 
-    // 📥 【全新實時功能】從雲端抓取全球共享英靈殿最新 5 條記錄
-    async function fetchGlobalTombstones() {
-        let box = document.getElementById('tombstone-box');
-        if (!box) return;
-        try {
-            let response = await fetch(`${SERVER_URL}/api/global-tombstones`);
-            let res = await response.json();
-            if (res.success && res.data.length > 0) {
-                let html = "<div style='color: #ff4757; font-weight:bold; font-size:13px; margin-bottom:6px; border-bottom: 1px dashed #e74c3c; padding-bottom:3px;'>🪦 全服共享英靈殿（即時連網）</div>";
-                res.data.forEach((r, idx) => {
-                    let d = new Date(r.date).toLocaleDateString();
-                    html += `<div style='font-size:11px; margin:6px 0; color:#ddd; border-left: 2px solid #555; padding-left:5px;'>
-                        ${idx+1}. <strong style='color:#fff;'>${r.name}</strong> ➔ 殞命於 <span style='color:#ff4757;font-weight:bold;'>B${r.floor}F</span> (Lv.${r.lv})<br>
-                        <span style='color:#aaa;'>└ 擊殺者: <span style='color:#ff6b81;'>${r.cause}</span></span><br>
-                        <span style='color:#ffa500; font-style:italic;'>「 ${r.lastWords} 」</span>
-                    </div>`;
-                });
-                box.innerHTML = html;
-            } else { box.innerHTML = "<div style='color:#666; font-size:11px; text-align:center;'>🌍 全球資料庫一片安詳，暫無英靈。</div>"; }
-        } catch (e) { box.innerHTML = "<div style='color:#ff4757; font-size:11px;'>❌ 無法連線至中央英靈殿伺服器</div>"; }
-    }
-
-    async function checkCloudLegacy() {
-        let inputName = document.getElementById('player-name-input').value.trim();
-        let legBox = document.getElementById('legacy-box');
-        if (!legBox) return;
-        if (inputName === "") { legBox.innerHTML = "請輸入名字以查詢雲端血脈..."; currentLegacyData = null; return; }
-        try {
-            let response = await fetch(`${SERVER_URL}/api/load/${encodeURIComponent(inputName)}`);
-            let res = await response.json();
-            if (res.success && res.found) {
-                currentLegacyData = res.data;
-                legBox.innerHTML = `🎁 <strong>雲端血脈庇佑 (傳承自前代 B${res.data.lastFloor}F)：</strong><br>
-                初始資金 <span class="gold">+${res.data.legacyGold} G</span> | 基礎攻擊 <span style="color:#ff6b81;">+${res.data.legacyAtk}</span> | 最大生命 <span class="highlight">+${res.data.legacyHp}</span>`;
-            } else { 
-                currentLegacyData = null; 
-                legBox.innerHTML = `🍂 <strong>查無雲端遺產：</strong><br>你是該家族的第一代始祖勇者。前進深淵吧！`; 
-            }
-        } catch (e) {
-            legBox.innerHTML = `❌ 伺服器休眠中或網址設定錯誤...`; }
-    }
-
-    function rollNextEnvironment() {
-        if (dungeonFloor === 0) { currentEnv = environmentsPool[0]; return; }
-        currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
-        if (currentEnv.effect === "env_trap_hp") {
-            let trapDmg = Math.floor(player.maxHp * 0.15); player.hp = Math.max(1, player.hp - trapDmg);
-            addLog(`⚠️【環境機關】踏入新大層，因環境特異扣除 <span style='color:#ff4757;'>${trapDmg}</span> HP！`);
-        }
-    }
-
+    // ==========================================
+    // PART 5: UI 畫面元件渲染與遮罩控制區             
+    // ==========================================
     function updateUI() {
         try {
             const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
             const setStyle = (id, prop, val) => { const el = document.getElementById(id); if(el) el.style[prop] = val; };
 
-            setTxt('lv', player.lv); setTxt('hp', player.hp); setTxt('max-hp', player.maxHp);
-            setTxt('atk', player.atk); setTxt('gold', player.gold); setTxt('exp-text', `${player.exp} / ${player.nextexp}`);
-            setTxt('stat-rage', `${player.rage} / 100`); setTxt('stat-gold-bonus', `${Math.round(player.goldBonus * 100)}%`);
-            setTxt('stat-crit', `${player.critChance}%`); setTxt('stat-dodge', `${player.dodgeChance}%`);
-            setTxt('stat-vamp', `${player.vampRate}%`); setTxt('stat-regen', `${player.regenPower} HP`);
-            setTxt('player-name-display', player.name); setTxt('stat-legacy-log', player.inheritedLog);
-            setTxt('cost-atk', `${getUpgradeCost('atk')} G`); setTxt('cost-hp', `${getUpgradeCost('hp')} G`);
+            setTxt('lv', Math.floor(player.lv)); 
+            setTxt('hp', Math.floor(player.hp)); 
+            setTxt('max-hp', Math.floor(player.maxHp));
+            setTxt('atk', Math.floor(player.atk)); 
+            setTxt('gold', Math.floor(player.gold)); 
+            setTxt('exp-text', `${Math.floor(player.exp)} / ${Math.floor(player.nextExp)}`);
+            setTxt('stat-rage', `${Math.floor(player.rage)} / 100`); 
+            setTxt('stat-gold-bonus', `${Math.round(player.goldBonus * 100)}%`);
+            setTxt('stat-crit', `${Math.floor(player.critChance)}%`); 
+            setTxt('stat-dodge', `${Math.floor(player.dodgeChance)}%`);
+            setTxt('stat-vamp', `${Math.floor(player.vampRate)}%`); 
+            setTxt('stat-regen', `${Math.floor(player.regenPower)} HP`);
+            setTxt('player-name-display', player.name); 
+            setTxt('stat-legacy-log', player.inheritedLog);
+            setTxt('cost-atk', `${getUpgradeCost('atk')} G`); 
+            setTxt('cost-hp', `${getUpgradeCost('hp')} G`);
 
             let perks = [];
             if (player.perkBurnAttack) perks.push("🔥烈焰"); if (player.perkPoisonAttack) perks.push("🧪劇毒");
@@ -339,99 +282,109 @@
             setTxt('stat-perk-log', perks.length > 0 ? `已覺醒天賦：${perks.join(" | ")}` : "已覺醒天賦：無");
 
             const locText = document.getElementById('location-text');
-            const btn1 = document.getElementById('btn-action1'); 
-            const btn2 = document.getElementById('btn-action2');
+            const btn1 = document.getElementById('btn-action1'); const btn2 = document.getElementById('btn-action2');
 
             if (gameState === "TITLE") {
-                setStyle('title-box', 'display', 'block'); 
-                setStyle('status-panel-box', 'display', 'none'); 
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'none');
-                setStyle('merchant-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); 
-                setStyle('gameover-box', 'display', 'none'); 
-                setStyle('env-text', 'display', 'none'); 
-                setStyle('log-box', 'display', 'none');
+                setStyle('title-box', 'display', 'block'); setStyle('status-panel-box', 'display', 'none'); 
+                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none');
+                setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
+                setStyle('gameover-box', 'display', 'none'); setStyle('env-text', 'display', 'none'); setStyle('log-box', 'display', 'none');
                 if(locText) { locText.innerText = "🔮 命運的起點"; locText.style.color = "#aaa"; }
-                fetchGlobalTombstones(); // 回到首頁就重新刷新全球英靈殿
+                fetchGlobalTombstones(); 
                 return;
             }
             if (gameState === "BATTLE") {
-                setStyle('title-box', 'display', 'none'); 
-                setStyle('status-panel-box', 'display', 'grid'); 
-                setStyle('log-box', 'display', 'block');
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'none'); 
-                setStyle('merchant-box', 'display', 'none'); 
-                setStyle('gameover-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none');
+                setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
+                setStyle('gameover-box', 'display', 'none'); setStyle('action-panel', 'display', 'none');
                 if(locText) { locText.innerText = `⚔️ 激烈交戰中... B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
                 return;
             }
             if (gameState === "GAMEOVER") {
-                setStyle('title-box', 'display', 'none'); 
-                setStyle('status-panel-box', 'display', 'grid'); 
-                setStyle('log-box', 'display', 'block');
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'none'); 
-                setStyle('merchant-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); 
-                setStyle('gameover-box', 'display', 'block');
+                setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); setStyle('gameover-box', 'display', 'block');
                 setTxt('go-floor', dungeonFloor);
                 if(locText) { locText.innerText = `💀 戰報停留：勇者命喪 B${dungeonFloor}F`; locText.style.color = "#e74c3c"; }
                 return;
             }
-            // 修正正常探索與村莊介面的 display 隱藏規則
-            setStyle('title-box', 'display', 'none'); 
-            setStyle('gameover-box', 'display', 'none'); 
-            setStyle('status-panel-box', 'display', 'grid'); 
-            setStyle('log-box', 'display', 'block');
+
+            setStyle('title-box', 'display', 'none'); setStyle('gameover-box', 'display', 'none'); 
+            setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
             
             if (gameState === "REWARD") { 
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('merchant-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'block'); 
-                setStyle('env-text', 'display', 'none'); 
-                return; 
+                setStyle('shop-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); setStyle('reward-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); return; 
             }
             if (gameState === "MERCHANT") { 
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'none'); 
-                setStyle('action-panel', 'display', 'none'); 
-                setStyle('merchant-box', 'display', 'block'); 
-                setStyle('env-text', 'display', 'none'); 
-                return; 
+                setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); 
+                setStyle('action-panel', 'display', 'none'); setStyle('merchant-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); return; 
             }
 
-            setStyle('reward-box', 'display', 'none'); 
-            setStyle('merchant-box', 'display', 'none'); 
-            setStyle('action-panel', 'display', 'flex');
+            setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'flex');
 
             if (dungeonFloor === 0) {
                 if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
-                setStyle('env-text', 'display', 'none'); 
-                setStyle('shop-box', 'display', 'block');
-                if(btn1) btn1.innerText = "⚔️ 進入地下城"; 
-                if(btn2) btn2.innerText = "⛺ 在村莊休息";
+                setStyle('env-text', 'display', 'none'); setStyle('shop-box', 'display', 'block');
+                if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
             } else {
                 if(locText) { locText.innerText = `🚨 目前位置：地下城 B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
-                setStyle('shop-box', 'display', 'none'); 
-                setStyle('env-text', 'display', 'block');
+                setStyle('shop-box', 'display', 'none'); setStyle('env-text', 'display', 'block');
                 const envText = document.getElementById('env-text');
                 if(envText) { envText.innerText = `【當前環境房】➔ ${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
                 if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
                 if(btn2) btn2.innerText = "🏃 撤退回地表";
             }
-        } catch(e) { console.error("UI錯誤:", e); }
+        } catch(e) { console.error("UI渲染錯誤阻斷:", e); }
     }
 
+    // ==========================================
+    // PART 6: 雲端後端 MongoDB API 網絡通訊連線區     
+    // ==========================================
+    async function fetchGlobalTombstones() {
+        let box = document.getElementById('tombstone-box'); if (!box) return;
+        try {
+            let response = await fetch(`${SERVER_URL}/api/global-tombstones`);
+            let res = await response.json();
+            if (res.success && res.data.length > 0) {
+                let html = "<div style='color: #ff4757; font-weight:bold; font-size:13px; margin-bottom:6px; border-bottom: 1px dashed #e74c3c; padding-bottom:3px;'>🪦 全服共享英靈殿（即時連網）</div>";
+                res.data.forEach((r, idx) => {
+                    html += `<div style='font-size:11px; margin:6px 0; color:#ddd; border-left: 2px solid #555; padding-left:5px;'>
+                        ${idx+1}. <strong style='color:#fff;'>${r.name}</strong> ➔ 殞命於 <span style='color:#ff4757;font-weight:bold;'>B${r.floor}F</span> (Lv.${r.lv})<br>
+                        <span style='color:#aaa;'>└ 終結魔物: <span style='color:#ff6b81;'>${r.cause}</span></span><br>
+                        <span style='color:#ffa500; font-style:italic;'>「 ${r.lastWords} 」</span>
+                    </div>`;
+                });
+                box.innerHTML = html;
+            } else { box.innerHTML = "<div style='color:#666; font-size:11px; text-align:center;'>🌍 全球資料庫一片安詳，暫無英靈。</div>"; }
+        } catch (e) { box.innerHTML = "<div style='color:#ff4757; font-size:11px;'>❌ 無法連線至中央英靈殿伺服器</div>"; }
+    }
+
+    async function checkCloudLegacy() {
+        let inputName = document.getElementById('player-name-input').value.trim();
+        let legBox = document.getElementById('legacy-box'); if (!legBox) return;
+        if (inputName === "") { legBox.innerHTML = "請輸入名字以查詢雲端血脈..."; currentLegacyData = null; return; }
+        try {
+            let response = await fetch(`${SERVER_URL}/api/load/${encodeURIComponent(inputName)}`);
+            let res = await response.json();
+            if (res.success && res.found) {
+                currentLegacyData = res.data;
+                legBox.innerHTML = `🎁 <strong>雲端血脈庇佑 (傳承自前代 B${res.data.lastFloor}F)：</strong><br>
+                初始資金 <span class="gold">+${res.data.legacyGold} G</span> | 基礎攻擊 <span style="color:#ff6b81;">+${res.data.legacyAtk}</span> | 最大生命 <span class="highlight">+${res.data.legacyHp}</span>`;
+            } else { currentLegacyData = null; legBox.innerHTML = `🍂 <strong>查無雲端遺產：</strong><br>你是該家族的第一代始祖勇者。前進深淵吧！`; }
+        } catch (e) { legBox.innerHTML = `❌ 伺服器同步中...`; }
+    }
+
+    // ==========================================
+    // PART 7: 遊戲開局、村莊、隨機事件與環境輪替系統   
+    // ==========================================
     function handleStartGame() {
         let inputName = document.getElementById('player-name-input').value.trim();
         if (inputName === "") { inputName = "無名勇者"; }
         
-        player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextexp = 30;
+        player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextExp = 30;
         player.atkUpgrades = 0; player.hpUpgrades = 0; player.critChance = 0; player.dodgeChance = 0; player.vampRate = 0; player.regenPower = 0; player.rage = 0; player.goldBonus = 1.0;
+        player.perkExpBonus = 1.0;
         player.perkBurnAttack = false; player.perkPoisonAttack = false; player.perkShieldStart = 0; player.perkCritMult3 = false; player.perkThorns = 0;
         player.perkExecute = false; player.perkDoubleStrike = 0; player.perkStunChance = 0; player.perkBerserk = false; player.perkFlatBlock = 0;
         player.perkFirstStrike = false; player.perkSoulHarvest = false; player.usedSecondWindThisRun = false;
@@ -439,37 +392,37 @@
         if (currentLegacyData) {
             player.gold += currentLegacyData.legacyGold; player.atk += currentLegacyData.legacyAtk; player.maxHp += currentLegacyData.legacyHp;
             player.inheritedLog = `✨ 雲端血脈：攻 +${currentLegacyData.legacyAtk} | 血 +${currentLegacyData.legacyHp} | 初始金 +${currentLegacyData.legacyGold}G`;
-        } else { 
-            player.inheritedLog = "血脈狀態：新世代第一代始祖"; 
-        }
-        player.hp = player.maxHp; 
-        gameState = "VILLAGE"; dungeonFloor = 0;
+        } else { player.inheritedLog = "血脈狀態：新世代第一代始祖"; }
+        player.hp = player.maxHp; gameState = "VILLAGE"; dungeonFloor = 0;
         
         document.getElementById('log-box').innerHTML = `<p style="color: #888;">【系統】已成功連線雲端資料庫。</p>`;
         addLog(`📜【序章】勇者 <strong>${player.name}</strong> 踏入村莊，深淵之門為你敞開！`);
         updateUI();
     }
 
+    function rollNextEnvironment() {
+        if (dungeonFloor === 0) { currentEnv = environmentsPool[0]; return; }
+        currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
+        if (currentEnv.effect === "env_trap_hp") {
+            let trapDmg = Math.floor(player.maxHp * 0.15); player.hp = Math.max(1, player.hp - trapDmg);
+            addLog(`⚠️【環境機關】踏入新大層，因環境特異扣除 <span style='color:#ff4757;'>${trapDmg}</span> HP！`);
+        }
+    }
+
     async function handleAction1() {
         if (dungeonFloor === 0) {
-            dungeonFloor = 1; gameState = "DUNGEON"; 
-            rollNextEnvironment(); 
+            dungeonFloor = 1; gameState = "DUNGEON"; rollNextEnvironment(); 
             addLog(`🪵 <strong>${player.name}</strong> 提劍步入 <strong>地下城 B1F</strong>...`); updateUI();
         } else { await exploreDungeon(); }
     }
 
     function handleAction2() {
-        if (dungeonFloor === 0) { 
-            player.hp = player.maxHp; 
-            addLog(`⛺【休息】狀態已全數恢復！`); updateUI(); 
-        } else { 
-            addLog(`🏃【撤退】驚險逃回地表村莊。`); dungeonFloor = 0; gameState = "VILLAGE"; updateUI(); 
-        }
+        if (dungeonFloor === 0) { player.hp = player.maxHp; addLog(`⛺【休息】狀態已全數恢復！`); updateUI(); }
+        else { addLog(`🏃【撤退】驚險逃回地表村莊。`); dungeonFloor = 0; gameState = "VILLAGE"; updateUI(); }
     }
 
     function buyStat(type) {
-        let cost = getUpgradeCost(type);
-        if (player.gold < cost) { addLog(`❌【訓練所】金幣不足！`); return; }
+        let cost = getUpgradeCost(type); if (player.gold < cost) { addLog(`❌【訓練所】金幣不足！`); return; }
         player.gold -= cost;
         if (type === 'atk') { player.atk += 4; player.atkUpgrades++; addLog(`💪【訓練】攻擊力 +4`); }
         else { player.maxHp += 15; player.hp += 15; player.hpUpgrades++; addLog(`🧪【訓練】最大生命值 +15`); }
@@ -491,29 +444,25 @@
             } else { await triggerBattle(false); }
         }
     }
-// 🚀 優化點：重裝最細緻、100% 回合制完整戰鬥引擎
+
+    // ==========================================
+    // PART 8: 1秒高速精密戰鬥直播引擎模組區          
+    // ==========================================
     async function triggerBattle(isBoss) {
-        let Data;
-        if (isBoss) { 
-            let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; Data = bossMonsters[bossIdx]; 
-        } else {
-            let pool = monsterData.tier1;
-            if (dungeonFloor > 25) pool = monsterData.tier2; 
-            if (dungeonFloor > 50) pool = monsterData.abyss;
-            Data = pool[Math.floor(Math.random() * pool.length)];
+        let baseData;
+        if (isBoss) { let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; baseData = bossMonsters[bossIdx]; } 
+        else {
+            let pool = monsterDatabase.tier1;
+            if (dungeonFloor > 10) pool = monsterDatabase.tier2; if (dungeonFloor > 30) pool = monsterDatabase.abyss;
+            baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        let floorScale = 1 + (dungeonFloor - 1) * 0.25; 
-        let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
+        let floorScale = 1 + (dungeonFloor - 1) * 0.25; let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
+        
         let monster = {
-            name: Data.name, 
-            hp: Math.floor(Data.Hp * floorScale * mHpScale), 
-            maxHp: Math.floor(Data.Hp * floorScale * mHpScale),
-            atk: Math.floor(Data.Atk * floorScale), 
-            gold: Math.floor(Data.Gold * floorScale * (Math.random() * 0.3 + 0.85) * player.goldBonus),
-            exp: Math.floor(Data.exp * floorScale * player.perkexpBonus), 
-            acc: isBoss ? Data.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), 
-            color: Data.color
+            name: baseData.name, hp: Math.floor(baseData.baseHp * floorScale * mHpScale), maxHp: Math.floor(baseData.baseHp * floorScale * mHpScale),
+            atk: Math.floor(baseData.baseAtk * floorScale), gold: Math.floor(baseData.baseGold * floorScale * (Math.random() * 0.3 + 0.85) * (player.goldBonus || 1.0)),
+            exp: Math.floor(baseData.baseExp * floorScale * (player.perkExpBonus || 1.0)), acc: isBoss ? baseData.acc : Math.min(50, Math.floor((dungeonFloor - 1) * 1.8)), color: baseData.color
         };
 
         currentKillerName = monster.name;
@@ -522,106 +471,102 @@
 
         if (currentEnv.effect === "env_shield") { pStatus.shield += 120; mStatus.shield += 120; }
         gameState = "BATTLE"; updateUI(); 
-        addLog(`⚔️【遭遇戰】<strong style='color: ${monster.color};'>${monster.name}</strong> 攔路！（HP: ${monster.hp} / 傷害: ${monster.atk}）`);
+        addLog(`⚔️【遭遇戰】<strong style='color: ${monster.color};'>${monster.name}</strong> 攔路！（HP: ${monster.hp} | 護盾: ${mStatus.shield}）`);
 
-        let round = 1; 
-        let pRoundCombo = 0; 
+        let round = 1; let pRoundCombo = 0; 
         while (monster.hp > 0 && player.hp > 0) {
-            let roundLog = `<span style='color: #888;'>[第 ${round} 回合]</span> `; 
-            pRoundCombo++;
-// 環境與持續傷害結算
+            let roundLog = `<span style='color: #888;'>[第 ${round} 回合]</span> `; pRoundCombo++;
+
             if (currentEnv.effect === "env_thunder" && round % 3 === 0) {
-                if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡天雷劈中勇者-25HP</span> | `; }
-                else { monster.hp = Math.max(1, monster.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡天雷劈中怪物-25HP</span> | `; }
+                if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡【雷霆環境】天雷殘酷轟炸勇者，失去 25 點 HP！</span> | `; }
+                else { monster.hp = Math.max(1, monster.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡【雷霆環境】天雷精準劈中魔物，魔物失去 25 點 HP！</span> | `; }
             }
-            if (currentEnv.effect === "env_blades") { player.hp -= 8; roundLog += `<span style='color:#eb4d4b;'>🦷機關外傷-8HP</span> | `; }
-            if (pStatus.burn > 0) { player.hp -= 8; roundLog += `<span style='color:#ff6b6b;'>🔥燒傷-8HP</span> | `; pStatus.burn--; }
-            if (pStatus.poison > 0) { player.hp -= 9; roundLog += `<span style='color:#2ecc71;'>🧪毒傷-9HP</span> | `; pStatus.poison--; }
-            if (player.perkImmolate > 0) { monster.hp -= player.perkImmolate; roundLog += `<span style='color:#ff6b6b;'>🔥獻祭-${player.perkImmolate}HP</span> | `; }
+            if (currentEnv.effect === "env_blades") { player.hp -= 8; roundLog += `<span style='color:#eb4d4b;'>🦷【機關環境】四周飛刀橫飛割傷，勇者失去 8 點 HP！</span> | `; }
+            if (pStatus.burn > 0) { player.hp -= 8; roundLog += `<span style='color:#ff6b6b;'>🔥【狀態發作】勇者燃燒烈火焚身，失去 8 點 HP！</span> | `; pStatus.burn--; }
+            if (pStatus.poison > 0) { player.hp -= 9; roundLog += `<span style='color:#2ecc71;'>🧪【狀態發作】勇者入骨瘴氣劇毒，失去 9 點 HP！</span> | `; pStatus.poison--; }
+            if (player.perkImmolate > 0) { monster.hp -= player.perkImmolate; roundLog += `<span style='color:#ff6b6b;'>🔥【天賦獻祭】烈焰光環反噬，魔物失去 ${player.perkImmolate} 點 HP！</span> | `; }
 
             if (player.hp <= 0 || monster.hp <= 0) { addLog(roundLog); break; }
 
             if (player.regenPower > 0 && currentEnv.effect !== "env_freeze") {
                 let actualRegen = (currentEnv.effect === "poison") ? Math.floor(player.regenPower * 0.5) : player.regenPower;
-                player.hp = Math.min(player.maxHp, player.hp + actualRegen); roundLog += `<span style='color:#9b59b6;'>✨再生+${actualRegen}HP</span> | `;
+                player.hp = Math.min(player.maxHp, player.hp + actualRegen); roundLog += `<span style='color:#9b59b6;'>✨【天賦再生】生命泉源湧動，勇者恢復 +${actualRegen} HP</span> | `;
             }
 
-            // 勇者斬擊
-            let isUlt = (player.rage >= 100); 
-            let pActualAtk = player.atk;
-            if (currentEnv.effect === "env_balance") { pActualAtk = Math.floor(pActualAtk * 1.4); roundLog += `[天平加攻] `; }
-            if (pStatus.weaken > 0) { pActualAtk = Math.floor(pActualAtk * 0.65); roundLog += `[弱化] `; }
-            if (player.perkBerserk && (player.hp / player.maxHp) <= 0.4) { pActualAtk = Math.floor(pActualAtk * 1.4); roundLog += `[背水狂暴] `; }
+            let isUlt = (player.rage >= 100); let pActualAtk = player.atk;
+            if (currentEnv.effect === "env_balance") pActualAtk = Math.floor(pActualAtk * 1.4);
+            if (pStatus.weaken > 0) pActualAtk = Math.floor(pActualAtk * 0.65);
+
             let strikeCount = (player.perkDoubleStrike > 0 && Math.random() * 100 < player.perkDoubleStrike) ? 2 : 1;
-            if (strikeCount > 1) roundLog += `<span style='color:#f1c40f;'>【連擊】</span>`;
             for (let i = 0; i < strikeCount; i++) {
                 if (monster.hp <= 0) break;
                 let pDmgOut = pActualAtk;
                 if (isUlt) { 
                     pDmgOut = Math.floor(pActualAtk * 3.5); player.rage = 0; 
-                    roundLog += `<span style='color:#ffa500; font-weight:bold;'>⚡【龍破斬】💥${pDmgOut}</span>`; 
-                    } else {
+                    roundLog += `<span style='color:#ffa500; font-weight:bold;'>⚡【終極奧義•龍破斬】橫掃全場💥大爆發 ${pDmgOut} 點傷害！</span>`; 
+                } else {
                     let finalCritChance = (player.perkFirstStrike && round === 1) ? 100 : player.critChance;
                     if (currentEnv.effect === "env_blind") finalCritChance -= 25; 
                     if (Math.random() * 100 < finalCritChance) { 
                         pDmgOut *= (player.perkCritMult3 ? 3 : 2); 
-                        roundLog += `<span style='color:#e74c3c; font-weight:bold;'>💥爆擊 ${pDmgOut}</span>`; 
+                        roundLog += `<span style='color:#e74c3c; font-weight:bold;'>💥致命暴擊！造成高達 ${pDmgOut} 點粉碎打擊！</span>`; 
                     } else { 
-                        roundLog += `⚔️斬 ${pDmgOut}`; }
+                        roundLog += `⚔️普通揮斬造成 ${pDmgOut} 點傷害`; 
+                    }
                     if (currentEnv.effect !== "env_norage") player.rage = Math.min(100, player.rage + 20);
                 }
 
                 if (mStatus.shield > 0) {
-                    if (pDmgOut <= mStatus.shield) mStatus.shield -= pDmgOut;
-                    else { let over = pDmgOut - mStatus.shield; mStatus.shield = 0; monster.hp -= over; }
+                    if (pDmgOut <= mStatus.shield) { mStatus.shield -= pDmgOut; roundLog += `（完全被敵方護盾格擋）`; }
+                    else { let over = pDmgOut - mStatus.shield; roundLog += `（擊碎敵盾並溢出 ${over} 點傷及肉身）`; mStatus.shield = 0; monster.hp -= over; }
                 } else { monster.hp -= pDmgOut; }
                 if (player.perkBurnAttack && Math.random() < 0.4) mStatus.burn = 3;
                 if (player.perkStunChance > 0 && Math.random() * 100 < player.perkStunChance) mStatus.stunned = 1;
             }
 
-            // 魔物反擊
             if (monster.hp > 0) {
-                if (mStatus.stunned > 0) { mStatus.stunned--; roundLog += ` | <span style='color:#3498db;'>敵暈過！</span>`; } 
+                if (mStatus.stunned > 0) { mStatus.stunned--; roundLog += ` | <span style='color:#3498db;'>敵方陷入嚴重暈眩，被迫跳過反擊！</span>`; } 
                 else {
                     let isDodge = !isUlt && (Math.random() * 100 < Math.max(0, player.dodgeChance - monster.acc));
-                    if (isDodge) { roundLog += ` | <span style='color:#3498db;'>🏃 閃避！</span>`; } 
+                    if (isDodge) { roundLog += ` | <span style='color:#3498db; font-weight:bold;'>🏃【完美閃避】勇者腳步一變，毫髮無傷地躲過襲擊！</span>`; } 
                     else {
                         let finalTaken = monster.atk;
                         if (player.perkFlatBlock > 0) finalTaken = Math.max(1, finalTaken - player.perkFlatBlock);
+                        
                         if (pStatus.shield > 0) {
-                            if (finalTaken <= pStatus.shield) pStatus.shield -= finalTaken;
-                            else { let over = finalTaken - pStatus.shield; pStatus.shield = 0; player.hp -= over; }
-                        } else { player.hp -= finalTaken; }
-                        roundLog += ` | 敵反擊 💥-${finalTaken}`;
+                            if (finalTaken <= pStatus.shield) { pStatus.shield -= finalTaken; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（完全被勇者護盾吸收！）`; }
+                            else { let over = finalTaken - pStatus.shield; roundLog += ` | 💥魔物反擊：傷害 ${finalTaken} 點（護盾粉碎吸收 ${pStatus.shield} 點，肉身承受 -${over} HP！）`; pStatus.shield = 0; player.hp -= over; }
+                        } else { player.hp -= finalTaken; roundLog += ` | 💥魔物反擊：勇者結結實實承受 -${finalTaken} HP！`; }
                     }
                 }
             }
 
-            roundLog += ` ➔ 勇者HP: ${Math.max(0, player.hp)} | 敵HP: ${Math.max(0, monster.hp)}`;
-            addLog(`<div style="border-bottom: 1px solid #2d2d2d; padding-bottom:4px;">${roundLog}</div>`);
+            roundLog += `<br>➔ 📊 勇者HP: <span style='color:#ff4757;font-weight:bold;'>${Math.max(0, player.hp)}</span> (🛡️護盾: ${pStatus.shield}) | 敵HP: <span style='color:#00ffff;font-weight:bold;'>${Math.max(0, monster.hp)}</span> (🛡️護盾: ${mStatus.shield})`;
+            addLog(`<div style="border-bottom: 1px solid #2d2d2d; padding-bottom:6px; margin-top:4px;">${roundLog}</div>`);
 
-            await sleep(2000); // 慢速 2 秒延遲直播
+            await sleep(1000); 
 
             if (player.hp <= 0) {
                 if (player.perkSecondWind && !player.usedSecondWindThisRun) {
                     player.usedSecondWindThisRun = true; player.hp = Math.floor(player.maxHp * 0.35);
-                    addLog(`<span style='color:#ffd700;'>【👼 鳳凰涅槃】原地復活 35%生命值！</span>`); await sleep(2000);
+                    addLog(`<span style='color:#ffd700; font-weight:bold;'>【👼 鳳凰涅槃】不可思議！勇者原地滿血復活，重獲 35% 生命力！</span>`); await sleep(1000);
                 } else { break; }
             }
             round++; if (round > 60) break;
         }
 
         if (player.hp > 0 && monster.hp <= 0) {
-            player.gold += monster.gold; player.exp += monster.exp;
-            addLog(`🎉 戰鬥勝利！獲得金幣 ${monster.gold} G，經驗值 +${monster.exp}。`); checkLevelUp();
+            let finalGold = Math.floor(monster.gold);
+            let finalExp = Math.floor(monster.exp);
+            player.gold += finalGold; player.exp = Math.floor(player.exp + finalExp);
+            addLog(`🎉 戰鬥勝利！獲得金幣 ${finalGold} G，經驗值 +${finalExp}。`); checkLevelUp();
             if (isBoss) { gameState = "REWARD"; startRewardPhase(); } else { advanceFloor(); }
         } else {
-            gameState = "GAMEOVER"; document.getElementById('player-words-input').value = ""; // 清空遺言輸入框
+            gameState = "GAMEOVER"; document.getElementById('player-words-input').value = ""; 
             updateUI();
         }
     }
 
-    // 🪦 刻上遺言並點擊手動確認傳承
     async function confirmDeathAndUpload() {
         let inputWords = document.getElementById('player-words-input').value.trim();
         if (inputWords === "") { inputWords = "沒想到會慘死在這裡...後代幫我報仇啊！"; }
@@ -629,20 +574,18 @@
         let legacyGold = Math.floor(player.gold * 0.20);
         let legacyAtk = Math.floor(dungeonFloor * 0.5);
         let legacyHp = Math.floor(dungeonFloor * 3);
-
         addLog(`💸 正在刻劃墓碑並將遺言同步至中央資料庫...`);
 
         try {
-            let response = await fetch(`${SERVER_URL}/api/save`, {
+            await fetch(`${SERVER_URL}/api/save`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: player.name, lastFloor: dungeonFloor, lv: player.lv, legacyGold: legacyGold, legacyAtk: legacyAtk, legacyHp: legacyHp,
-                    cause: currentKillerName, lastWords: inputWords // 送出死因同臨終遺言
+                    name: player.name, lastFloor: dungeonFloor, lv: Math.floor(player.lv), legacyGold: legacyGold, legacyAtk: legacyAtk, legacyHp: legacyHp,
+                    cause: currentKillerName, lastWords: inputWords 
                 })
             });
-            let res = await response.json();
-            if(res.success) alert("🪦 你的墓碑已成功立在全球英靈殿！");
+            alert("🪦 你的墓碑已成功立在全球英靈殿！");
         } catch (e) { console.log("備份留存"); }
         
         dungeonFloor = 0; gameState = "TITLE"; currentLegacyData = null;
@@ -690,14 +633,18 @@
     }
 
     function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
+    
     function checkLevelUp() {
         let leveled = false;
-        while (player.exp >= player.nextexp) { player.exp -= player.nextexp; player.lv++; player.maxHp += 22; player.atk += 6; player.nextexp = Math.floor(player.nextexp * 1.45); leveled = true; }
-        if (leveled) { player.hp = player.maxHp; addLog(`✨ 恭喜突破！升到等級 Lv.${player.lv}！`); }
+        while (player.exp >= player.nextExp) { player.exp -= player.nextExp; player.lv++; player.maxHp += 22; player.atk += 6; player.nextExp = Math.floor(player.nextExp * 1.45); leveled = true; }
+        if (leveled) { player.hp = player.maxHp; player.exp = Math.floor(player.exp); addLog(`✨ 恭喜突破！升到等級 Lv.${player.lv}！`); }
     }
 
     function advanceFloor() { dungeonFloor++; gameState = "DUNGEON"; if (dungeonFloor % 10 === 1) { rollNextEnvironment(); } addLog(`🪜 踏入 <strong>地下城 B${dungeonFloor}F</strong>...`); updateUI(); }
 
+    // ==========================================
+    // PART 9: WINDOW 安全加載啟動器                 
+    // ==========================================
     window.onload = function() { updateUI(); };
 </script>
 
