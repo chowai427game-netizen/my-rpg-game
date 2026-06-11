@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>命運深淵：血脈傳承 MMORPG 線上版</title>
-
+    <!-- // ========================================== -->
+    <!-- // PART 2: CSS 視覺主題與樣式排版區            -->
+    <!-- // ========================================== -->
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -50,6 +52,21 @@
             text-align: center;
             padding: 30px 20px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* 🔔 新增：更新通知公告欄滾動容器樣式 */
+        .notice-container {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 11px;
+            text-align: left;
+            color: #ccc;
+            max-height: 90px;
+            overflow-y: auto;
+            line-height: 1.5;
         }
         .name-input {
             width: 75%; padding: 12px; font-size: 15px; background: #111; color: #fff;
@@ -111,13 +128,26 @@
 
 <div class="game-container">
     <h2>⚔️ 命運深淵 ⚔️</h2>
-    
+
+    <!-- // ========================================== -->
+    <!-- // PART 1: HTML 遊戲畫面主結構區               -->
+    <!-- // ========================================== -->
     <div class="location-bar" id="location-text">🔮 命運的起點</div>
     <div class="env-bar" id="env-text" style="display: none;">環境：無異常</div>
-    
+
+    <!-- 1.1 遊戲封面區 -->
     <div class="dynamic-panel title-panel-style" id="title-box">
         <h1 style="color: #ffd700; font-size: 26px; margin: 0 0 5px 0; text-shadow: 0 0 10px rgba(255,215,0,0.4);">命運深淵</h1>
         <p style="color: #bbb; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版 v0.0.4】<br>🔥 全球共享英靈殿 × 臨終遺言實時同步</p>
+
+        <!-- 📢 1.1B 新增：最新線上版本更新公告欄 -->
+        <div class="notice-container">
+            <strong style="color: #ffd700;">📢 深淵維護公告 (v1.4)：</strong><br>
+            • 【系統】全面細分並新增 Tier 1 至 Tier 5 共 18 種隨機迷宮魔物！<br>
+            • 【新手】實裝 B1-B10 新手保護安全島，恆定陰暗洞窟無異常。<br>
+            • 【聯網】全球共享中央英靈殿與臨終遺言實時通訊同步。
+        </div>
+        
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
         <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()">
         <br>
@@ -215,17 +245,38 @@
     ];
     let currentEnv = environmentsPool[0];
 
+    // 🔔 PART 3 大幅擴充：全面實裝 Tier 1 至 Tier 5 五大生態階級魔物隨機庫
     const monsterDatabase = {
-        tier1: [ 
-            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 10, baseExp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 140, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 210, baseAtk: 12, baseGold: 40, baseExp: 32, color: "#dcdde1" }
+        tier1: [ // 🔰 B1 - B10F (新手村生態圈)
+            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 130, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 190, baseAtk: 11, baseGold: 38, baseExp: 30, color: "#dcdde1" },
+            { name: "🦇 吸血小蝙蝠", baseHp: 100, baseAtk: 6, baseGold: 16, baseExp: 14, color: "#7f8c8d" }
         ],
-        tier2: [ 
+        tier2: [ // 🚨 B11 - B30F (初階地下城生態圈)
             { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
-            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" }
+            { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" },
+            { name: "🗿 巨石守衛", baseHp: 600, baseAtk: 16, baseGold: 110, baseExp: 90, color: "#95a5a6" },
+            { name: "🕷️ 毒寡婦蜘蛛", baseHp: 380, baseAtk: 22, baseGold: 80, baseExp: 70, color: "#10ac84" }
         ],
-        abyss: [ { name: "👁️ 深淵凝視者", baseHp: 2000, baseAtk: 95, baseGold: 500, baseExp: 450, color: "#ff4757" } ]
+        tier3: [ // ⚡ B31 - B50F (中階核心深淵生態圈)
+            { name: "🦎 深淵蜥蜴人", baseHp: 950, baseAtk: 42, baseGold: 180, baseExp: 160, color: "#1dd1a1" },
+            { name: "👻 驚悚怨恨女妖", baseHp: 800, baseAtk: 48, baseGold: 210, baseExp: 190, color: "#a55eee" },
+            { name: "🧟 腐爛喪屍犬", baseHp: 1100, baseAtk: 38, baseGold: 170, baseExp: 150, color: "#ff9ff3" },
+            { name: "🦅 雙頭奇美拉", baseHp: 1400, baseAtk: 55, baseGold: 260, baseExp: 240, color: "#ff9f43" }
+        ],
+        tier4: [ // 💥 B51 - B80F (高階煉獄王國生態圈)
+            { name: "🌋 熔岩火巨魔", baseHp: 2800, baseAtk: 88, baseGold: 450, baseExp: 400, color: "#ee5253" },
+            { name: "🧞 虛空夢魘撕裂者", baseHp: 2400, baseAtk: 110, baseGold: 520, baseExp: 460, color: "#5f27cd" },
+            { name: "⚔️ 墮落帝國聖騎士", baseHp: 3500, baseAtk: 82, baseGold: 600, baseExp: 520, color: "#ffced6" },
+            { name: "🔮 混亂詛咒魔眼", baseHp: 2000, baseAtk: 125, baseGold: 480, baseExp: 430, color: "#00d2d3" }
+        ],
+        tier5: [ // ☠️ B81F+ (終焉神域太古生態圈)
+            { name: "👁️ 深淵凝視支配者", baseHp: 6500, baseAtk: 195, baseGold: 1200, baseExp: 1100, color: "#ff4757" },
+            { name: "🐉 遠古太古骨龍幼崽", baseHp: 8500, baseAtk: 170, baseGold: 1600, baseExp: 1400, color: "#ffffff" },
+            { name: "🧙 禁忌黑闇煉金術師", baseHp: 5500, baseAtk: 230, baseGold: 1450, baseExp: 1300, color: "#ff9f43" },
+            { name: "🕳️ 虛空噬魂星獸", baseHp: 11000, baseAtk: 160, baseGold: 2000, baseExp: 1800, color: "#54a0ff" }
+        ]
     };
 
     const bossMonsters = [
@@ -464,8 +515,12 @@
         let baseData;
         if (isBoss) { let bossIdx = (Math.floor(dungeonFloor / 10) - 1) % bossMonsters.length; baseData = bossMonsters[bossIdx]; } 
         else {
+            // 🔔 PART 8 核心優化：根據當前推塔層數，精密分配對應的 Tier 1 ~ Tier 5 魔物池
             let pool = monsterDatabase.tier1;
-            if (dungeonFloor > 10) pool = monsterDatabase.tier2; if (dungeonFloor > 30) pool = monsterDatabase.abyss;
+            if (dungeonFloor > 10 && dungeonFloor <= 30) pool = monsterDatabase.tier2;
+            else if (dungeonFloor > 30 && dungeonFloor <= 50) pool = monsterDatabase.tier3;
+            else if (dungeonFloor > 50 && dungeonFloor <= 80) pool = monsterDatabase.tier4;
+            else if (dungeonFloor > 80) pool = monsterDatabase.tier5;
             baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
