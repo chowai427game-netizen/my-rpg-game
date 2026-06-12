@@ -166,18 +166,18 @@
         <p style="color: #bbb; font-size: 12px; margin-bottom: 12px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版】</p>
         
         <div class="notice-container">
-            <strong style="color: #ffd700;">📢 深淵維護公告 (v2.70 介面伸縮流暢版)：</strong><br>
-            • 【📱 介面簡化】全新研發伸縮式屬性面板！常駐核心戰力，其餘數據一鍵折疊，手機端徹底消除跑版、一眼看完！<br>
-            • 【🪦 立碑防掉】全面將墓碑留言按鈕變更為安全非 submit 屬性，徹底修復手機端戰死時直接跳過留言的嚴重 Bug！<br>
-            • 【📊 實時血線】完美剔除主動技 AI 模組中的未定義筆誤，戰鬥回合最底端百分百精確顯示所有怪物剩餘 HP！<br>
-            • 【👹 領主奧義】B20F+ Boss 開局觸發無視速度先手突襲，且加載多重主動與被動複合型死鬥技能！<br>
-            • 【👥 雙怪包抄】B70F+ 機率遭遇兩隻小怪；B80F+ 百分之百必然觸發雙怪同台撕殺，極度考驗減傷吸血續航！
+            <strong style="color: #ffd700;">📢 深淵維護公告 (v2.80 數值重塑抗爆版)：</strong><br>
+            • 【🧱 魔物抗秒】50層後小怪實裝「晶體鎖血防壁」（單次最高承受35%血）與「連擊適應韌性」，防止被瞬殺！<br>
+            • 【⚖️ 數值壓制】引入中後期暴擊、連擊邊際效益遞減算式；且50層後受「深淵重力」影響，每層微幅衰減暴擊連擊！<br>
+            • 【📊 雙方日誌】日誌全面優化為高辨識度顏色（藍色勇者/紅色敵方），每回合最末端實時打出雙方血量與魔盾！<br>
+            • 【🪦 換行防跳】全新修復所有輸入框在手機端按下「換行/Enter」時導致的頁面意外刷新閃退 Bug！穩定留名！<br>
+            • 【📱 介面簡化】伸縮式屬性面板！常駐核心戰力，其餘數據一鍵折疊，手機端徹底消除跑版、一眼看完！
         </div>
 
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
         <div id="active-save-box" class="active-save-container" style="display: none;"></div>
 
-        <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()">
+        <input type="text" id="player-name-input" class="name-input" placeholder="請輸入你的勇者大名..." maxlength="12" oninput="checkCloudLegacy()" onkeydown="if(event.key === 'Enter') event.preventDefault();">
         <br>
         <button id="start-game-btn" type="button" onclick="handleStartGame()" class="btn-game btn-explore" style="width: 80%; padding: 14px; font-size: 18px; box-shadow: 0 4px 10px rgba(46,213,115,0.3);">開啟冒險之旅 🧭</button>
         
@@ -193,7 +193,7 @@
     <div class="dynamic-panel reward-style" id="gameover-box" style="display: none; border-color: #ff4757; background: linear-gradient(135deg, #2c1a1a 0%, #121212 100%); text-align: center;">
         <div class="panel-title" style="color: #ff4757; font-size: 18px;">☠️ 勇者魂歸深淵 ☠️</div>
         <p style="font-size: 12px; color: #bbb; margin-bottom: 12px;">你在第 <span id="go-floor" class="highlight">0</span> 層被魔物終結。請留低你嘅跨服臨終遺言：</p>
-        <input type="text" id="player-words-input" class="name-input" placeholder="留低遺言（例如：朋友，同我報仇..）" maxlength="35" style="width:85%; border-color:#e74c3c; margin-bottom:15px;"><br>
+        <input type="text" id="player-words-input" class="name-input" placeholder="留低遺言（例如：朋友，同我報仇..）" maxlength="35" style="width:85%; border-color:#e74c3c; margin-bottom:15px;" onkeydown="if(event.key === 'Enter') event.preventDefault();"><br>
         <button type="button" onclick="confirmDeathAndUpload()" class="btn-game btn-action" style="background-color: #e74c3c; width: 85%; padding: 14px; font-size: 15px; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">🪦 刻上遺言，全球共享傳承</button>
     </div>
 
@@ -207,7 +207,7 @@
             💰 傳奇遺產：轉生可攜帶永久神話天賦，並享有 <span style="color:#ffa500; font-weight:bold;">40% 金幣血脈轉化率</span>！
         </div>
         
-        <p style="font-size: 13px; color: #ffd700; font-weight: bold; margin-bottom: 5px;">🧬 請抉rir一項烙印在靈魂深處的【轉生神話級技能天賦】：</p>
+        <p style="font-size: 13px; color: #ffd700; font-weight: bold; margin-bottom: 5px;">🧬 請選擇一項烙印在靈魂深處的【轉生神話級技能天賦】：</p>
         <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:15px; text-align:left;">
             <label style="font-size:12px; color:#eee; background:rgba(0,0,0,0.3); padding:8px; border-radius:4px; border:1px solid #444; cursor:pointer;">
                 <input type="radio" name="reincarnation-talent" value="hp_bless" checked> <strong style="color:#2ecc71;">🧬 [轉生印記] 不滅不死血脈</strong>：新世代開局最大生命值永久額外加成 <span class="highlight">+250 點</span>。
@@ -221,7 +221,7 @@
         </div>
 
         <p style="font-size: 12px; color: #aaa;">請寫下你的【全服通關感言】，永久刻在不朽英靈殿上：</p>
-        <input type="text" id="player-clear-words-input" class="name-input" placeholder="（例如：百層深淵，終歸我手！還有誰！）" maxlength="35" style="width:85%; border-color:#ffd700; margin-bottom:15px;"><br>
+        <input type="text" id="player-clear-words-input" class="name-input" placeholder="（例如：百層深淵，終歸我手！還有誰！）" maxlength="35" style="width:85%; border-color:#ffd700; margin-bottom:15px;" onkeydown="if(event.key === 'Enter') event.preventDefault();"><br>
         <button onclick="confirmVictoryAndUpload()" type="button" class="btn-game btn-action" style="background-color: #27ae60; border:1px solid #2ecc71; width: 85%; padding: 14px; font-size: 15px; box-shadow: 0 4px 10px rgba(39,174,96,0.3);">👑 刻下碑文並發動大轉生，開啟新紀元</button>
     </div>
 
@@ -330,9 +330,9 @@
     let currentKillerName = "未知魔物"; 
     let cachedGlobalRawData = [];    
     let currentActiveTab = "tomb";   
-    let showAdvancedStats = false; // 🆕 伸縮面板控制狀態位元
+    let showAdvancedStats = false; // 伸縮面板控制狀態位元
 
-    // 📱 🆕 【伸縮控制核心函數：動態展開/折疊進階屬性塊】
+    // 📱 【伸縮控制核心函數：動態展開/折疊進階屬性區塊】
     function toggleAdvancedStats() {
         showAdvancedStats = !showAdvancedStats;
         const block = document.getElementById('advanced-stats-block');
@@ -372,6 +372,17 @@
     }
 
     function safetyCheck() {
+        // 🆕 ⚖️ 註解：中後期能力膨脹解決方案（實裝暴擊/連擊 Soft Cap 邊際效益遞減算式）
+        if (player.critChance > 50) {
+            player.critChance = 50 + Math.floor((player.critChance - 50) * 0.4); // 50%過後增幅砍 60%
+        }
+        player.critChance = Math.min(75, player.critChance); // 暴擊率最終硬上限限制為 75%
+
+        if (player.perkDoubleStrike > 40) {
+            player.perkDoubleStrike = 40 + Math.floor((player.perkDoubleStrike - 40) * 0.3); // 40%過後增幅砍 70%
+        }
+        player.perkDoubleStrike = Math.min(60, player.perkDoubleStrike); // 連擊率最終硬上限限制為 60%
+
         player.atk = Math.max(1, player.atk);
         player.maxHp = Math.max(15, player.maxHp);
         player.hp = Math.min(player.hp, player.maxHp);
@@ -382,8 +393,6 @@
         player.perkFlatBlock = Math.max(0, player.perkFlatBlock);
         player.goldBonus = Math.max(0.1, player.goldBonus);
         player.perkExpBonus = Math.max(0.1, player.perkExpBonus);
-        player.perkDoubleStrike = Math.max(0, player.perkDoubleStrike);
-        player.perkStunChance = Math.max(0, player.perkStunChance);
         player.phoenixFeather = Math.max(0, player.phoenixFeather);
     }
 
@@ -395,7 +404,7 @@
         { name: "🕸️ 蜘蛛巢穴", desc: "滿地黏性蛛網阻礙動作，怪物獲得額外 20% 閃避率補正！", color: "#4b7bec", effect: "env_dodge" },
         { name: "🛡️ 遠古巨石陣", desc: "古老護禦力場擴張，雙方開局直接武裝 120 點巨額護盾！", color: "#2c3e50", effect: "env_shield" },
         { name: "🌫️ 濃霧深邃", desc: "濃霧伸手不見五指，勇者命中大減，暴擊率被壓制 25%！", color: "#778ca3", effect: "env_blind" },
-        { name: "💘 魅惑粉霧", desc: "妖艷霧氣干擾精神，勇者大腦混亂，戰鬥中無法獲得任何怒氣！", color: "#ff75a0", effect: "env_norage" },
+        { name: "💘 魅惑粉霧", desc: "妖艷霧氣干擾精神，勇者大腦混亂，戰鬥中無法獲得 any 怒氣。", color: "#ff75a0", effect: "env_norage" },
         { name: "⚡ 雷霆密室", desc: "天雷滾滾！每隔 3 個回合隨機轟炸雙方其中一人 25 點真實傷害！", color: "#d35400", effect: "env_thunder" },
         { name: "❄️ 永凍冰原", desc: "極寒限制血液循環，全場生命再生與吸血效果完全宣告無效！", color: "#54a0ff", effect: "env_freeze" },
         { name: "🪤 尖刺陷阱房", desc: "【陷阱事件】滿地落石刺穿！踏入此層立刻強制扣除當前HP的 15%！", color: "#eb4d4b", effect: "env_trap_hp" },
@@ -498,7 +507,6 @@
             const btn1 = document.getElementById('btn-action1'); const btn2 = document.getElementById('btn-action2');
             const logBox = document.getElementById('log-box');
 
-            // 🚨 【高危環境警告脈衝】精確切換至日誌外框
             if (logBox) {
                 if (dungeonFloor > 10 && currentEnv && currentEnv.effect !== "none" && gameState !== "TITLE") {
                     logBox.style.setProperty('--env-glow', currentEnv.color);
@@ -829,7 +837,7 @@
         } else {
             let amt = getHpRewardValue();
             player.maxHp += amt; player.hp += amt; player.hpUpgrades++; 
-            addLog(`🧪【訓練】體質超頻！最大生命值 +${amt}`); 
+            addLog(`🧪【訓練}】體質超頻！最大生命值 +${amt}`); 
         }
         updateUI();
     }
@@ -845,12 +853,12 @@
                 player.gold += goldReward; addLog(`💰【寶箱】拾獲金幣 <span class='gold'>${goldReward}</span> G。`); advanceFloor();
             } else if (roll < 0.34) {
                 player.hp = Math.min(player.maxHp, player.hp + Math.floor(player.maxHp * 0.25));
-                addLog(`🍀【聖泉】修復了 25% 生命值。`); advanceFloor();
+                addLog("🍀【聖泉】修復了 25% 生命值。"); advanceFloor();
             } else { await triggerBattle(false); }
         }
     }
 
-    // ⚔️ 👥 👹 【完全重構：全自動高階戰鬥核心引擎】
+    // ⚔️ 👥 👹 【全自動高階戰鬥核心引擎】
     async function triggerBattle(isBoss) {
         let activeMonsters = [];
         let monsterCount = 1;
@@ -931,7 +939,7 @@
                 player.perkFlatBlock = 0; player.critChance = Math.max(0, player.critChance - 100);
                 addLog(`⚔️ 領主施放「戰意威壓」！不敗殺氣擴張，勇者固定減傷甲當場碎裂歸零，且暴擊率遭壓制 -100%！`);
             } else if (dungeonFloor === 100) {
-                let cut = Math.floor(player.hp * 0.20); player.hp = Math.max(1, player.hp - cut);
+                let cut = Math.floor(player.hp * 0.80); player.hp = Math.max(1, player.hp - cut);
                 player.permanentBurn = true; player.permanentPoison = true;
                 player.goldBonus = 0.1; player.perkExpBonus = 0.1; player.perkDoubleStrike = 0;
                 addLog(`🌌 領主施放「終焉輪迴」！混沌初開，勇者痛失 80% 核心生命，陷入永久毒火自燃，且所有戰鬥增幅全數被剝奪！`);
@@ -941,62 +949,63 @@
 
         let round = 1; 
         while (player.hp > 0 && activeMonsters.some(m => m.hp > 0)) {
+            // 🆕 📊 註解：全新高對比簡化配色日誌（藍色勇者/紅色敵軍/綠橙狀態）
             let roundLog = `<span style='color: #888;'>[第 ${round} 回合]</span> `;
 
             // 環境/天氣傷害結算
             if (currentEnv.effect === "env_thunder" && round % 3 === 0) {
-                if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡【雷霆】天雷轟擊勇者失去 25 點 HP！</span> | `; }
+                if (Math.random() < 0.5) { player.hp = Math.max(1, player.hp - 25); roundLog += `<span style='color:#e67e22;'>🟢【天雷】天雷轟炸勇者 -25 HP！</span><br> `; }
                 else { 
                     let liveM = activeMonsters.find(m => m.hp > 0);
-                    if (liveM) { liveM.hp = Math.max(1, liveM.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡【雷霆】天雷劈中 [${liveM.name}] 失去 25 點 HP！</span> | `; }
+                    if (liveM) { liveM.hp = Math.max(1, liveM.hp - 25); roundLog += `<span style='color:#e67e22;'>🟢【天雷】雷擊劈中 [${liveM.name}] -25 HP！</span><br> `; }
                 }
             }
-            if (currentEnv.effect === "env_blades") { player.hp -= 8; roundLog += `<span style='color:#eb4d4b;'>機關流彈割傷勇者承受 8 點外傷！</span> | `; }
+            if (currentEnv.effect === "env_blades") { player.hp -= 8; roundLog += `<span style='color:#eb4d4b;'>🟢【機關】飛刀暗箭割傷勇者 -8 HP！</span><br> `; }
             
             // 個位數百分比火傷毒傷精密發作 
             if (pStatus.burnStacks > 0 || player.permanentBurn) { 
                 let bK = pStatus.burnStacks > 0 ? pStatus.burnStacks : 1;
                 let bDmg = Math.floor(4 * (1 + bK * 0.30)); player.hp -= bDmg;
-                roundLog += `<span style='color:#ff6b6b;'>🔥【火傷發作】勇者焚體(${Math.round(bK*30)}%)，承受 -${bDmg} HP！</span> | `; 
+                roundLog += `<span style='color:#ffaa44;'>🟢【灼燒】火焰噬體發作，勇者扣除 -${bDmg} HP！</span><br> `; 
                 if(pStatus.burnStacks > 0) pStatus.burnStacks--; 
             }
             if (pStatus.poisonStacks > 0 || player.permanentPoison) { 
                 let pK = pStatus.poisonStacks > 0 ? pStatus.poisonStacks : 1;
                 let pDmg = Math.floor(5 * (1 + pK * 0.25)); player.hp -= pDmg;
-                roundLog += `<span style='color:#2ecc71;'>🧪【毒傷發作】劇毒入骨(${Math.round(pK*25)}%)，承受 -${pDmg} HP！</span> | `; 
+                roundLog += `<span style='color:#2ecc71;'>🟢 =【劇毒】毒素蝕骨發作，勇者扣除 -${pDmg} HP！</span><br> `; 
                 if(pStatus.poisonStacks > 0) pStatus.poisonStacks--; 
             }
             if (player.perkImmolate > 0) { 
                 activeMonsters.forEach(m => { if(m.hp > 0) m.hp -= player.perkImmolate; });
-                roundLog += `<span style='color:#ff6b6b;'>🔥【獻祭光環】熱能外溢灼燒敵軍 -${player.perkImmolate} HP！</span> | `; 
+                roundLog += `<span style='color:#ffaa44;'>🟢【光環】勇者獻祭熱能灼燒全體敵軍 -${player.perkImmolate} HP！</span><br> `; 
             }
 
             activeMonsters.forEach(m => {
                 if (m.hp <= 0) return;
                 if (m.burnStacks > 0) {
                     let bDmg = Math.floor(4 * (1 + m.burnStacks * 0.30)); m.hp -= bDmg;
-                    roundLog += `<span style='color:#ff6b6b;'>🔥[${m.name}] 燒傷發作承受 ${bDmg} 傷！</span> | `; m.burnStacks--;
+                    roundLog += `<span style='color:#ffaa44;'>🟢【燃燒】[${m.name}] 火傷發作扣除 ${bDmg} HP。</span><br> `; m.burnStacks--;
                 }
                 if (m.poisonStacks > 0) {
                     let pDmg = Math.floor(5 * (1 + m.poisonStacks * 0.25)); m.hp -= pDmg;
-                    roundLog += `<span style='color:#2ecc71;'>🧪[${m.name}] 劇毒發作承受 ${pDmg} 傷！</span> | `; m.poisonStacks--;
+                    roundLog += `<span style='color:#2ecc71;'>🟢【劇毒】[${m.name}] 毒發攻心扣除 ${pDmg} HP。</span><br> `; m.poisonStacks--;
                 }
             });
 
             if (player.hp <= 0) {
                 if (player.phoenixFeather > 0) {
                     player.phoenixFeather--; player.hp = Math.floor(player.maxHp * 0.35);
-                    roundLog += `<span style='color:#ffd700; font-weight:bold;'>✨【🪶 鳳凰羽毛】原地涅槃復活回復 35%！</span> | `;
+                    roundLog += `<span style='color:#ffd700; font-weight:bold;'>✨【復活】鳳凰羽毛觸發！勇者原地涅槃復活 +35% 血量！</span><br> `;
                 } else { if (roundLog.trim() !== "") addLog(roundLog); break; }
             }
 
             if (player.regenPower > 0 && currentEnv.effect !== "env_freeze") {
                 let actualRegen = (currentEnv.effect === "poison") ? Math.floor(player.regenPower * 0.5) : player.regenPower;
                 if (dungeonFloor === 70) actualRegen = Math.floor(actualRegen * 0.5); 
-                player.hp = Math.min(player.maxHp, player.hp + actualRegen); roundLog += `<span style='color:#9b59b6;'>✨天賦再生 +${actualRegen} HP</span> | `;
+                player.hp = Math.min(player.maxHp, player.hp + actualRegen); roundLog += `<span style='color:#2ecc71;'>🟢【再生】天賦復甦湧動，勇者回復 +${actualRegen} HP。</span><br> `;
             }
 
-            // ⚔| 【勇者進攻段落：鎖定首個存活目標】
+            // ⚔️ 【勇者進攻段落：鎖定首個存活目標】
             let targetMonster = activeMonsters.find(m => m.hp > 0);
             if (targetMonster && pStatus.stunned <= 0) {
                 currentKillerName = targetMonster.name;
@@ -1004,38 +1013,66 @@
                 let pActualAtk = player.atk;
                 if (pStatus.weaken > 0) pActualAtk = Math.floor(pActualAtk * 0.65);
 
-                let strikeCount = (player.perkDoubleStrike > 0 && Math.random() * 100 < player.perkDoubleStrike) ? 2 : 1;
+                // 🆕 ⚖️ 註解：中後期數值膨脹解決方案（50層後受「深淵重力」影響，每層額外微幅衰減勇者 0.6% 暴擊與連擊概率）
+                let abyssScale = (dungeonFloor > 50) ? Math.floor((dungeonFloor - 50) * 0.6) : 0;
+                let activeCritChance = Math.max(0, player.critChance - abyssScale);
+                let activeDoubleChance = Math.max(0, player.perkDoubleStrike - abyssScale);
+
+                let strikeCount = (activeDoubleChance > 0 && Math.random() * 100 < activeDoubleChance) ? 2 : 1;
                 for (let i = 0; i < strikeCount; i++) {
                     if (targetMonster.hp <= 0) break;
                     let pDmgOut = pActualAtk;
+                    let isCrit = false;
+                    let isRageSkill = false;
                     
                     if (player.rage >= 100) { 
-                        pDmgOut = Math.floor(pActualAtk * 3.5); player.rage = 0; 
-                        roundLog += `<span style='color:#ffa500; font-weight:bold;'>⚡【奧義•龍破斬】破壞力爆發砸出 ${pDmgOut} 傷！</span>`; 
+                        pDmgOut = Math.floor(pActualAtk * 3.5); player.rage = 0; isRageSkill = true;
                     } else {
-                        let finalCritChance = (player.perkFirstStrike && round === 1) ? 100 : player.critChance;
+                        let finalCritChance = (player.perkFirstStrike && round === 1) ? 100 : activeCritChance;
                         if (currentEnv.effect === "env_blind") finalCritChance -= 25; 
                         if (Math.random() * 100 < finalCritChance) { 
-                            pDmgOut *= (player.perkCritMult3 ? 3 : 2); 
-                            roundLog += `<span style='color:#e74c3c; font-weight:bold;'>💥致命暴擊！粉碎震擊 ${pDmgOut} 點傷害！</span>`; 
-                        } else { roundLog += `⚔️斬擊 [${targetMonster.name}] 造成 ${pDmgOut} 點基礎傷害`; }
+                            pDmgOut *= (player.perkCritMult3 ? 3 : 2); isCrit = true;
+                        }
                         if (currentEnv.effect !== "env_norage") player.rage = Math.min(100, player.rage + 20);
                     }
 
+                    // 🆕 🛡️ 註解：50F 後小怪解鎖抗衡技能（【晶體鎖血防壁】與【連擊適應韌性】），防止暴力秒殺
+                    if (dungeonFloor > 50 && !isBoss) {
+                        let maxDamageCap = Math.floor(targetMonster.maxHp * 0.35); // 晶體鎖血：單次承受上限為最大HP的35%
+                        if (pDmgOut > maxDamageCap) {
+                            pDmgOut = maxDamageCap;
+                            roundLog += `<span style="color:#f1c40f;">[晶體鎖血壁障吸納超額傷害] </span>`;
+                        }
+                        if (i > 0) { // 連擊韌性：第二下連擊觸發硬化皮甲，傷害強制折半
+                            pDmgOut = Math.floor(pDmgOut * 0.5);
+                            roundLog += `<span style="color:#7f8c8d;">[連擊適應防禦抗性-50%] </span>`;
+                        }
+                    }
+
                     if (isBoss) {
-                        if (dungeonFloor === 30) { pDmgOut = Math.max(1, pDmgOut - 30); roundLog += `（🐉巨龍鱗甲抵消30）`; }
-                        else if (dungeonFloor === 80) { pDmgOut = Math.max(1, pDmgOut - 80); roundLog += `（🔱海神外殼抵消80）`; }
+                        if (dungeonFloor === 30) { pDmgOut = Math.max(1, pDmgOut - 30); roundLog += `（巨龍鱗甲抵消30）`; }
+                        else if (dungeonFloor === 80) { pDmgOut = Math.max(1, pDmgOut - 80); roundLog += `（海神外殼抵消80）`; }
+                    }
+
+                    // 實時打印勇者傷害（藍色流）
+                    if (isRageSkill) {
+                        roundLog += `<span style='color:#54a0ff; font-weight:bold;'>🔵【勇者•奧義】施放「龍破斬」轟擊 [${targetMonster.name}] 造成 ${pDmgOut} 點極限巨傷！</span>`;
+                    } else if (isCrit) {
+                        roundLog += `<span style='color:#54a0ff; font-weight:bold;'>🔵【勇者•暴擊】揮劍粉碎一擊，重創 [${targetMonster.name}] 造成 ${pDmgOut} 點傷害！</span>`;
+                    } else {
+                        roundLog += `<span style='color:#54a0ff;'>🔵【勇者•攻擊】橫斬劈向 [${targetMonster.name}] 造成 ${pDmgOut} 點基礎傷害。</span>`;
                     }
 
                     if (player.vampRate > 0 && currentEnv.effect !== "env_freeze") {
                         let rate = (dungeonFloor === 70) ? (player.vampRate * 0.5) : player.vampRate;
                         let vampHeal = Math.floor(pDmgOut * (rate / 100));
-                        if (vampHeal > 0) { player.hp = Math.min(player.maxHp, player.hp + vampHeal); roundLog += `<span style='color:#63c2de;'>[🩸吸血+${vampHeal}]</span>`; }
+                        if (vampHeal > 0) { player.hp = Math.min(player.maxHp, player.hp + vampHeal); roundLog += `<span style='color:#54a0ff;'>[🩸吸血+${vampHeal}]</span>`; }
                     }
+                    roundLog += `<br>`;
 
                     if (targetMonster.shield > 0) {
-                        if (pDmgOut <= targetMonster.shield) { targetMonster.shield -= pDmgOut; roundLog += `（敵盾抵消）`; }
-                        else { let over = pDmgOut - targetMonster.shield; roundLog += `（擊穿魔盾扣除本體 -${over}）`; targetMonster.shield = 0; targetMonster.hp -= over; }
+                        if (pDmgOut <= targetMonster.shield) { targetMonster.shield -= pDmgOut; }
+                        else { let over = pDmgOut - targetMonster.shield; targetMonster.shield = 0; targetMonster.hp -= over; }
                     } else { targetMonster.hp -= pDmgOut; }
 
                     let isImmuneBoss = (isBoss && dungeonFloor === 100);
@@ -1050,7 +1087,7 @@
                 }
             } else if (pStatus.stunned > 0) {
                 pStatus.stunned--; pStatus.stunImmune = true;
-                roundLog += `<span style='color:#3498db;'>🌀 勇者身中巨浪眩暈，跳過本回合進攻！(已武裝眩暈免疫盾)</span>`;
+                roundLog += `<span style='color:#3498db;'>🔵【勇者】身中巨浪衝擊陷入眩暈，跳過本回合進攻！</span><br>`;
             }
             if(pStatus.stunned <= 0) pStatus.stunImmune = false;
 
@@ -1062,30 +1099,30 @@
                     monster.hasTriggeredPassive = true;
                     if (dungeonFloor === 40) {
                         monster.shield += 2500;
-                        roundLog += ` | <span style='color:#9b59b6; font-weight:bold;'>💀【巫妖被動：亡靈復甦】血線垂危！巫妖王強行抽取冥界幽魂武裝 +2500 點不朽盾！</span>`;
+                        roundLog += `<span style='color:#ff4757; font-weight:bold;'>🔴【領主被動】巫妖王血線垂危，強行抽取冥界幽魂武裝 +2500 點不朽盾！</span><br>`;
                     }
                 }
 
                 if (isBoss && dungeonFloor === 90 && round % 4 === 0) {
                     monster.atk = Math.floor(monster.atk * 1.20);
-                    roundLog += ` | <span style='color:#ff4757;'>⚔️【戰神被動：狂暴戰魂】戰場狂熱！阿瑞斯攻擊力永久爆增 +20%！</span>`;
+                    roundLog += `<span style='color:#ff4757; font-weight:bold;'>🔴【領主被動】狂熱戰魂！阿瑞斯殺意爆發，基礎攻擊力永久 +20%！</span><br>`;
                 }
 
                 if (isBoss && dungeonFloor === 20 && round % 4 === 0) {
                     player.rage = Math.max(0, player.rage - 20);
-                    roundLog += ` | <span style='color:#9b59b6;'>🔮【巫師被動：魔力反噬】虛空引導！勇者硬生生被吸乾倒扣 20 點戰鬥怒氣！</span>`;
+                    roundLog += `<span style='color:#ff4757;'>🔴【領主被動】魔力反噬！大巫師引導虛空，勇者硬生生被吸乾 20 點怒氣！</span><br>`;
                 }
 
                 if (monster.stunned > 0) {
                     monster.stunned--; monster.stunImmune = true;
-                    roundLog += ` | <span style='color:#3498db;'>[${monster.name}] 正在暈眩迷失，跳過反擊！</span>`;
+                    roundLog += `<span style='color:#3498db;'>🔴【魔物】[${monster.name}] 正在眩暈迷失中，無法反擊！</span><br>`;
                     return;
                 }
                 monster.stunImmune = false;
 
                 let isDodge = (Math.random() * 100 < Math.max(0, player.dodgeChance - monster.acc));
                 if (isDodge) { 
-                    roundLog += ` | <span style='color:#3498db;'>🏃 完美閃避了 [${monster.name}] 的夾擊！</span>`; 
+                    roundLog += `<span style='color:#3498db;'>🏃 勇者憑藉身法，完美閃避了 [${monster.name}] 的進攻！</span><br>`; 
                     return;
                 }
 
@@ -1093,52 +1130,51 @@
                 let isPiercing = false;
                 let isStunningStrike = false;
                 let loopStrikeCount = 1;
+                let isSkillUsed = false;
+                let skillName = "";
 
-                // 🛠️ 🆕 【完美剔除未定義筆誤，重構各層領主複合主動技技能算式】
                 if (isBoss && dungeonFloor >= 20) {
                     let skillRoll = Math.random();
                     if (dungeonFloor === 20 && skillRoll < 0.45) {
-                        finalTaken = Math.floor(monster.atk * 1.3);
-                        pStatus.burnStacks = Math.min(6, pStatus.burnStacks + 1);
-                        roundLog += ` | <span style='color:#9b59b6;'>🧙 領主施放「元素射線」！1.3倍狙擊且附加 1 層自燃！</span>`;
+                        finalTaken = Math.floor(monster.atk * 1.3); pStatus.burnStacks = Math.min(6, pStatus.burnStacks + 1);
+                        isSkillUsed = true; skillName = "元素射線";
                     } else if (dungeonFloor === 30 && skillRoll < 0.50) {
                         isPiercing = true; finalTaken = Math.floor(monster.atk * 1.5);
-                        roundLog += ` | <span style='color:#ee5253; font-weight:bold;'>🐉 領主施放「滅世龍息」！1.5倍巨創【完全直接貫穿護盾】！</span>`;
+                        isSkillUsed = true; skillName = "滅世龍息 (貫穿護盾)";
                     } else if (dungeonFloor === 40 && skillRoll < 0.45) {
                         let healAmt = Math.floor(monster.atk * 0.35); monster.hp = Math.min(monster.maxHp, monster.hp + healAmt);
-                        roundLog += ` | <span style='color:#74b9ff;'>💀 領主施放「吸魂邪術」！痛擊勇者並自我實時回血 +${healAmt} HP！</span>`;
+                        isSkillUsed = true; skillName = `吸魂邪術 (主體回血 +${healAmt})`;
                     } else if (dungeonFloor === 50 && skillRoll < 0.50) {
                         pStatus.burnStacks = Math.min(6, pStatus.burnStacks + 1); pStatus.poisonStacks = Math.min(6, pStatus.poisonStacks + 1);
-                        roundLog += ` | <span style='color:#a55eee;'>👁️ 領主施放「瘋狂低語」！精神污染，使勇者火傷毒傷同時各加深 1 階！</span>`;
+                        isSkillUsed = true; skillName = "瘋狂低語 (附加毒火)";
                     } else if (dungeonFloor === 60 && skillRoll < 0.45) {
                         isPiercing = true; finalTaken = 250; 
-                        roundLog += ` | <span style='color:#f1c40f; font-weight:bold;'>👼 領主施放「審判之劍」！降下 250 點絕對真傷，砸碎任何甲防！</span>`;
+                        isSkillUsed = true; skillName = "審判之劍 (無視防禦真傷)";
                     } else if (dungeonFloor === 70 && skillRoll < 0.50) {
                         loopStrikeCount = 2;
-                        roundLog += ` | <span style='color:#e67e22; font-weight:bold;'>🐺 領主施放「噬神雙咬」！狼牙雙碎，在同一回合內連續出擊兩次！</span>`;
+                        isSkillUsed = true; skillName = "噬神雙咬 (連擊發動)";
                     } else if (dungeonFloor === 80 && skillRoll < 0.45) {
                         isPiercing = true; isStunningStrike = true; finalTaken = Math.floor(monster.atk * 1.6);
-                        roundLog += ` | <span style='color:#2980b9; font-weight:bold;'>🔱 領主施放「海皇三叉戟」！1.6倍盾穿裂解兼強制陷入 1 回合暈眩！</span>`;
+                        isSkillUsed = true; skillName = "海皇三叉戟 (盾穿兼擊暈)";
                     } else if (dungeonFloor === 90 && skillRoll < 0.50) {
                         loopStrikeCount = 3; finalTaken = Math.floor(monster.atk * 0.6);
-                        roundLog += ` | <span style='color:#c0392b;'>⚔️ 領主施放「無雙亂舞」！戰神殘影連續發動 3 段亂砍！</span>`;
+                        isSkillUsed = true; skillName = "無雙亂舞 (3段瘋狂快斬)";
                     } else if (dungeonFloor === 100 && skillRoll < 0.60) {
                         isPiercing = true; finalTaken = Math.floor(player.maxHp * 0.25);
-                        roundLog += ` | <span style='color:#10ac84; font-weight:bold;'>🌌 領主施放「宇宙大爆炸」！引爆星辰，強制降下勇者血上限 25% 的崩壞真傷 (-${finalTaken} HP)！</span>`;
+                        isSkillUsed = true; skillName = "宇宙大爆炸 (扣除總生命25%毀滅打擊)";
                     } else {
                         monster.shield += Math.floor(monster.maxHp * 0.05);
-                        roundLog += ` | <span style='color:#2980b9;'>🛡️ 領主施放「防禦武裝」！為自身套上最大血量 5% 的備用防禦護盾！</span>`;
+                        isSkillUsed = true; skillName = "防禦武裝 (構築備用盾)";
                     }
                 } else if (!isBoss && dungeonFloor >= 40 && Math.random() < 0.30) {
                     if (Math.random() < 0.5) {
-                        finalTaken = Math.floor(monster.atk * 1.4);
-                        roundLog += ` | <span style='color:#ff7675;'>💥 [${monster.name}] 施放技能「蓄力猛擊」！傷害振幅 1.4 倍！</span>`;
+                        finalTaken = Math.floor(monster.atk * 1.4); isSkillUsed = true; skillName = "蓄力猛擊";
                     } else {
-                        pStatus.poisonStacks = Math.min(6, pStatus.poisonStacks + 2);
-                        roundLog += ` | <span style='color:#2ecc71;'>🧪 [${monster.name}] 施放技能「毒素注入」！勇者劇毒指數堆疊 2 階！</span>`;
+                        pStatus.poisonStacks = Math.min(6, pStatus.poisonStacks + 2); isSkillUsed = true; skillName = "毒素注入";
                     }
                 }
 
+                // 實時打印敵方進攻（紅色流）
                 for(let k=0; k<loopStrikeCount; k++) {
                     if (player.hp <= 0) break;
                     let blockLog = ""; 
@@ -1151,17 +1187,23 @@
                     if (player.perkFlatBlock > 0 && !isPiercing) {
                         let actualBlockedValue = Math.min(currentTaken, player.perkFlatBlock);
                         if (currentTaken - player.perkFlatBlock < 1) actualBlockedValue = currentTaken - 1;
-                        if (actualBlockedValue > 0) blockLog = ` <span style="color:#7f8c8d; font-weight:bold;">[🧱減傷 -${actualBlockedValue}]</span>`;
+                        if (actualBlockedValue > 0) blockLog = ` [🧱減傷-${actualBlockedValue}]`;
                         currentTaken = Math.max(1, currentTaken - player.perkFlatBlock);
                     }
                     
+                    if (isSkillUsed) {
+                        roundLog += `<span style='color:#ff4757; font-weight:bold;'>🔴【魔物•技能】[${monster.name}] 施放「${skillName}」突襲勇者`;
+                    } else {
+                        roundLog += `<span style='color:#ff4757;'>🔴【魔物•反擊】[${monster.name}] 發動兇猛拍擊`;
+                    }
+
                     if (pStatus.shield > 0 && !isPiercing) {
-                        if (currentTaken <= pStatus.shield) { pStatus.shield -= currentTaken; roundLog += `（護盾吸收敵招）`; }
-                        else { let over = currentTaken - pStatus.shield; roundLog += `（盾碎割裂肉身 -${over} HP！）`; pStatus.shield = 0; player.hp -= over; }
+                        if (currentTaken <= pStatus.shield) { pStatus.shield -= currentTaken; roundLog += `，被勇者護盾全數抵消。</span>${blockLog}<br>`; }
+                        else { let over = currentTaken - pStatus.shield; pStatus.shield = 0; player.hp -= over; roundLog += `，震碎護盾並割裂肉身造成 ${over} 點外傷！</span>${blockLog}<br>`; }
                     } else { 
                         player.hp -= currentTaken; 
-                        let pTag = isPiercing ? "【盾牌貫穿】" : "";
-                        roundLog += ` [${monster.name}打擊：${pTag}-${currentTaken} HP]${blockLog}`; 
+                        let pTag = isPiercing ? " [貫穿防線] " : " ";
+                        roundLog += `，造成${pTag}${currentTaken} 點實質外傷！</span>${blockLog}<br>`; 
                     }
                     if(isStunningStrike && !pStatus.stunImmune) pStatus.stunned = 1;
                 }
@@ -1169,17 +1211,21 @@
 
             if (player.hp <= 0 && player.phoenixFeather > 0) {
                 player.phoenixFeather--; player.hp = Math.floor(player.maxHp * 0.35);
-                roundLog += `<br><span style='color:#ffd700; font-weight:bold;'>✨【🪶 鳳凰羽毛】涅槃之火重燃！自動消耗羽毛原地復活回復 35% (${player.hp} HP)！</span>`;
+                roundLog += `<span style='color:#ffd700; font-weight:bold;'>✨【復活】羽毛燃燒！勇者當場滿血涅槃重組，回復至 35% 生命！</span><br>`;
             }
 
-            // 📊 🆕 【精確顯示即時敵人血量：於日誌區徹底實時渲染，雙怪同台一目了然】
+            // 🆕 📊 註解：簡化版即時雙方血線匯總，一目了然
             let enemyDetailsLog = activeMonsters.map(m => {
                 let mLife = Math.max(0, m.hp);
-                let shieldTxt = m.shield > 0 ? ` (🛡️盾:${m.shield})` : "";
+                let shieldTxt = m.shield > 0 ? `(🛡️${m.shield})` : "";
                 return `<span style='color:${m.color}; font-weight:bold;'>${m.name}</span>: HP ${mLife}/${m.maxHp}${shieldTxt}`;
             }).join(" | ");
 
-            roundLog += `<br>➔ 📊 勇者肉身: <span style='color:#ff4757;font-weight:bold;'>${Math.max(0, player.hp)}</span> (🛡️護盾: ${pStatus.shield})<br>➔ 👾 敵軍實時血線: ${enemyDetailsLog}`;
+            roundLog += `<div style='margin-top:5px; font-weight:bold; background:rgba(255,255,255,0.03); padding:4px; border-radius:4px;'>
+                🟢 勇者血線: <span style='color:#54a0ff;'>${Math.max(0, player.hp)}</span> / ${player.maxHp} (🛡️護盾: ${pStatus.shield}) (🔥怒氣: ${player.rage})<br>
+                🔴 敵軍血線: ${enemyDetailsLog}
+            </div>`;
+
             addLog(`<div style="border-bottom: 1px solid #2d2d2d; padding-bottom:6px; margin-top:4px;">${roundLog}</div>`);
 
             await sleep(1000); 
@@ -1195,14 +1241,11 @@
             checkLevelUp();
             
             if (isBoss) {
-                if (dungeonFloor === 100) {
-                    gameState = "GAMECLEAR"; updateUI();
-                } else {
-                    gameState = "REWARD"; startRewardPhase();
-                }
+                if (dungeonFloor === 100) { gameState = "GAMECLEAR"; updateUI(); } 
+                else { gameState = "REWARD"; startRewardPhase(); }
             } else { advanceFloor(); }
         } else {
-            // 💀 🆕 保證鎖死在死亡立碑面板，杜絕未經刻字就重置閃退的邏輯 Bug
+            // 🆕 🪦 註解：此處鎖死 GAMEOVER 狀態，拒絕未留言直接刷回標題的 Bug
             gameState = "GAMEOVER"; 
             updateUI();
         }
