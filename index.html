@@ -13,41 +13,41 @@
             color: #e0e0e0;           /* 文字顏色：淺灰色 */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* 📱 手機端防卡死核心：置頂對齊，允許網頁順暢向下滾動 */
+            align-items: flex-start; /* 📱 手機端防卡死核心 */
             min-height: 100vh;
             margin: 0;
             padding: 10px;
             box-sizing: border-box;
         }
         
-        /* 💻 當偵測到螢幕寬度大於 900px (電腦大螢幕) 時自動啟動此樣式 */
+        /* 💻 當偵測到電腦大螢幕時自動啟動此通道排版 */
         @media (min-width: 900px) {
             body {
-                align-items: center; /* 電腦版改為垂直完美置中 */
+                align-items: center; 
                 padding: 20px 10px;
             }
             .game-container {
-                max-width: 1000px !important; /* 電腦版加寬整體視野 */
+                max-width: 1000px !important; 
             }
             .main-layout-container {
                 display: grid !important;
-                grid-template-columns: 1fr 1.2fr; /* 左右 45% : 55% 黃金比例雙分欄 */
+                grid-template-columns: 1fr 1.2fr; 
                 gap: 20px;
-                align-items: start; /* 頂部對齊，消除斷層 */
+                align-items: start; 
             }
             .log-panel {
-                height: 380px !important; /* 令右側戰報日誌與左側特訓所高度對齊 */
+                height: 480px !important; /* 加高日誌以完美對齊左側所有組件 */
             }
         }
         
-        /* 遊戲主外殼容器（預設為手機直向窄版佈局） */
+        /* 遊戲主外殼容器 */
         .game-container {
             width: 100%;
             max-width: 540px;
-            background: #222; /* 卡片背景：深灰色 */
+            background: #222; 
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7); /* 四周陰影 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
             border: 2px solid #333;
             box-sizing: border-box;
         }
@@ -55,33 +55,28 @@
         /* 雙通道排版包裹盒子 */
         .main-layout-container {
             display: flex;
-            flex-direction: column; /* 手機版預設：一條直線排下來 */
+            flex-direction: column; 
             gap: 15px;
             width: 100%;
         }
 
-        /* 遊戲大標題 */
         h2 { text-align: center; color: #ffd700; margin-top: 0; letter-spacing: 2px; }
         
-        /* 頂部位置欄與當前環境狀態欄 */
         .location-bar { text-align: center; background: #151515; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-weight: bold; border: 1px solid #333; width: 100%; box-sizing: border-box; }
         .env-bar { text-align: center; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2); line-height: 1.4; color:#fff; width: 100%; box-sizing: border-box; }
 
-        /* 勇者個人數據網格 (2欄佈局) */
+        /* 勇者個人數據網格 */
         .status-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #0f0f0f; padding: 12px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #222; }
         .status-item { font-size: 13px; }
         .full-row { grid-column: span 2; border-top: 1px solid #1c1c1c; padding-top: 4px; margin-top: 2px; }
         
-        /* 數據高亮顏色標籤 */
-        .highlight { color: #ff4757; font-weight: bold; } /* 🩸 生命值/傷害：紅色 */
-        .gold { color: #ffa500; font-weight: bold; }      /* 💰 金幣：橘黃色 */
-        .exp { color: #2ed573; font-weight: bold; }       /* 🟩 經驗值：綠色 */
-        .rage { color: #e67e22; font-weight: bold; }      /* 🔥 怒氣值：深橘色 */
+        .highlight { color: #ff4757; font-weight: bold; } 
+        .gold { color: #ffa500; font-weight: bold; }      
+        .exp { color: #2ed573; font-weight: bold; }       
+        .rage { color: #e67e22; font-weight: bold; }      
 
-        /* 通用區塊外框 */
         .dynamic-panel { padding: 15px; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; width: 100%; }
         
-        /* 遊戲登入大封面樣式 */
         .title-panel-style {
             background: linear-gradient(135deg, #1e1e1e 0%, #2c3e50 100%);
             border: 2px solid #ffd700;
@@ -92,35 +87,29 @@
             box-sizing: border-box;
         }
         
-        /* 公告公告欄 */
         .notice-container {
             background: rgba(0, 0, 0, 0.4); border: 1px solid #444; border-radius: 6px;
             padding: 10px; margin-bottom: 15px; font-size: 11px; text-align: left; color: #ccc;
             max-height: 90px; overflow-y: auto; line-height: 1.5;
         }
 
-        /* 名字輸入框 */
         .name-input {
             width: 75%; padding: 12px; font-size: 15px; background: #111; color: #fff;
             border: 1px solid #444; border-radius: 6px; text-align: center; margin-bottom: 15px; outline: none;
         }
-        .name-input:focus { border: 1px solid #ffd700; } /* 點選時發出金光 */
+        .name-input:focus { border: 1px solid #ffd700; }
 
-        /* 儲存點與血脈容器樣式 */
         .legacy-container { background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71; border-radius: 6px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: #2ecc71; text-align: left; line-height: 1.5; }
         .active-save-container { background: rgba(52, 152, 219, 0.15); border: 1px solid #3498db; border-radius: 6px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: #54a0ff; text-align: left; line-height: 1.5; }
         .savepoint-style { background: #1a252f; border: 1px dashed #f1c40f; text-align: center; padding: 12px; margin-bottom: 15px; }
 
-        /* 🏆 排行榜與英靈殿共用容器外殼 */
         .tombstone-container { background: rgba(20, 20, 20, 0.9); border: 1px dashed #e74c3c; border-radius: 6px; padding: 12px; margin-top: 15px; text-align: left; }
-        .tomb-scroll-box { max-height: 180px; overflow-y: auto; } /* 限制高度，超出時可滾動 */
+        .tomb-scroll-box { max-height: 180px; overflow-y: auto; } 
 
-        /* 🏆 排行榜專用微型 Tab 切換按鈕樣式 */
         .tab-header { display: flex; gap: 5px; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 5px; }
         .tab-btn { flex: 1; background: #333; color: #aaa; border: none; padding: 6px; font-size: 11px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        .tab-btn.active { background: #e74c3c; color: #fff; } /* 當前選中的分頁變成紅色 */
+        .tab-btn.active { background: #e74c3c; color: #fff; } 
 
-        /* 特訓所、領主寶箱、黑市色系定義 */
         .shop-style { background: #1e1e1e; border: 1px solid #5758bb; }
         .reward-style { background: #2c3e50; border: 2px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
         .merchant-style { background: #2d3436; border: 2px solid #00cea6; box-shadow: 0 0 15px rgba(0, 206, 166, 0.3); }
@@ -129,21 +118,18 @@
         .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .flex-layout { display: flex; flex-direction: column; gap: 8px; }
 
-        /* 動作按鈕通用樣式 */
         .btn-game { color: white; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.2s; border: none; touch-action: manipulation; }
-        .btn-game:disabled { background-color: #555 !important; color: #aaa !important; cursor: not-allowed; } /* 灰色禁用狀態 */
+        .btn-game:disabled { background-color: #555 !important; color: #aaa !important; cursor: not-allowed; } 
         .btn-shop { background: #34495e; font-size: 12px; padding: 10px; border: 1px solid #465d75; }
         .btn-shop:hover { background: #415b76; }
         .btn-reward { background: #27ae60; font-size: 13px; padding: 12px; border: 1px solid #2ecc71; text-align: left; line-height: 1.4; }
         .btn-reward:hover { background: #2ecc71; }
-        .btn-merchant { background: #d35400; font-size: 13px; padding: 12px; border: 1px solid #e67e22; }
+        .btn-merchant { background: #d35400; font-size: 12px; padding: 10px; border: 1px solid #e67e22; text-align: left; line-height: 1.4; }
         .btn-merchant:hover { background: #e67e22; }
 
-        /* 即時冒險日誌面板 */
         .log-panel { height: 260px; overflow-y: auto; background: #0a0a0a; padding: 10px; border-radius: 6px; border: 1px solid #222; margin-bottom: 15px; font-size: 12px; line-height: 1.6; box-sizing: border-box; width: 100%; }
         .log-panel p { margin: 4px 0; }
         
-        /* 底部操作雙核心按鈕欄 */
         .action-panel { display: flex; gap: 10px; width: 100%; box-sizing: border-box; }
         .btn-action { flex: 1; padding: 14px; font-size: 16px; }
         .btn-explore { background-color: #2ed573; color: #fff; }
@@ -165,11 +151,12 @@
         <p style="color: #bbb; font-size: 12px; margin-bottom: 12px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版】</p>
         
         <div class="notice-container">
-            <strong style="color: #ffd700;">📢 深淵維護公告 (v1.90 戰鬥數值透明化與魔物大擴軍版)：</strong><br>
-            • 【👹 魔物橫行】深淵生態系全面激活！各層級追加大量全新獨立異域魔物！<br>
-            • 【📊 數值動態】戰鬥模組升級！即時公開怪物真實攻擊力，並高亮標明硬核減傷擋下的數值！<br>
-            • 【⚙️ 完美修復】修正核心 UI 刷新引擎參數，完美找回村莊失蹤的「特訓所」與「儲存點」！<br>
-            • 【🏆 全新實裝】新增內置「全服最高層數巔峰排行榜」分頁，即時運算先烈排名！
+            <strong style="color: #ffd700;">📢 深淵維護公告 (v2.10 黑市大瘋狂物資增補版)：</strong><br>
+            • 【🧙 黑市狂歡】流浪黑市全面實裝 20 種完全獨立的博弈道具！新增至隨機刷出 3 款供挑選！<br>
+            • 【🌀 傳送解鎖】全新引入「時空傳送門」！擊敗十層Boss解鎖對應大層，回村特訓或讀檔後可自由選擇降臨起點！<br>
+            • 【🪶 鳳凰涅槃】黑市全新引進「鳳凰羽毛」，戰死時自動消耗並原地回覆 35% 生命復活！<br>
+            • 【🧱 數值修復】全面修正並解鎖顯示「固定減傷」、「連擊機率」、「經驗加成」面板，修復狀態不跳字Bug！<br>
+            • 【⚖️ 數值平衡】大幅調低 1-9 層 Tier 1 怪物強度，最終戰鬥內魔物攻擊力絕對在 10 以下！
         </div>
 
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
@@ -190,7 +177,7 @@
 
     <div class="dynamic-panel reward-style" id="gameover-box" style="display: none; border-color: #ff4757; background: linear-gradient(135deg, #2c1a1a 0%, #121212 100%); text-align: center;">
         <div class="panel-title" style="color: #ff4757; font-size: 18px;">☠️ 勇者魂歸深淵 ☠️</div>
-        <p style="font-size: 12px; color: #bbb; margin-bottom: 12px;">你在第 <span id="go-floor" class="highlight">0</span> 層被魔物終結。請留低你嘅跨服臨終遺言：</p>
+        <p style="font-size: 12px; color: #bbb; margin-bottom: 12px;">你在第 <span id="go-floor" class="highlight">0</span> 層被魔物終結。請留低你嘅跨服臨臨終遺言：</p>
         <input type="text" id="player-words-input" class="name-input" placeholder="留低遺言（例如：朋友，同我報仇..）" maxlength="35" style="width:85%; border-color:#e74c3c; margin-bottom:15px;"><br>
         <button onclick="confirmDeathAndUpload()" class="btn-game btn-action" style="background-color: #e74c3c; width: 85%; padding: 14px; font-size: 15px; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">🪦 刻上遺言，全球共享傳承</button>
     </div>
@@ -205,19 +192,34 @@
                 <div class="status-item">經驗值: <span id="exp-text" class="exp">0 / 30</span></div>
                 <div class="status-item">生命值: <span id="hp" class="highlight">100</span> / <span id="max-hp">100</span></div>
                 <div class="status-item">基礎攻擊: <span id="atk" style="color: #ff6b81;">15</span></div>
-                <div class="status-item" style="color: #e67e22;">🔥 戰鬥怒氣值: <span id="stat-rage" class="rage">0 / 100</span></div>
+                <div class="status-item" style="color: #e67e22;">🔥 戰鬥怒氣: <span id="stat-rage" class="rage">0 / 100</span></div>
                 <div class="status-item" style="color: #ffa500; font-weight: bold;">💰 擁有金幣: <span id="gold" class="gold">0</span> G</div>
-                <div class="status-item" style="color: #f39c12;">🪙 金幣收益加成: <span id="stat-gold-bonus">100%</span></div>
+                
+                <div class="status-item" style="color: #f39c12;">🪙 金幣加成: <span id="stat-gold-bonus">100%</span></div>
+                <div class="status-item">🧱 固定減傷: <span id="stat-block" style="color: #7f8c8d; font-weight:bold;">0</span></div>
+                <div class="status-item">⚔️ 連擊機率: <span id="stat-double" style="color: #ff6b81; font-weight:bold;">0%</span></div>
+                <div class="status-item">🟩 經驗加成: <span id="stat-exp-bonus" style="color: #2ed573; font-weight:bold;">100%</span></div>
+                <div class="status-item" style="color: #ffd700; font-weight: bold;">🪶 鳳凰羽毛: <span id="stat-feather">0</span> 根</div>
+
                 <div class="status-item full-row" style="color: #e74c3c;">💥 暴擊率: <span id="stat-crit">0%</span> | <span style="color: #3498db;">🏃 閃避率: <span id="stat-dodge">0%</span></span></div>
                 <div class="status-item full-row" style="color: #2ecc71;">🩸 吸血率: <span id="stat-vamp">0%</span> | <span style="color: #9b59b6;">🧬 每回合再生: <span id="stat-regen">0 HP</span></span></div>
                 <div class="status-item full-row" style="color: #2ecc71; font-size:11px;" id="stat-legacy-log"></div>
-                <div class="status-item full-row" style="color: #e67e22; font-size:11px;" id="stat-perk-log">已覺醒天賦：無</div>
+                <div class="status-item full-row" style="color: #e67e22; font-size:11px;" id="stat-perk-log">已加載聖神咒物：無</div>
             </div>
 
             <div class="dynamic-panel savepoint-style" id="savepoint-box" style="display: none;">
                 <span style="color: #f1c40f; font-weight: bold; font-size: 13px;">⛺ 皇家安穩旅店儲存點</span><br>
                 <span style="color: #aaa; font-size: 11px;">進度可隨時備份上傳，收工下次再續冒險。</span><br>
                 <button class="btn-game" onclick="saveActiveProgressToCloud()" style="background: #f1c40f; color: #111; padding: 6px 15px; font-size: 12px; margin-top: 6px;">💾 儲存目前進度至雲端</button>
+            </div>
+
+            <div class="dynamic-panel shop-style" id="portal-box" style="display: none; border-color: #00cea6; background: #1a252f;">
+                <div class="panel-title" style="color: #00cea6;">🌀 皇家時空傳送門</div>
+                <div style="text-align: center; font-size: 12px; color: #aaa; margin-bottom: 8px;">已解除大層限制，請選擇降臨的深淵起點：</div>
+                <div style="text-align: center;">
+                    <select id="portal-floor-select" style="padding: 10px; background: #111; color: #fff; border: 1px solid #00cea6; border-radius: 6px; width: 90%; font-size: 13px; font-weight: bold; outline: none; cursor: pointer;">
+                    </select>
+                </div>
             </div>
 
             <div class="dynamic-panel shop-style" id="shop-box" style="display: none;">
@@ -229,7 +231,7 @@
             </div>
 
             <div class="dynamic-panel reward-style" id="reward-box" style="display: none;">
-                <div class="panel-title" style="color: #ffd700;">🎁 擊敗層級領主！請抉謝系統派發的【等價交換天賦】：</div>
+                <div class="panel-title" id="reward-title-text" style="color: #ffd700;">🎁 擊敗層級領主！請抉擇系統派發的【深淵聖物或咒物】：</div>
                 <div class="reward-list flex-layout" id="reward-choices-container"></div>
             </div>
 
@@ -240,7 +242,6 @@
         </div>
         
         <div class="right-layout-flow" style="width: 100%;">
-            
             <div class="log-panel" id="log-box" style="display: none;">
                 <p style="color: #888;">【系統】線上通訊模組加載完成。</p>
             </div>
@@ -255,39 +256,36 @@
 </div>
 
 <script>
-    // 🌐 正式服後端中央伺服器 API 連線網址
     const SERVER_URL = "https://rpg-backend-fjvg.onrender.com";
-    // ⏳ 異步時間停頓輔助函數
     const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-    // 👤 玩家存檔核心數據資料結構
     let player = {
         name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextExp: 30,
         atkUpgrades: 0, hpUpgrades: 0, critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0, rage: 0, goldBonus: 1.0,
-        perkExpBonus: 1.0,
+        perkExpBonus: 1.0, phoenixFeather: 0, permanentBurn: false, permanentPoison: false,
         perkBurnAttack: false, perkPoisonAttack: false, perkShieldStart: 0, perkCritMult3: false, perkThorns: 0,
         perkExecute: false, perkDoubleStrike: 0, perkStunChance: 0, perkBerserk: false, perkFlatBlock: 0,
-        perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: "", perkImmolate: 0
+        perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: "", perkImmolate: 0,
+        highestCheckPoint: 1 
     };
 
-    // 🎲 關卡與核心全域狀態變數
-    let dungeonFloor = 0;         // 目前所在地下城層數 (0 代表村莊地表)
-    let gameState = "TITLE";       // 狀態機系統: TITLE, VILLAGE, DUNGEON, BATTLE, REWARD, MERCHANT, GAMEOVER
-    let currentLegacyData = null;   // 暫存伺服器回傳的前代血脈遺產
-    let currentActiveCharData = null; // 暫存伺服器回傳的現世活人進度
-    let currentKillerName = "未知魔物"; // 紀錄擊殺玩家的怪物大名
-    let cachedGlobalRawData = [];  // 全域緩存後端返回的原始墓碑排行數據
-    let currentActiveTab = "tomb"; // 預設排行榜分頁標籤為 tomb (墓碑)
+    let dungeonFloor = 0;         
+    let gameState = "TITLE";       
+    let currentLegacyData = null;   
+    let currentActiveCharData = null; 
+    let currentKillerName = "未知魔物"; 
+    let cachedGlobalRawData = [];  
+    let currentActiveTab = "tomb"; 
 
-    // 🧠 數據還原與去嵌套解包清洗引擎
     function rehydratePlayer(savedData) {
         let basePlayer = {
             name: "勇者", lv: 1, hp: 100, maxHp: 100, atk: 15, gold: 0, exp: 0, nextExp: 30,
             atkUpgrades: 0, hpUpgrades: 0, critChance: 0, dodgeChance: 0, vampRate: 0, regenPower: 0, rage: 0, goldBonus: 1.0,
-            perkExpBonus: 1.0,
+            perkExpBonus: 1.0, phoenixFeather: 0, permanentBurn: false, permanentPoison: false,
             perkBurnAttack: false, perkPoisonAttack: false, perkShieldStart: 0, perkCritMult3: false, perkThorns: 0,
             perkExecute: false, perkDoubleStrike: 0, perkStunChance: 0, perkBerserk: false, perkFlatBlock: 0,
-            perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: "", perkImmolate: 0
+            perkFirstStrike: false, perkSoulHarvest: false, usedSecondWindThisRun: false, inheritedLog: "", perkImmolate: 0,
+            highestCheckPoint: 1 
         };
         let source = (savedData && savedData.player) ? savedData.player : savedData;
         for (let key in basePlayer) {
@@ -299,7 +297,6 @@
         return basePlayer;
     }
 
-    // 🛡️ 數值安全邊界雷達
     function safetyCheck() {
         player.atk = Math.max(1, player.atk);
         player.maxHp = Math.max(15, player.maxHp);
@@ -313,9 +310,9 @@
         player.perkExpBonus = Math.max(0.1, player.perkExpBonus);
         player.perkDoubleStrike = Math.max(0, player.perkDoubleStrike);
         player.perkStunChance = Math.max(0, player.perkStunChance);
+        player.phoenixFeather = Math.max(0, player.phoenixFeather);
     }
 
-    // 🪐 地下城隨機特異環境氣候房事件池
     const environmentsPool = [
         { name: "🪵 陰暗洞窟", desc: "環境正常，四周只有水滴聲，適合新手鍛鍊。", color: "#444", effect: "none" },
         { name: "🌋 狂暴焦土", desc: "受地核烘烤！全場魔物傷害附加 🔥燃燒 效果！", color: "#b33939", effect: "burn" },
@@ -335,60 +332,52 @@
     ];
     let currentEnv = environmentsPool[0];
 
-    // 👹 地下城怪物生態資料庫 (🛠️ 這裡已進行魔物大擴軍，品種翻倍)
     const monsterDatabase = {
         tier1: [ 
-            { name: "💧 藍色史萊姆", baseHp: 80, baseAtk: 4, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
-            { name: "👺 綠皮哥布林", baseHp: 130, baseAtk: 7, baseGold: 22, baseExp: 18, color: "#2ed573" },
-            { name: "💀 詛咒骷髏兵", baseHp: 190, baseAtk: 11, baseGold: 38, baseExp: 30, color: "#dcdde1" },
-            { name: "🦇 吸血小蝙蝠", baseHp: 65, baseAtk: 5, baseGold: 14, baseExp: 12, color: "#e84118" }, /* 🆕 新追加怪 */
-            { name: "🕷️ 毒性幼蜘蛛", baseHp: 100, baseAtk: 6, baseGold: 18, baseExp: 15, color: "#4cd137" }, /* 🆕 新追加怪 */
-            { name: "🧱 迷宮偽裝寶箱怪", baseHp: 220, baseAtk: 13, baseGold: 60, baseExp: 40, color: "#e1b12c" } /* 🆕 新追加怪 */
+            { name: "💧 藍色史萊姆", baseHp: 70, baseAtk: 3, baseGold: 12, baseExp: 10, color: "#4ba3e3" },
+            { name: "👺 綠皮哥布林", baseHp: 110, baseAtk: 4, baseGold: 22, baseExp: 18, color: "#2ed573" },
+            { name: "💀 詛咒骷髏兵", baseHp: 150, baseAtk: 5, baseGold: 38, baseExp: 30, color: "#dcdde1" }, 
+            { name: "🦇 吸血小蝙蝠", baseHp: 65, baseAtk: 3, baseGold: 14, baseExp: 12, color: "#e84118" }, 
+            { name: "🕷️ 毒性幼蜘蛛", baseHp: 90, baseAtk: 4, baseGold: 18, baseExp: 15, color: "#4cd137" }, 
+            { name: "🧱 迷宮偽裝寶箱怪", baseHp: 180, baseAtk: 5, baseGold: 60, baseExp: 40, color: "#e1b12c" } 
         ],
         tier2: [ 
             { name: "🐺 嗜血影狼", baseHp: 320, baseAtk: 18, baseGold: 65, baseExp: 55, color: "#74b9ff" },
             { name: "🐗 荒野半獸人", baseHp: 460, baseAtk: 24, baseGold: 90, baseExp: 75, color: "#a4b0be" },
-            { name: "🧟 蹣跚食屍鬼", baseHp: 390, baseAtk: 21, baseGold: 80, baseExp: 65, color: "#bcdebb" }, /* 🆕 新追加怪 */
-            { name: "🏺 遠古詛咒魔像", baseHp: 550, baseAtk: 28, baseGold: 110, baseExp: 90, color: "#95a5a6" }  /* 🆕 新追加怪 */
+            { name: "🧟 蹣跚食屍鬼", baseHp: 390, baseAtk: 21, baseGold: 80, baseExp: 65, color: "#bcdebb" }, 
+            { name: "🏺 遠古詛咒魔像", baseHp: 550, baseAtk: 28, baseGold: 110, baseExp: 90, color: "#95a5a6" }  
         ],
         tier3: [ 
             { name: "🦎 深淵蜥蜴人", baseHp: 950, baseAtk: 42, baseGold: 180, baseExp: 160, color: "#1dd1a1" },
             { name: "👻 驚悚怨恨女妖", baseHp: 800, baseAtk: 48, baseGold: 210, baseExp: 190, color: "#a55eee" },
-            { name: "👹 狂暴雙頭食人魔", baseHp: 1150, baseAtk: 55, baseGold: 240, baseExp: 210, color: "#e67e22" }, /* 🆕 新追加怪 */
-            { name: "🧙‍♂️ 叛逃黑袍大巫師", baseHp: 720, baseAtk: 62, baseGold: 270, baseExp: 230, color: "#9c27b0" }   /* 🆕 新追加怪 */
+            { name: "👹 狂暴雙頭食人魔", baseHp: 1150, baseAtk: 55, baseGold: 240, baseExp: 210, color: "#e67e22" }, 
+            { name: "🧙‍♂️ 叛逃黑袍大巫師", baseHp: 720, baseAtk: 62, baseGold: 270, baseExp: 230, color: "#9c27b0" }   
         ],
         tier4: [ 
             { name: "🌋 熔岩火巨魔", baseHp: 2800, baseAtk: 88, baseGold: 450, baseExp: 400, color: "#ee5253" },
             { name: "🧞 虛空夢魘撕裂者", baseHp: 2400, baseAtk: 110, baseGold: 520, baseExp: 460, color: "#5f27cd" },
-            { name: "🐉 幽冥不合骨龍", baseHp: 3400, baseAtk: 125, baseGold: 680, baseExp: 600, color: "#dff9fb" },  /* 🆕 新追加怪 */
-            { name: "👥 鏡像恐懼陰影魔", baseHp: 2100, baseAtk: 140, baseGold: 750, baseExp: 650, color: "#2f3542" }   /* 🆕 新追加怪 */
+            { name: "🐉 幽冥不朽骨龍", baseHp: 3400, baseAtk: 125, baseGold: 680, baseExp: 600, color: "#dff9fb" },  
+            { name: "👥 鏡像恐懼陰影魔", baseHp: 2100, baseAtk: 140, baseGold: 750, baseExp: 650, color: "#2f3542" }   
         ],
         tier5: [ 
             { name: "👁️ 深淵凝視支配者", baseHp: 6500, baseAtk: 195, baseGold: 1200, baseExp: 1100, color: "#ff4757" },
             { name: "🕳️ 虛空噬魂星獸", baseHp: 11000, baseAtk: 160, baseGold: 2000, baseExp: 1800, color: "#54a0ff" },
-            { name: "🔥 滅世不死鳳凰", baseHp: 7500, baseAtk: 240, baseGold: 2500, baseExp: 2200, color: "#ff6b6b" }, /* 🆕 新追加怪 */
-            { name: "👑 深淵至高不朽皇", baseHp: 14000, baseAtk: 280, baseGold: 4500, baseExp: 3500, color: "#ffd700" }  /* 🆕 新追加怪 */
+            { name: "🔥 滅世不死鳳凰", baseHp: 7500, baseAtk: 240, baseGold: 2500, baseExp: 2200, color: "#ff6b6b" }, 
+            { name: "👑 深淵至高不朽皇", baseHp: 14000, baseAtk: 280, baseGold: 4500, baseExp: 3500, color: "#ffd700" }  
         ]
     };
 
-    // 👑 BOSS 層級巨型領主資料庫
     const bossMonsters = [
-        { name: "👿 地獄三頭犬 (10F 獄門守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
+        { name: "👿 地獄三頭犬 (10F 守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
         { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
         { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" },
-        { name: "💀 遠古巫妖王 (40F 亡靈天天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
-        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" },
-        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseExp: 3500, acc: 90, color: "#f1c40f" },
-        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseExp: 5000, acc: 95, color: "#e67e22" },
-        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseExp: 7500, acc: 100, color: "#2980b9" },
-        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseExp: 11000, acc: 110, color: "#c0392b" },
-        { name: "🌌 終焉主宰卡奧斯 (100F+ 無盡輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseExp: 20000, acc: 120, color: "#10ac84" }
+        { name: "💀 遠古巫妖王 (40F 亡靈天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
+        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" }
     ];
 
     function getUpgradeCost(type) { return type === 'atk' ? (30 + player.atkUpgrades * 25) : (25 + player.hpUpgrades * 20); }
     function addLog(message) { const logBox = document.getElementById('log-box'); if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } }
 
-    // 🖥 Honor Core UI 刷新面板引擎
     function updateUI() {
         try {
             const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
@@ -401,23 +390,30 @@
             setTxt('gold', Math.floor(player.gold)); 
             setTxt('exp-text', `${Math.floor(player.exp)} / ${Math.floor(player.nextExp)}`);
             setTxt('stat-rage', `${Math.floor(player.rage)} / 100`); 
-            setTxt('stat-gold-bonus', `${Math.round(player.goldBonus * 100)}%`);
             setTxt('stat-crit', `${Math.floor(player.critChance)}%`); 
             setTxt('stat-dodge', `${Math.floor(player.dodgeChance)}%`);
             setTxt('stat-vamp', `${Math.floor(player.vampRate)}%`); 
             setTxt('stat-regen', `${Math.floor(player.regenPower)} HP`);
+            
+            setTxt('stat-gold-bonus', `${Math.round(player.goldBonus * 100)}%`);
+            setTxt('stat-block', Math.floor(player.perkFlatBlock));
+            setTxt('stat-double', `${Math.floor(player.perkDoubleStrike)}%`);
+            setTxt('stat-exp-bonus', `${Math.round(player.perkExpBonus * 100)}%`);
+            setTxt('stat-feather', Math.floor(player.phoenixFeather || 0));
+
             setTxt('player-name-display', player.name); 
             setTxt('stat-legacy-log', player.inheritedLog);
             setTxt('cost-atk', `${getUpgradeCost('atk')} G`); 
             setTxt('cost-hp', `${getUpgradeCost('hp')} G`);
 
             let perks = [];
-            if (player.perkBurnAttack) perks.push("🔥烈焰"); if (player.perkPoisonAttack) perks.push("🧪劇毒");
+            if (player.perkBurnAttack) perks.push("🔥烈焰附魔"); if (player.perkPoisonAttack) perks.push("🧪劇毒附魔");
             if (player.perkShieldStart > 0) perks.push(`🛡️開局盾(${player.perkShieldStart})`); if (player.perkCritMult3) perks.push("💥3倍爆傷");
             if (player.perkDoubleStrike > 0) perks.push(`⚔️連擊(${player.perkDoubleStrike}%)`); if (player.perkStunChance > 0) perks.push(`🔨擊暈(${player.perkStunChance}%)`);
-            if (player.perkFlatBlock > 0) perks.push(`🧱減傷(-${player.perkFlatBlock})`); if (player.perkFirstStrike) perks.push("⚡首回爆擊");
-            if (player.perkImmolate > 0) perks.push(`🌋獻祭(${player.perkImmolate}點)`);
-            setTxt('stat-perk-log', perks.length > 0 ? `已覺醒天賦：${perks.join(" | ")}` : "已覺醒天賦：無");
+            if (player.perkFlatBlock > 0) perks.push(`🧱減傷(-${player.perkFlatBlock})`); if (player.perkFirstStrike) perks.push("⚡首回必爆");
+            if (player.perkImmolate > 0) perks.push(`🌋烈火獻祭(${player.perkImmolate}點)`);
+            if (player.permanentBurn) perks.push("⚠️血盟自燃"); if (player.permanentPoison) perks.push("⚠️劇毒入骨");
+            setTxt('stat-perk-log', perks.length > 0 ? `已加載聖神咒物：${perks.join(" | ")}` : "已加載聖神咒物：無");
 
             const locText = document.getElementById('location-text');
             const btn1 = document.getElementById('btn-action1'); const btn2 = document.getElementById('btn-action2');
@@ -427,7 +423,7 @@
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none');
                 setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
                 setStyle('gameover-box', 'display', 'none'); setStyle('env-text', 'display', 'none'); setStyle('log-box', 'display', 'none');
-                setStyle('savepoint-box', 'display', 'none'); 
+                setStyle('savepoint-box', 'display', 'none'); setStyle('portal-box', 'display', 'none');
                 if(locText) { locText.innerText = "🔮 命運的起點"; locText.style.color = "#aaa"; }
                 fetchGlobalTombstones(); 
                 return;
@@ -436,6 +432,7 @@
                 setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
                 setStyle('gameover-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); setStyle('savepoint-box', 'display', 'none');
+                setStyle('portal-box', 'display', 'none');
                 if(locText) { locText.innerText = `⚔️ 激烈交戰中... B${dungeonFloor}F`; locText.style.color = "#ff4757"; }
                 return;
             }
@@ -443,6 +440,7 @@
                 setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
                 setStyle('action-panel', 'display', 'none'); setStyle('gameover-box', 'display', 'block'); setStyle('savepoint-box', 'display', 'none');
+                setStyle('portal-box', 'display', 'none');
                 setTxt('go-floor', dungeonFloor);
                 if(locText) { locText.innerText = `💀 戰報停留：勇者命喪 B${dungeonFloor}F`; locText.style.color = "#e74c3c"; }
                 return;
@@ -453,11 +451,13 @@
             
             if (gameState === "REWARD") { 
                 setStyle('shop-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
-                setStyle('reward-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); return; 
+                setStyle('reward-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); 
+                setStyle('portal-box', 'display', 'none'); return; 
             }
             if (gameState === "MERCHANT") { 
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('action-panel', 'display', 'none'); 
-                setStyle('merchant-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); return; 
+                setStyle('merchant-box', 'display', 'block'); setStyle('env-text', 'display', 'none'); setStyle('savepoint-box', 'display', 'none'); 
+                setStyle('portal-box', 'display', 'none'); return; 
             }
 
             setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); setStyle('action-panel', 'display', 'flex');
@@ -465,16 +465,30 @@
             if (dungeonFloor === 0) {
                 if(locText) { locText.innerText = "🌍 目前位置：地表村莊"; locText.style.color = "#5352ed"; }
                 setStyle('env-text', 'display', 'none');
-                setStyle('shop-box', 'display', 'block');       /* ⚙️ 正式修正點：確保為 3 參數 */
-                setStyle('savepoint-box', 'display', 'block');  /* ⚙️ 正式修正點：確保為 3 參數 */
+                setStyle('shop-box', 'display', 'block');       
+                setStyle('savepoint-box', 'display', 'block');  
+                
+                setStyle('portal-box', 'display', 'block');
+                const portalSelect = document.getElementById('portal-floor-select');
+                if (portalSelect) {
+                    let optionsHtml = `<option value="1">🔰 地下城 B1F (試煉起點)</option>`;
+                    if (player.highestCheckPoint >= 11) optionsHtml += `<option value="11">🐺 地下城 B11F (嗜血荒野)</option>`;
+                    if (player.highestCheckPoint >= 21) optionsHtml += `<option value="21">🦎 地下城 B21F (深淵泥沼)</option>`;
+                    if (player.highestCheckPoint >= 31) optionsHtml += `<option value="31">🌋 地下城 B31F (熔岩焦土)</option>`;
+                    if (player.highestCheckPoint >= 41) optionsHtml += `<option value="41">💀 地下城 B41F (亡靈天災)</option>`;
+                    if (player.highestCheckPoint >= 51) optionsHtml += `<option value="51">👁️ 地下城 B51F (無盡星海)</option>`;
+                    portalSelect.innerHTML = optionsHtml;
+                }
+
                 if(btn1) btn1.innerText = "⚔️ 進入地下城"; if(btn2) btn2.innerText = "⛺ 在村莊休息";
             } else {
                 if(locText) { 
                     locText.innerText = dungeonFloor <= 10 ? `🔰 新手試煉：地下城 B${dungeonFloor}F` : `🚨 目前位置：地下城 B${dungeonFloor}F`; 
                     locText.style.color = dungeonFloor <= 10 ? "#2ecc71" : "#ff4757"; 
                 }
-                setStyle('shop-box', 'display', 'none');        /* ⚙️ 正式修正點：確保為 3 參數 */
-                setStyle('savepoint-box', 'display', 'none');   /* ⚙️ 正式修正點：確保為 3 參數 */
+                setStyle('shop-box', 'display', 'none');        
+                setStyle('savepoint-box', 'display', 'none');   
+                setStyle('portal-box', 'display', 'none'); 
                 setStyle('env-text', 'display', 'block');
                 
                 const envText = document.getElementById('env-text');
@@ -486,7 +500,6 @@
         } catch(e) { console.error("UI渲染錯誤阻斷:", e); }
     }
 
-    // 🪦 聯網喚醒全球墓碑數據並快取
     async function fetchGlobalTombstones() {
         try {
             let response = await fetch(`${SERVER_URL}/api/global-tombstones`);
@@ -502,7 +515,6 @@
         }
     }
 
-    // 🏆 排行榜分頁引擎
     function renderTombContent() {
         let container = document.getElementById('tomb-scroll-content');
         if (!container || cachedGlobalRawData.length === 0) return;
@@ -536,7 +548,6 @@
         renderTombContent(); 
     }
 
-    // 🔮 查詢雲端血脈
     async function checkCloudLegacy() {
         let inputName = document.getElementById('player-name-input').value.trim();
         let legBox = document.getElementById('legacy-box'); 
@@ -586,7 +597,6 @@
         } catch (e) { legBox.innerHTML = `❌ 伺服器通訊中...`; }
     }
 
-    // 💾 雲端儲存
     async function saveActiveProgressToCloud() {
         if (!player.name || player.name === "無名勇者") { alert("❌ 匿名狀態下無法儲存存檔！"); return; }
         addLog(`💾 正在連網上傳玩家【${player.name}】的現世進度至中央資料庫...`);
@@ -604,7 +614,6 @@
         } catch (e) { alert("❌ 網絡逾時，儲存點傳輸失敗！"); }
     }
 
-    // 🧭 開啟冒險大按鈕
     async function handleStartGame() {
         let startBtn = document.getElementById('start-game-btn');
         let inputName = document.getElementById('player-name-input').value.trim();
@@ -631,10 +640,12 @@
 
         player.name = inputName; player.lv = 1; player.maxHp = 100; player.atk = 15; player.gold = 0; player.exp = 0; player.nextExp = 30;
         player.atkUpgrades = 0; player.hpUpgrades = 0; player.critChance = 0; player.dodgeChance = 0; player.vampRate = 0; player.regenPower = 0; player.rage = 0; player.goldBonus = 1.0;
-        player.perkExpBonus = 1.0; player.perkImmolate = 0;
+        player.perkExpBonus = 1.0; player.perkImmolate = 0; player.phoenixFeather = 0; 
+        player.permanentBurn = false; player.permanentPoison = false; 
         player.perkBurnAttack = false; player.perkPoisonAttack = false; player.perkShieldStart = 0; player.perkCritMult3 = false; player.perkThorns = 0;
         player.perkExecute = false; player.perkDoubleStrike = 0; player.perkStunChance = 0; player.perkBerserk = false; player.perkFlatBlock = 0;
         player.perkFirstStrike = false; player.perkSoulHarvest = false; player.usedSecondWindThisRun = false;
+        player.highestCheckPoint = 1; 
 
         if (currentLegacyData) {
             player.gold += currentLegacyData.legacyGold; player.atk += currentLegacyData.legacyAtk; player.maxHp += currentLegacyData.legacyHp;
@@ -663,8 +674,18 @@
 
     async function handleAction1() {
         if (dungeonFloor === 0) {
-            dungeonFloor = 1; gameState = "DUNGEON"; rollNextEnvironment(); 
-            addLog(`🪵 <strong>${player.name}</strong> 提劍步入 <strong>地下城 B1F (新手試煉區)</strong>...`); updateUI();
+            const portalSelect = document.getElementById('portal-floor-select');
+            let startingFloor = 1;
+            if (portalSelect) {
+                startingFloor = parseInt(portalSelect.value) || 1;
+            }
+            
+            dungeonFloor = startingFloor; 
+            gameState = "DUNGEON"; 
+            rollNextEnvironment(); 
+            
+            addLog(`🌀 <strong>${player.name}</strong> 啟動時空傳送門，身軀虛化直接降臨至 <strong>地下城 B${dungeonFloor}F</strong>！`); 
+            updateUI();
         } else { await exploreDungeon(); }
     }
 
@@ -697,7 +718,6 @@
         }
     }
 
-    // ⚔️ 核心戰鬥動態循環模擬器
     async function triggerBattle(isBoss) {
         let baseData;
         if (isBoss) { 
@@ -711,7 +731,7 @@
             baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        let floorScale = isBoss ? 1.0 : (1 + (dungeonFloor - 1) * 0.25); 
+        let floorScale = isBoss ? 1.0 : (dungeonFloor <= 10 ? (1 + (dungeonFloor - 1) * 0.1) : (1 + (dungeonFloor - 1) * 0.25)); 
         let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
         
         let monster = {
@@ -727,7 +747,6 @@
         if (currentEnv.effect === "env_shield") { pStatus.shield += 120; mStatus.shield += 120; }
         gameState = "BATTLE"; updateUI(); 
         
-        /* 🛠️ 修正點 A：遭遇戰大行字，即時公開顯示怪物當前層數加成後的攻擊力 */
         addLog(`⚔️【遭遇戰】<strong style='color: ${monster.color};'>${monster.name}</strong> 攔路！（HP: ${monster.hp} | ⚔️攻擊力: <span style="color:#ff6b81; font-weight:bold;">${monster.atk}</span> | 🛡️護盾: ${mStatus.shield}）`);
 
         let round = 1; 
@@ -739,11 +758,21 @@
                 else { monster.hp = Math.max(1, monster.hp - 25); roundLog += `<span style='color:#e67e22;'>⚡【雷霆】天雷劈中魔物失去 25 點 HP！</span> | `; }
             }
             if (currentEnv.effect === "env_blades") { player.hp -= 8; roundLog += `<span style='color:#eb4d4b;'>機關流彈割傷勇者承受 8 點外傷！</span> | `; }
-            if (pStatus.burn > 0) { player.hp -= 8; roundLog += `<span style='color:#ff6b6b;'>🔥燃燒烈火焚身，失去 8 點 HP！</span> | `; pStatus.burn--; }
-            if (pStatus.poison > 0) { player.hp -= 9; roundLog += `<span style='color:#2ecc71;'>🧪劇毒入骨發作，失去 9 點 HP！</span> | `; pStatus.poison--; }
-            if (player.perkImmolate > 0) { monster.hp -= player.perkImmolate; roundLog += `<span style='color:#ff6b6b;'>🔥獻祭光環反噬魔物 -${player.perkImmolate} HP！</span> | `; }
+            
+            if (pStatus.burn > 0 || player.permanentBurn) { player.hp -= 8; roundLog += `<span style='color:#ff6b6b;'>🔥【狀態發作】勇者烈火焚身，失去 8 點 HP！</span> | `; if(pStatus.burn > 0) pStatus.burn--; }
+            if (pStatus.poison > 0 || player.permanentPoison) { player.hp -= 9; roundLog += `<span style='color:#2ecc71;'>🧪【狀態發作】勇者劇毒攻心，失去 9 點 HP！</span> | `; if(pStatus.poison > 0) pStatus.poison--; }
+            if (player.perkImmolate > 0) { monster.hp -= player.perkImmolate; roundLog += `<span style='color:#ff6b6b;'>🔥【獻祭光環】灼燒魔物 -${player.perkImmolate} HP！</span> | `; }
 
-            if (player.hp <= 0 || monster.hp <= 0) { addLog(roundLog); break; }
+            if (mStatus.burn > 0) { monster.hp -= 12; roundLog += `<span style='color:#ff6b6b;'>🔥【魔物燒傷】焚體重創魔物扣減 12 點 HP！</span> | `; mStatus.burn--; }
+            if (mStatus.poison > 0) { monster.hp -= 15; roundLog += `<span style='color:#2ecc71;'>🧪【魔物劇毒】毒氣爆發魔物扣減 15 點 HP！</span> | `; mStatus.poison--; }
+
+            if (player.hp <= 0) {
+                if (player.phoenixFeather > 0) {
+                    player.phoenixFeather--; player.hp = Math.floor(player.maxHp * 0.35);
+                    roundLog += `<span style='color:#ffd700; font-weight:bold;'>✨【🪶 鳳凰羽毛】不死火鳥涅槃！自動消耗羽毛原地復活回復 35% (${player.hp} HP)！</span> | `;
+                } else { if (roundLog.trim() !== "") addLog(roundLog); break; }
+            }
+            if (monster.hp <= 0) { if (roundLog.trim() !== "") addLog(roundLog); break; }
 
             if (player.regenPower > 0 && currentEnv.effect !== "env_freeze") {
                 let actualRegen = (currentEnv.effect === "poison") ? Math.floor(player.regenPower * 0.5) : player.regenPower;
@@ -759,16 +788,14 @@
                 let pDmgOut = pActualAtk;
                 if (isUlt) { 
                     pDmgOut = Math.floor(pActualAtk * 3.5); player.rage = 0; 
-                    roundLog += `<span style='color:#ffa500; font-weight:bold;'>⚡【終極奧義•龍破斬】大擊碎 ${pDmgOut} 點傷害！</span>`; 
+                    roundLog += `<span style='color:#ffa500; font-weight:bold;'>⚡【奧義•龍破斬】暴擊 ${pDmgOut} 點傷害！</span>`; 
                 } else {
                     let finalCritChance = (player.perkFirstStrike && round === 1) ? 100 : player.critChance;
                     if (currentEnv.effect === "env_blind") finalCritChance -= 25; 
                     if (Math.random() * 100 < finalCritChance) { 
                         pDmgOut *= (player.perkCritMult3 ? 3 : 2); 
                         roundLog += `<span style='color:#e74c3c; font-weight:bold;'>💥致命暴擊！造成 ${pDmgOut} 點打擊！</span>`; 
-                    } else { 
-                        roundLog += `⚔️揮斬造成 ${pDmgOut} 點傷害`; 
-                    }
+                    } else { roundLog += `⚔️揮斬造成 ${pDmgOut} 點傷害`; }
                     if (currentEnv.effect !== "env_norage") player.rage = Math.min(100, player.rage + 20);
                 }
 
@@ -786,43 +813,33 @@
                 if (player.perkStunChance > 0 && Math.random() * 100 < player.perkStunChance) mStatus.stunned = 1;
             }
 
-            // 魔物反擊與硬核盾牆減傷計算
             if (monster.hp > 0) {
-                if (mStatus.stunned > 0) { mStatus.stunned--; roundLog += ` | <span style='color:#3498db;'>敵陷入重度暈眩，跳過反擊！</span>`; } 
+                if (mStatus.stunned > 0) { mStatus.stunned--; roundLog += ` | <span style='color:#3498db;'>敵陷入暈眩，跳過反擊！</span>`; } 
                 else {
                     let isDodge = !isUlt && (Math.random() * 100 < Math.max(0, player.dodgeChance - monster.acc));
                     if (isDodge) { roundLog += ` | <span style='color:#3498db; font-weight:bold;'>🏃【完美閃避】躲開進攻！</span>`; } 
                     else {
                         let finalTaken = monster.atk;
-                        let blockLog = ""; /* 🧱 減傷行內高亮文字變數 */
+                        let blockLog = ""; 
 
-                        /* 🛠️ 修正點 B & C：顯示魔物原本攻擊力，並且精準標算出固定減傷扣減去幾多數值 */
                         if (player.perkFlatBlock > 0) {
                             let actualBlockedValue = Math.min(monster.atk, player.perkFlatBlock);
-                            if (monster.atk - player.perkFlatBlock < 1) {
-                                actualBlockedValue = monster.atk - 1; /* 因底層有防震保底 Math.max(1, ...) */
-                            }
-                            if (actualBlockedValue > 0) {
-                                blockLog = ` <span style="color:#7f8c8d; font-weight:bold;">[🧱減傷 -${actualBlockedValue}]</span>`;
-                            }
+                            if (monster.atk - player.perkFlatBlock < 1) actualBlockedValue = monster.atk - 1;
+                            if (actualBlockedValue > 0) blockLog = ` <span style="color:#7f8c8d; font-weight:bold;">[🧱減傷 -${actualBlockedValue}]</span>`;
                             finalTaken = Math.max(1, monster.atk - player.perkFlatBlock);
                         }
                         
                         if (pStatus.shield > 0) {
-                            if (finalTaken <= pStatus.shield) { 
-                                pStatus.shield -= finalTaken; 
-                                roundLog += ` | 💥敵反擊：原始傷害 ${monster.atk}${blockLog}（被我方護盾完全吸收）`; 
-                            } else { 
-                                let over = finalTaken - pStatus.shield; 
-                                roundLog += ` | 💥敵反擊：原始傷害 ${monster.atk}${blockLog}，護盾粉碎且肉身承受 -${over} HP！`; 
-                                pStatus.shield = 0; player.hp -= over; 
-                            }
-                        } else { 
-                            player.hp -= finalTaken; 
-                            roundLog += ` | 💥敵反擊：原始傷害 ${monster.atk}${blockLog}，勇者肉身承受 -${finalTaken} HP！`; 
-                        }
+                            if (finalTaken <= pStatus.shield) { pStatus.shield -= finalTaken; roundLog += ` | 💥敵反擊：傷害 ${monster.atk}${blockLog}（護盾抵擋）`; }
+                            else { let over = finalTaken - pStatus.shield; roundLog += ` | 💥敵反擊：傷害 ${monster.atk}${blockLog}，護盾碎裂扣肉身 -${over} HP！`; pStatus.shield = 0; player.hp -= over; }
+                        } else { player.hp -= finalTaken; roundLog += ` | 💥敵反擊：傷害 ${monster.atk}${blockLog}，勇者承受 -${finalTaken} HP！`; }
                     }
                 }
+            }
+
+            if (player.hp <= 0 && player.phoenixFeather > 0) {
+                player.phoenixFeather--; player.hp = Math.floor(player.maxHp * 0.35);
+                roundLog += `<br><span style='color:#ffd700; font-weight:bold;'>✨【🪶 鳳凰羽毛】原地涅槃復活回復 35% (${player.hp} HP)！</span>`;
             }
 
             roundLog += `<br>➔ 📊 勇者HP: <span style='color:#ff4757;font-weight:bold;'>${Math.max(0, player.hp)}</span> (🛡️護盾: ${pStatus.shield}) | 敵HP: <span style='color:#00ffff;font-weight:bold;'>${Math.max(0, monster.hp)}</span> (🛡️護盾: ${mStatus.shield})`;
@@ -842,37 +859,74 @@
         }
     }
 
-    // 🧙 黑市商人
+    // 🧙 流浪黑市大升級 (🛠️ 這裡已完美寫入 20 種極致平衡的道具池，並改為隨機上架 3 款商品)
     function triggerMerchantEvent() {
-        gameState = "MERCHANT"; addLog("🧙【流浪黑市】一個披著破損斗篷的巫醫露出詭異的笑容：要用靈魂交換禁忌力量嗎？");
+        gameState = "MERCHANT"; addLog("🧙【流浪黑市】一個披著破損斗篷的巫醫露出詭異的笑容：要用金幣或者代價交換禁忌物件嗎？");
         const items = [
-            { name: "🎒 補給生命精華", desc: "生命當場回滿", cost: 90, run: () => player.hp = player.maxHp },
-            { name: "🩸 狂魔詛咒之刃", desc: "【雙刃劍】基礎攻擊暴增 +30，但代價是最大生命值 -50", cost: 280, run: () => { player.atk += 30; player.maxHp -= 50; } },
-            { name: "🐢 石化泰坦核心", desc: "【雙刃劍】戰鬥減傷永久 +12，但沉重軀殼令攻擊力 -8", cost: 260, run: () => { player.perkFlatBlock += 12; player.atk -= 8; } },
-            { name: "🎰 破產惡魔契約", desc: "【雙刃劍】金幣獲取率瘋狂 +60%，但經驗獲取 -30%", cost: 340, run: () => { player.goldBonus += 0.60; player.perkExpBonus -= 0.30; } },
-            { name: "🌀 盲目幽靈斗篷", desc: "【雙刃劍】閃避率大幅提升 +14%，但暴擊率 -15%", cost: 250, run: () => { player.dodgeChance += 14; player.critChance -= 15; } },
-            { name: "💎 易碎晶體巨盾", desc: "【雙刃劍】開局護盾大增 +500 點，但閃避率 -10%", cost: 310, run: () => { player.perkShieldStart += 500; player.dodgeChance -= 10; } },
-            { name: "🎴 倒霉鬼的骰子", desc: "【雙刃劍】暴擊率永久大幅 +16%，但金幣獲取率 -25%", cost: 220, run: () => { player.critChance += 16; player.goldBonus -= 0.25; } },
-            { name: "🧬 基因崩壞藥劑", desc: "【雙刃劍】經驗值獲取 +35%，外加最大生命削弱 -35", cost: 210, run: () => { player.perkExpBonus += 0.35; player.maxHp -= 35; } },
-            { name: "🔱 弒神終焉之槍", desc: "【究極雙刃劍】基礎攻擊瘋狂 +50，但最大生命永恆 -90", cost: 500, run: () => { player.atk += 50; player.maxHp -= 90; } }
+            // 🎒 純正面基本補給
+            { name: "🎒 補給生命精華", desc: "純正面：生命值當場恢復至滿血狀態", cost: 90, run: () => player.hp = player.maxHp },
+            { name: "🪶 鳳凰羽毛 (復活物資)", desc: "核心神物：戰死時自動消耗，原地回覆 35% 生命復活！", cost: 300, run: () => player.phoenixFeather++ },
+            
+            // 🩸 攻擊與生命權衡
+            { name: "🩸 狂魔詛咒之刃", desc: "雙刃劍：基礎攻擊力暴增 +30，但最大生命值削減 -50", cost: 280, run: () => { player.atk += 30; player.maxHp -= 50; } },
+            { name: "🧪 巨型生命活力水", desc: "雙刃劍：最大生命永久暴增 +50 點，但藥物麻痺降低基礎攻擊 -4", cost: 120, run: () => { player.maxHp += 50; player.hp += 50; player.atk -= 4; } },
+            
+            // 🧱 防禦與速度博弈
+            { name: "🐢 石化泰坦核心", desc: "雙刃劍：固定減傷永久 +8，但沉重軀殼令攻擊力 -8", cost: 260, run: () => { player.perkFlatBlock += 8; player.atk -= 8; } },
+            { name: "🛡️ 庇護巨盾徽章", desc: "雙刃劍：開局直接武裝 +300 護盾，但舉盾令閃避率大跌 -15%", cost: 280, run: () => { player.perkShieldStart += 300; player.dodgeChance -= 15; } },
+            
+            // 🎰 經濟效益等價交換
+            { name: "🎰 破產惡魔契約", desc: "雙刃劍：金幣獲取率大增 +60%，但代價是經驗獲取率 -30%", cost: 340, run: () => { player.goldBonus += 0.60; player.perkExpBonus -= 0.30; } },
+            { name: "🪙 貪婪地精金幣", desc: "雙刃劍：金幣加成固定提升 +25%，但因分心導致暴擊率降低 -8%", cost: 160, run: () => { player.goldBonus += 0.25; player.critChance -= 8; } },
+            { name: "📖 先知智慧古卷", desc: "雙刃劍：經驗獲取永久提升 +25%，但因不修邊幅降低金幣加成 -15%", cost: 160, run: () => { player.perkExpBonus += 0.25; player.goldBonus -= 0.15; } },
+            
+            // ⚡ 戰術特化增益與降維代價
+            { name: "🌀 幽靈敏捷斗篷", desc: "雙刃劍：閃避率永久提升 +12%，但靈體化削減最大生命 -25", cost: 200, run: () => { player.dodgeChance += 12; player.maxHp -= 25; } },
+            { name: "🦅 孤狼鷹眼銳鏡", desc: "雙刃劍：暴擊率固定提升 +15%，但精密觀察降低攻擊力 -5", cost: 180, run: () => { player.critChance += 15; player.atk -= 5; } },
+            { name: "🧛 吸血鬼撕裂齒", desc: "雙刃劍：攻擊吸血比例暴增 +15%，但最大生命遭受反噬 -40", cost: 300, run: () => { player.vampRate += 15; player.maxHp -= 40; } },
+            { name: "🌱 超頻細胞活劑", desc: "雙刃劍：每回合再生大幅 +12 HP，但細胞超頻削減最大生命 -25", cost: 250, run: () => { player.regenPower += 12; player.maxHp -= 25; } },
+            { name: "⚔️ 疾風連擊殘影", desc: "雙刃劍：雙段連擊機率永久 +25%，但專注進攻令固定減傷 -6", cost: 310, run: () => { player.perkDoubleStrike += 25; player.perkFlatBlock -= 6; } },
+            { name: "🔨 重型震盪碎擊", desc: "雙刃劍：擊暈魔物機率永久 +15%，但武器過重降低閃避率 -8%", cost: 230, run: () => { player.perkStunChance += 15; player.dodgeChance -= 8; } },
+            
+            // 🔥 附魔附贈與宿命削弱
+            { name: "🔥 烈焰附魔卷軸", desc: "雙刃劍：攻擊永久附加40%烈焰燃燒，但代價是削減最大生命 -25", cost: 240, run: () => { player.perkBurnAttack = true; player.maxHp -= 25; } },
+            { name: "🧪 劇毒淬火毒素", desc: "雙刃劍：攻擊永久附加40%劇毒瘴氣，但慢性中毒削減基礎攻擊 -5", cost: 240, run: () => { player.perkPoisonAttack = true; player.atk -= 5; } },
+            { name: "🔮 奧術撕裂魔晶", desc: "雙刃劍：解鎖暴擊 3 倍極限粉碎傷，但魔能震盪削減最大生命 -50", cost: 270, run: () => { player.perkCritMult3 = true; player.maxHp -= 50; } },
+            { name: "🌋 熔岩烈火內丹", desc: "雙刃劍：戰鬥獻祭光環真傷 +25 點，但內火攻心削減最大生命 -35", cost: 260, run: () => { player.perkImmolate = (player.perkImmolate || 0) + 25; player.maxHp -= 35; } },
+            
+            // 💪 安全過渡微調訓練
+            { name: "💪 皇家高階特訓", desc: "純正面：花費重金接受微型特訓，基礎攻擊 +6，且最大生命 +10", cost: 140, run: () => { player.atk += 6; player.maxHp += 10; player.hp += 10; } }
         ];
 
-        let shuffled = items.sort(() => 0.5 - Math.random()); let onSale = shuffled.slice(0, 2);
-        const container = document.getElementById('merchant-choices-container'); container.innerHTML = "";
+        // 🎲 洗牌演算法，從 20 種商品中抽取 3 款上架（原先是 slice(0,2)，這裡擴大選擇度）
+        let shuffled = items.sort(() => 0.5 - Math.random()); 
+        let onSale = shuffled.slice(0, 3);
+        
+        const container = document.getElementById('merchant-choices-container'); 
+        container.innerHTML = "";
 
         onSale.forEach((item) => {
             let btn = document.createElement('button'); btn.className = "btn-game btn-merchant";
-            btn.innerHTML = `${item.name}<br><span style='color:#ffd700;font-size:14px;'>${item.cost} G</span><br><span style='font-size:11px;color:#eee;'>(${item.desc})</span>`;
-            btn.onclick = () => { if (player.gold < item.cost) { addLog("🧙 「賺夠再來！」"); return; } player.gold -= item.cost; item.run(); safetyCheck(); addLog(`🧙 「等價交易完成！得到了 ${item.name}。」`); leaveMerchant(); };
+            btn.innerHTML = `<strong>${item.name}</strong><br><span style='color:#ffd700;font-size:13px;font-weight:bold;'>${item.cost} G</span><br><span style='font-size:11px;color:#bbb;display:block;line-height:1.3;margin-top:3px;'>(${item.desc})</span>`;
+            btn.onclick = () => { 
+                if (player.gold < item.cost) { addLog("🧙 「不送！賺夠錢再來！」"); return; } 
+                player.gold -= item.cost; 
+                item.run(); 
+                safetyCheck(); 
+                addLog(`🧙 「交易完成！你獲得了 ${item.name}。」`); 
+                leaveMerchant(); 
+            };
             container.appendChild(btn);
         });
-        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 拒絕黑暗交易，繼續前進";
-        leaveBtn.onclick = () => { addLog("🏃 你理智地告別了黑市交易。"); leaveMerchant(); }; container.appendChild(leaveBtn); updateUI();
+        
+        let leaveBtn = document.createElement('button'); leaveBtn.className = "btn-game btn-shop"; leaveBtn.style.gridColumn = "span 2"; leaveBtn.innerText = "🏃 拒絕交易，繼續探索深淵";
+        leaveBtn.onclick = () => { addLog("🏃 你明智地拒絕了黑暗交易，轉身前進。"); leaveMerchant(); }; 
+        container.appendChild(leaveBtn); 
+        updateUI();
     }
     function leaveMerchant() { gameState = "DUNGEON"; advanceFloor(); }
 
-    // 🪦 刻印墓碑
-    async function confirmDeathAndUpload() {
+    function confirmDeathAndUpload() {
         let inputWords = document.getElementById('player-words-input').value.trim();
         if (inputWords === "") { inputWords = "沒想到會慘死在這裡...後代幫我報仇啊！"; }
 
@@ -881,39 +935,67 @@
         let legacyHp = Math.floor(dungeonFloor * 3);
         addLog(`💸 正在刻劃墓碑並將遺言同步至中央資料庫...`);
 
-        try {
-            await fetch(`${SERVER_URL}/api/save`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: player.name, lastFloor: dungeonFloor, lv: Math.floor(player.lv), legacyGold: legacyGold, legacyAtk: legacyAtk, legacyHp: legacyHp,
-                    cause: currentKillerName, lastWords: inputWords 
-                })
-            });
-            alert("🪦 你的墓碑已成功立在全球英靈殿與排行榜！現世存檔已安全抹除清空。");
-        } catch (e) { console.error("網絡逾時備份"); }
+        fetch(`${SERVER_URL}/api/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: player.name, lastFloor: dungeonFloor, lv: Math.floor(player.lv), legacyGold: legacyGold, legacyAtk: legacyAtk, legacyHp: legacyHp,
+                cause: currentKillerName, lastWords: inputWords 
+            })
+        }).catch(e => console.log("背景同步"));
+
+        alert("🪦 你的墓碑已成功立在全球英靈殿與排行榜！現世存檔已安全抹除清空。");
         
         dungeonFloor = 0; gameState = "TITLE"; currentLegacyData = null; currentActiveCharData = null;
         document.getElementById('player-name-input').value = player.name;
-        await checkCloudLegacy();
+        checkCloudLegacy();
         updateUI();
     }
 
-    // 🎁 BOSS 獎勵
     function startRewardPhase() {
         const masterSkillsPool = [
-            { name: "🔥 捨命烈焰附魔", desc: "【等價交換】解鎖40%烈焰燃燒，但狂暴代價最大生命 -30", run: () => { player.perkBurnAttack = true; player.maxHp -= 30; } },
-            { name: "🧪 腐蝕猛毒代價", desc: "【等價交換】解鎖40%劇毒瘴氣，但毒素反噬基礎攻擊 -5", run: () => { player.perkPoisonAttack = true; player.atk -= 5; } },
-            { name: "🛡️ 聖光笨重庇護", desc: "【等價交換】開局獲得高額 200 點護盾，但閃避率 -8%", run: () => { player.perkShieldStart += 200; player.dodgeChance -= 8; } },
-            { name: "🦅 孤注一擲射擊", desc: "【等價交換】暴擊率大暴增 +25%，但固定減傷 -6", run: () => { player.critChance += 25; player.perkFlatBlock -= 6; } },
-            { name: "🧛 契約殘虐吸血", desc: "【等價交換】吸血比例大漲 +20%，但最大生命減免 -40", run: () => { player.vampRate += 20; player.maxHp -= 40; } },
-            { name: "🌱 細胞超頻再生", desc: "【等價交換】每回合戰鬥再生大增 +15 HP，但經驗收益 -20%", run: () => { player.regenPower += 15; player.perkExpBonus -= 0.20; } },
-            { name: "🪙 資本貪婪狂熱", desc: "【等價交換】金幣獲取狂飆 +50%，但暴擊率永久 -12%", run: () => { player.goldBonus += 0.50; player.critChance -= 12; } },
-            { name: "⚡ 抽筋疾風連擊", desc: "【等價交換】雙段連擊率永久 +25%，外加固定減傷 -5", run: () => { player.perkDoubleStrike += 25; player.perkFlatBlock -= 5; } },
-            { name: "🔨 震盪碎顱重槌", desc: "【等價交換】擊暈率大幅拉高 +18%，但閃避率 -8%", run: () => { player.perkStunChance += 18; player.dodgeChance -= 8; } },
-            { name: "🧱 金鐘罩碎甲流", desc: "【等價交換】固定減傷不壞 +12 點，但連擊率 -15%", run: () => { player.perkFlatBlock += 12; player.perkDoubleStrike -= 15; } },
-            { name: "🔮 奧術三倍爆傷", desc: "【等價交換】解鎖暴擊 3 倍粉碎傷害，但最大生命 -45", run: () => { player.perkCritMult3 = true; player.maxHp -= 45; } },
-            { name: "⚡ 首回刺客奇襲", desc: "【等價交換】每場戰鬥第一回合必定爆擊，但經驗獲取 -15%", run: () => { player.perkFirstStrike = true; player.perkExpBonus -= 0.15; } }
+            { name: "🌟 聖物•天使之翼", desc: "純淨聖物：最大生命值固定增加 +60 點", run: () => { player.maxHp += 60; } },
+            { name: "🌟 聖物•聖光之劍", desc: "純淨聖物：基礎攻擊力固定增加 +15 點", run: () => { player.atk += 15; } },
+            { name: "🌟 聖物•黃金聖杯", desc: "純淨聖物：金幣加成倍率永久提升 +30%", run: () => { player.goldBonus += 0.30; } },
+            { name: "🌟 聖物•睿智斗篷", desc: "純淨聖物：經驗值獲取加成永久提升 +25%", run: () => { player.perkExpBonus += 0.25; } },
+            { name: "🌟 聖物•幸運護身符", desc: "純淨聖物：暴擊率固定提升 +12%", run: () => { player.critChance += 12; } },
+            { name: "🌟 聖物•風行者之靴", desc: "純淨聖物：閃避率固定提升 +10%", run: () => { player.dodgeChance += 10; } },
+            { name: "🌟 聖物•鮮血聖印", desc: "純淨聖物：攻擊打擊吸血比例提升 +12%", run: () => { player.vampRate += 12; } },
+            { name: "🌟 聖物•大地精華", desc: "純淨聖物：每回合戰鬥生命再生增加 +8 HP", run: () => { player.regenPower += 8; } },
+            { name: "🌟 聖物•鍛鐵重盾", desc: "純淨聖物：戰鬥固定護甲減傷增加 +5 點", run: () => { player.perkFlatBlock += 5; } },
+            { name: "🌟 聖物•雙生匕首", desc: "純淨聖物：戰鬥中雙段連擊機率增加 +15%", run: () => { player.perkDoubleStrike += 15; } },
+            { name: "🌟 聖物•雷神之錘", desc: "純淨聖物：戰鬥攻擊擊暈魔物機率增加 +10%", run: () => { player.perkStunChance += 10; } },
+            { name: "🌟 聖物•晨曦護符", desc: "純淨聖物：每場戰鬥開局直接賦予 +150 點護盾", run: () => { player.perkShieldStart += 150; } },
+            { name: "🌟 聖物•翡翠神像", desc: "純淨聖物：最大生命值 +35 點，外加再生 +3 HP", run: () => { player.maxHp += 35; player.regenPower += 3; } },
+            { name: "🌟 聖物•破盾重錘", desc: "純淨聖物：基礎攻擊力 +8 點，暴擊率提升 +5%", run: () => { player.atk += 8; player.critChance += 5; } },
+            { name: "🌟 聖物•勇者勳章", desc: "純淨聖物：基礎攻擊力 +6 點，最大生命值 +25 點", run: () => { player.atk += 6; player.maxHp += 25; } },
+            { name: "🌟 聖物•精靈耳環", desc: "純淨聖物：閃避率 +6%，暴擊率固定提升 +6%", run: () => { player.dodgeChance += 6; player.critChance += 6; } },
+            { name: "🌟 聖物•富豪圖章", desc: "純淨聖物：金幣收益提升 +15%，基礎攻擊力 +5 點", run: () => { player.goldBonus += 0.15; player.atk += 5; } },
+            { name: "🌟 聖物•先知之眼", desc: "純淨聖物：經驗值獲取 +15%，閃避率提升 +5%", run: () => { player.perkExpBonus += 0.15; player.dodgeChance += 5; } },
+            { name: "🌟 聖物•吸血鬼牙", desc: "純淨聖物：吸血比例 +6%，基礎攻擊力 +5 點", run: () => { player.vampRate += 6; player.atk += 5; } },
+            { name: "🌟 聖物•不滅火種", desc: "純淨聖物：每回合對敵方固定灼燒扣減 15 點真傷", run: () => { player.perkImmolate = (player.perkImmolate || 0) + 15; } },
+
+            // 💀 咒物 (21-40 號)
+            { name: "💀 咒物•弒神魔刃", desc: "禁忌咒物：攻擊力瘋狂爆增 +65，但最大生命值大跌 -85", run: () => { player.atk += 65; player.maxHp -= 85; } },
+            { name: "💀 咒物•惡魔契約", desc: "禁忌咒物：金幣獲取瘋狂翻倍 +100%，但經驗獲取大跌 -50%", run: () => { player.goldBonus += 1.0; player.perkExpBonus -= 0.5; } },
+            { name: "💀 咒物•修羅血瞳", desc: "禁忌咒物：暴擊率瘋狂暴增 +40%，但閃避率慘烈大跌 -20%", run: () => { player.critChance += 40; player.dodgeChance -= 20; } },
+            { name: "💀 咒物•凋零邪軀", desc: "禁忌咒物：每回合再生瘋狂爆增 +35 HP，但基礎攻擊大跌 -25", run: () => { player.regenPower += 35; player.atk -= 25; } },
+            { name: "💀 咒物•暴風長槍", desc: "禁忌咒物：連擊機率瘋狂暴增 +50%，但戰鬥減傷倒扣 -15", run: () => { player.perkDoubleStrike += 50; player.perkFlatBlock -= 15; } },
+            { name: "💀 咒物•泰坦遺骨", desc: "禁忌咒物：固定減傷瘋狂暴增 +25 點，但連擊率大跌 -30%", run: () => { player.perkFlatBlock += 25; player.perkDoubleStrike -= 30; } },
+            { name: "💀 咒物•怨魂斗篷", desc: "禁忌咒物：閃避率瘋狂暴增 +30%，但暴擊率永久殘廢大跌 -25%", run: () => { player.dodgeChance += 30; player.critChance -= 25; } },
+            { name: "💀 咒物•禁忌法典", desc: "禁忌咒物：經驗獲取瘋狂爆增 +80%，但金幣收益大跌 -45%", run: () => { player.perkExpBonus += 0.80; player.goldBonus -= 0.45; } },
+            { name: "💀 咒物•靈魂巨盾", desc: "禁忌咒物：開局護盾狂飆爆增 +650 點，但閃避率永久大跌 -15%", run: () => { player.perkShieldStart += 650; player.dodgeChance -= 15; } },
+            { name: "💀 咒物•永燃之心", desc: "異常咒物：每回合灼燒魔物 60 真傷，但開局即陷入【永久🔥燃燒】", run: () => { player.perkImmolate = (player.perkImmolate || 0) + 60; player.permanentBurn = true; } },
+            { name: "💀 咒物•淬火魔鉤", desc: "異常咒物：解鎖40%劇毒附魔且攻擊 +25，但自身陷入【永久🧪劇毒】", run: () => { player.perkPoisonAttack = true; player.atk += 25; player.permanentPoison = true; } },
+            { name: "💀 咒物•飢荒面具", desc: "禁忌咒物：吸血比例瘋狂暴增 +40%，但最大生命值遭受重創 -65", run: () => { player.vampRate += 40; player.maxHp -= 65; } },
+            { name: "💀 咒物•沉重枷鎖", desc: "禁忌咒物：擊暈魔物率瘋狂暴增 +35%，但閃避率大幅下降 -15%", run: () => { player.perkStunChance += 35; player.dodgeChance -= 15; } },
+            { name: "💀 咒物•黃金假面", desc: "禁忌咒物：金幣加成瘋狂爆增 +80%，但最大生命值大幅下降 -45", run: () => { player.goldBonus += 0.80; player.maxHp -= 45; } },
+            { name: "💀 咒物•收割殘鐮", desc: "禁忌咒物：基礎攻擊力大幅暴增 +35，但每回合再生倒扣 -15 HP", run: () => { player.atk += 35; player.regenPower -= 15; } },
+            { name: "💀 咒物•折射魔鏡", desc: "禁忌咒物：閃避率固定大幅提升 +22%，但開局護盾永久扣除 -200 點", run: () => { player.dodgeChance += 22; player.perkShieldStart = Math.max(0, player.perkShieldStart - 200); } },
+            { name: "💀 咒物•處刑巨斧", desc: "禁忌咒物：暴擊機率固定爆增 +30%，但經驗值獲取大幅下降 -35%", run: () => { player.critChance += 30; player.perkExpBonus -= 0.35; } },
+            { name: "💀 咒物•死靈法杖", desc: "禁忌咒物：每回合對敵灼燒 35 真傷，但金幣獲取率大幅下降 -30%", run: () => { player.perkImmolate = (player.perkImmolate || 0) + 35; player.goldBonus -= 0.30; } },
+            { name: "💀 咒物•時空沙漏", desc: "禁忌咒物：雙段連擊率永久爆增 +35%，但最大生命值固定大跌 -50", run: () => { player.perkDoubleStrike += 35; player.maxHp -= 50; } },
+            { name: "💀 咒物•混沌左眼", desc: "禁忌咒物：吸血比例固定暴增 +25%，但每回合固定減傷大幅下降 -10", run: () => { player.vampRate += 25; player.perkFlatBlock -= 10; } }
         ];
         
         let shuffled = masterSkillsPool.sort(() => 0.5 - Math.random()); let selected = shuffled.slice(0, 3); 
@@ -932,7 +1014,16 @@
         if (leveled) { safetyCheck(); player.hp = player.maxHp; player.exp = Math.floor(player.exp); addLog(`✨ 恭喜突破！升到等級 Lv.${player.lv}！`); }
     }
 
-    function advanceFloor() { dungeonFloor++; gameState = "DUNGEON"; if (dungeonFloor % 10 === 1) { rollNextEnvironment(); } addLog(`🪜 踏入 <strong>地下城 B${dungeonFloor}F</strong>...`); updateUI(); }
+    function advanceFloor() { 
+        dungeonFloor++; 
+        gameState = "DUNGEON"; 
+        if (dungeonFloor > player.highestCheckPoint) {
+            player.highestCheckPoint = dungeonFloor;
+        }
+        if (dungeonFloor % 10 === 1) { rollNextEnvironment(); } 
+        addLog(`🪜 踏入 <strong>地下城 B${dungeonFloor}F</strong>...`); 
+        updateUI(); 
+    }
 
     window.onload = function() { updateUI(); };
 </script>
