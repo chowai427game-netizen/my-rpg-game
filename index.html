@@ -6,21 +6,21 @@
     <title>命運深淵：血脈傳承 MMORPG 線上版</title>
 
     <style>
-        /* 全局基礎網頁設定 */
+        /* 【全局基礎網頁設定】定義整個網頁的背景色、文字顏色及排版居中 */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #121212; /* 網頁底色：深黑色 */
             color: #e0e0e0;           /* 文字顏色：淺灰色 */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* 📱 手機端防卡死核心 */
+            align-items: flex-start;  /* 📱 手機端防卡死核心 */
             min-height: 100vh;
             margin: 0;
             padding: 10px;
             box-sizing: border-box;
         }
         
-        /* 💻 當偵測到電腦大螢幕時自動啟動此通道排版 */
+        /* 💻 【電腦大螢幕響應式通道排版】當偵測到螢幕寬度 >= 900px 時，自動啟動左右雙分欄 */
         @media (min-width: 900px) {
             body {
                 align-items: center; 
@@ -36,11 +36,11 @@
                 align-items: start; 
             }
             .log-panel {
-                height: 480px !important; /* 加高日誌以完美對齊左側所有組件 */
+                height: 480px !important; 
             }
         }
         
-        /* 遊戲主外殼容器 */
+        /* 【遊戲主外殼容器】 */
         .game-container {
             width: 100%;
             max-width: 540px;
@@ -52,7 +52,7 @@
             box-sizing: border-box;
         }
 
-        /* 雙通道排版包裹盒子 */
+        /* 【雙通道排版包裹盒子】 */
         .main-layout-container {
             display: flex;
             flex-direction: column; 
@@ -63,9 +63,22 @@
         h2 { text-align: center; color: #ffd700; margin-top: 0; letter-spacing: 2px; }
         
         .location-bar { text-align: center; background: #151515; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-weight: bold; border: 1px solid #333; width: 100%; box-sizing: border-box; }
-        .env-bar { text-align: center; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2); line-height: 1.4; color:#fff; width: 100%; box-sizing: border-box; }
+        
+        /* 【特殊環境狀態欄】 */
+        .env-bar { text-align: center; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2); line-height: 1.4; color:#fff; width: 100%; box-sizing: border-box; transition: all 0.3s ease; }
 
-        /* 勇者個人數據網格 */
+        /* 【高危環境警告呼吸燈特效】當踩到危險環境房時動態激發此脈衝，警惕效果拉滿 */
+        @keyframes envPulse {
+            0% { box-shadow: 0 0 4px #ff4757; border-color: rgba(255, 71, 87, 0.5); }
+            50% { box-shadow: 0 0 18px #ff4757; border-color: rgba(255, 71, 87, 1); }
+            100% { box-shadow: 0 0 4px #ff4757; border-color: rgba(255, 71, 87, 0.5); }
+        }
+        .env-warn-active {
+            animation: envPulse 1.5s infinite ease-in-out;
+            border: 2px solid #ff4757 !important;
+        }
+
+        /* 【勇者個人數據網格】 */
         .status-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #0f0f0f; padding: 12px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #222; }
         .status-item { font-size: 13px; }
         .full-row { grid-column: span 2; border-top: 1px solid #1c1c1c; padding-top: 4px; margin-top: 2px; }
@@ -97,7 +110,7 @@
             width: 75%; padding: 12px; font-size: 15px; background: #111; color: #fff;
             border: 1px solid #444; border-radius: 6px; text-align: center; margin-bottom: 15px; outline: none;
         }
-        .name-input:focus { border: 1px solid #ffd700; }
+        .name-input:focus { border: 1px solid #ffd700; } 
 
         .legacy-container { background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71; border-radius: 6px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: #2ecc71; text-align: left; line-height: 1.5; }
         .active-save-container { background: rgba(52, 152, 219, 0.15); border: 1px solid #3498db; border-radius: 6px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: #54a0ff; text-align: left; line-height: 1.5; }
@@ -120,6 +133,7 @@
 
         .btn-game { color: white; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.2s; border: none; touch-action: manipulation; }
         .btn-game:disabled { background-color: #555 !important; color: #aaa !important; cursor: not-allowed; } 
+        
         .btn-shop { background: #34495e; font-size: 12px; padding: 10px; border: 1px solid #465d75; }
         .btn-shop:hover { background: #415b76; }
         .btn-reward { background: #27ae60; font-size: 13px; padding: 12px; border: 1px solid #2ecc71; text-align: left; line-height: 1.4; }
@@ -151,12 +165,12 @@
         <p style="color: #bbb; font-size: 12px; margin-bottom: 12px; line-height: 1.4;">【MMORPG 線上雲端全球聯網版】</p>
         
         <div class="notice-container">
-            <strong style="color: #ffd700;">📢 深淵維護公告 (v2.20 MMORPG版)：</strong><br>
-            • 【👑 百層通關】最終深淵大門實裝！Boss 全面擴充至 B100F，擊敗終焉主宰解鎖 GAME CLEAR 傳奇慶典！<br>
-            • 【🌀 傳送解鎖】時空傳送門上限同步拓寬！降臨點全面支援解鎖至 B91F，越戰越勇！<br>
-            • 【🧙 黑市狂歡】流浪黑市全面實裝 20 種完全獨立的博弈道具！隨機刷出 2 款供挑選！<br>
-            • 【🪶 鳳凰涅槃】黑市全新引進「鳳凰羽毛」，戰死時自動消耗並原地回覆 35% 生命復活！<br>
-            • 【🧱 數值修復】全面修正並解鎖顯示「固定減傷」、「連擊機率」、「經驗加成」看板，修復狀態不跳字Bug！
+            <strong style="color: #ffd700;">📢 深淵維護公告 (v2.40 全局數值平衡修正版)：</strong><br>
+            • 【⚖️ 數值重組】大幅削減常規小怪後期成長增幅（0.25 ➔ 0.06），修正小怪比王難打的嚴重失衡！<br>
+            • 【👹 領主霸權】大幅度調高 B10F 至 B100F 所有守關 Boss 的基礎血量與傷害，使其具備真正的守關威嚴！<br>
+            • 【🧙 黑市回歸】黑市商人貨架選擇依反饋精確**由 3 個修正回 2 個**，重回精準拉鋸博弈！<br>
+            • 【🚨 環境警報】高危環境房全面解鎖「鮮紅脈衝呼吸燈外框」與劫持字首！全面警惕勇者作戰！<br>
+            • 【👑 百層通關】最終深淵大門實裝！擊敗終焉主宰解鎖 GAME CLEAR 傳奇慶典！
         </div>
 
         <div id="legacy-box" class="legacy-container">請輸入名字以查詢雲端血脈...</div>
@@ -212,7 +226,7 @@
                 <div class="status-item" style="color: #f39c12;">🪙 金幣加成: <span id="stat-gold-bonus">100%</span></div>
                 <div class="status-item">🧱 固定減傷: <span id="stat-block" style="color: #7f8c8d; font-weight:bold;">0</span></div>
                 <div class="status-item">⚔️ 連擊機率: <span id="stat-double" style="color: #ff6b81; font-weight:bold;">0%</span></div>
-                <div class="status-item">🟩 經驗加成: <span id="stat-exp-bonus" style="color: #2ed573; font-weight:bold;">100%</span></div>
+                <div class="status-item">🟩 經驗加成: <span id="stat-exp-bonus">100%</span></div>
                 <div class="status-item" style="color: #ffd700; font-weight: bold;">🪶 鳳凰羽毛: <span id="stat-feather">0</span> 根</div>
 
                 <div class="status-item full-row" style="color: #e74c3c;">💥 暴擊率: <span id="stat-crit">0%</span> | <span style="color: #3498db;">🏃 閃避率: <span id="stat-dodge">0%</span></span></div>
@@ -223,7 +237,7 @@
 
             <div class="dynamic-panel savepoint-style" id="savepoint-box" style="display: none;">
                 <span style="color: #f1c40f; font-weight: bold; font-size: 13px;">⛺ 皇家安穩旅店儲存點</span><br>
-                <span style="color: #aaa; font-size: 11px;">進度可隨時備份上傳，收工下次再續冒險。</span><br>
+                <span style="color: #aaa; font-size: 11px;">進度可隨時備份上傳，收工下次再續 adventure。</span><br>
                 <button class="btn-game" onclick="saveActiveProgressToCloud()" style="background: #f1c40f; color: #111; padding: 6px 15px; font-size: 12px; margin-top: 6px;">💾 儲存目前進度至雲端</button>
             </div>
 
@@ -283,13 +297,13 @@
         highestCheckPoint: 1 
     };
 
-    let dungeonFloor = 0;         
-    let gameState = "TITLE";       
-    let currentLegacyData = null;   
+    let dungeonFloor = 0;           
+    let gameState = "TITLE";         
+    let currentLegacyData = null;     
     let currentActiveCharData = null; 
     let currentKillerName = "未知魔物"; 
-    let cachedGlobalRawData = [];  
-    let currentActiveTab = "tomb"; 
+    let cachedGlobalRawData = [];    
+    let currentActiveTab = "tomb";   
 
     function rehydratePlayer(savedData) {
         let basePlayer = {
@@ -381,24 +395,23 @@
         ]
     };
 
-    // 👹 🛠️ 領主大池全面擴充至 B100F (完美動態終局數值平衡)
+    // 👹 🛠️ 【數值大重組平衡：大幅調高所有守關大 BOSS 領主數據，維持王者的絕對尊嚴感】
     const bossMonsters = [
-        { name: "👿 地獄三頭犬 (10F 守護者)", baseHp: 500, baseAtk: 28, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
-        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1100, baseAtk: 52, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
-        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 2500, baseAtk: 90, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" },
-        { name: "💀 遠古巫妖王 (40F 亡靈天災)", baseHp: 5000, baseAtk: 140, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
-        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 8000, baseAtk: 200, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" },
-        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 12000, baseAtk: 280, baseGold: 4000, baseExp: 3500, acc: 90, color: "#f1c40f" }, // 🆕 百層擴張
-        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 18000, baseAtk: 380, baseGold: 6000, baseExp: 5000, acc: 95, color: "#e67e22" }, // 🆕 百層擴張
-        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 26000, baseAtk: 500, baseGold: 9000, baseExp: 7500, acc: 100, color: "#2980b9" }, // 🆕 百層擴張
-        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 38000, baseAtk: 680, baseGold: 14000, baseExp: 11000, acc: 110, color: "#c0392b" }, // 🆕 百層擴張
-        { name: "🌌 終焉主宰卡奧斯 (100F 終焉輪迴)", baseHp: 60000, baseAtk: 990, baseGold: 25000, baseExp: 20000, acc: 120, color: "#10ac84" } // 🆕 最終大Boss
+        { name: "👿 地獄三頭犬 (10F 守護者)", baseHp: 600, baseAtk: 35, baseGold: 250, baseExp: 150, acc: 25, color: "#ff9f43" }, 
+        { name: "🧙 墮落大巫師 (20F 秘術主宰)", baseHp: 1500, baseAtk: 65, baseGold: 500, baseExp: 350, acc: 45, color: "#9b59b6" }, 
+        { name: "🐉 紅蓮噴火龍 (30F 滅世烈焰)", baseHp: 3500, baseAtk: 110, baseGold: 1000, baseExp: 800, acc: 65, color: "#ff4757" },
+        { name: "💀 遠古巫妖王 (40F 亡靈天災)", baseHp: 7000, baseAtk: 180, baseGold: 1800, baseExp: 1400, acc: 75, color: "#74b9ff" },
+        { name: "👁️ 虛空邪神化身 (50F 混亂之眼)", baseHp: 12000, baseAtk: 260, baseGold: 2800, baseExp: 2200, acc: 85, color: "#a55eee" },
+        { name: "👼 墮落熾天使 (60F 晨星之暗)", baseHp: 20000, baseAtk: 380, baseGold: 4000, baseExp: 3500, acc: 90, color: "#f1c40f" }, 
+        { name: "🐺 滅世魔狼芬里爾 (70F 諸神黃昏)", baseHp: 32000, baseAtk: 520, baseGold: 6000, baseExp: 5000, acc: 95, color: "#e67e22" }, 
+        { name: "🔱 機械海神波賽頓 (80F 鋼鐵深淵)", baseHp: 48000, baseAtk: 700, baseGold: 9000, baseExp: 7500, acc: 100, color: "#2980b9" }, 
+        { name: "⚔️ 戰神阿瑞斯之魂 (90F 不敗神話)", baseHp: 70000, baseAtk: 950, baseGold: 14000, baseExp: 11000, acc: 110, color: "#c0392b" }, 
+        { name: "🌌 終焉主宰卡奧斯 (100F 終焉輪迴)", baseHp: 120000, baseAtk: 1400, baseGold: 25000, baseExp: 20000, acc: 120, color: "#10ac84" } 
     ];
 
     function getUpgradeCost(type) { return type === 'atk' ? (30 + player.atkUpgrades * 25) : (25 + player.hpUpgrades * 20); }
     function addLog(message) { const logBox = document.getElementById('log-box'); if(logBox) { logBox.innerHTML += `<p>${message}</p>`; logBox.scrollTop = logBox.scrollHeight; } }
 
-    // 🖥 UI 核心面板引擎 (🛠️ 實裝 GAME CLEAR 獨立渲染與百層節點拓寬)
     function updateUI() {
         try {
             const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = val; };
@@ -466,8 +479,6 @@
                 if(locText) { locText.innerText = `💀 戰報停留：勇者命喪 B${dungeonFloor}F`; locText.style.color = "#e74c3c"; }
                 return;
             }
-            
-            // 🆕 🛠️ 實裝 100 層 GAME CLEAR 狀態切換渲染機制
             if (gameState === "GAMECLEAR") {
                 setStyle('title-box', 'display', 'none'); setStyle('status-panel-box', 'display', 'grid'); setStyle('log-box', 'display', 'block');
                 setStyle('shop-box', 'display', 'none'); setStyle('reward-box', 'display', 'none'); setStyle('merchant-box', 'display', 'none'); 
@@ -509,7 +520,6 @@
                     if (player.highestCheckPoint >= 31) optionsHtml += `<option value="31">🌋 地下城 B31F (熔岩焦土)</option>`;
                     if (player.highestCheckPoint >= 41) optionsHtml += `<option value="41">💀 地下城 B41F (亡靈天災)</option>`;
                     if (player.highestCheckPoint >= 51) optionsHtml += `<option value="51">👁️ 地下城 B51F (無盡星海)</option>`;
-                    // 🆕 🛠️ 傳送下拉節點同步拓寬至百層領域
                     if (player.highestCheckPoint >= 61) optionsHtml += `<option value="61">👼 地下城 B61F (晨星之暗)</option>`;
                     if (player.highestCheckPoint >= 71) optionsHtml += `<option value="71">🐺 地下城 B71F (諸神黃昏)</option>`;
                     if (player.highestCheckPoint >= 81) optionsHtml += `<option value="81">🔱 地下城 B81F (鋼鐵深淵)</option>`;
@@ -529,8 +539,18 @@
                 setStyle('env-text', 'display', 'block');
                 
                 const envText = document.getElementById('env-text');
-                let envPrefix = dungeonFloor <= 10 ? "🔰【新手安全島】➔ " : "【當前環境房】➔ ";
-                if(envText) { envText.innerText = `${envPrefix}${currentEnv.name} : ${currentEnv.desc}`; envText.style.backgroundColor = currentEnv.color; }
+                if(envText) {
+                    if (currentEnv.effect !== "none" && dungeonFloor > 10) {
+                        envText.classList.add('env-warn-active');
+                        envText.innerText = `🚨【深淵高危環境警報】➔ ${currentEnv.name} : ${currentEnv.desc}`;
+                    } else {
+                        envText.classList.remove('env-warn-active');
+                        let envPrefix = dungeonFloor <= 10 ? "🔰【新手安全島】➔ " : "【當前環境房】➔ ";
+                        envText.innerText = `${envPrefix}${currentEnv.name} : ${currentEnv.desc}`;
+                    }
+                    envText.style.backgroundColor = currentEnv.color;
+                }
+
                 if(btn1) btn1.innerText = (dungeonFloor % 10 === 0) ? `👹 挑戰 B${dungeonFloor}F 領主大 BOSS` : `🧭 探索 B${dungeonFloor}F`;
                 if(btn2) btn2.innerText = "🏃 撤退回地表";
             }
@@ -703,6 +723,11 @@
     function rollNextEnvironment() {
         if (dungeonFloor <= 10) { currentEnv = environmentsPool[0]; return; }
         currentEnv = environmentsPool[Math.floor(Math.random() * environmentsPool.length)];
+        
+        if (currentEnv.effect !== "none") {
+            addLog(`🚨<span style='color:#ff4757; font-weight:bold;'>【高危環境預警】本層受「${currentEnv.name}」異常力場干擾！請密切注意戰術面板！</span>`);
+        }
+
         if (currentEnv.effect === "env_trap_hp") {
             let trapDmg = Math.floor(player.maxHp * 0.15); player.hp = Math.max(1, player.hp - trapDmg);
             addLog(`⚠️【環境機關】踏入新大層，因環境特異扣除 <span style='color:#ff4757;'>${trapDmg}</span> HP！`);
@@ -768,7 +793,8 @@
             baseData = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        let floorScale = isBoss ? 1.0 : (dungeonFloor <= 10 ? (1 + (dungeonFloor - 1) * 0.1) : (1 + (dungeonFloor - 1) * 0.25)); 
+        // 🛠️ 🆕 【重大平衡變更：全面削減小怪係數（由原先的 0.25 縮減為 0.06），防止小怪後期強度失控！】
+        let floorScale = isBoss ? 1.0 : (dungeonFloor <= 10 ? (1 + (dungeonFloor - 1) * 0.05) : (1 + (dungeonFloor - 1) * 0.06)); 
         let mHpScale = (currentEnv.effect === "poison") ? 1.4 : 1.0;
         
         let monster = {
@@ -883,7 +909,7 @@
             addLog(`<div style="border-bottom: 1px solid #2d2d2d; padding-bottom:6px; margin-top:4px;">${roundLog}</div>`);
 
             await sleep(1000); 
-            round++; if (round > 60) break;
+            round++; if (round > 60) break; 
         }
 
         if (player.hp > 0 && monster.hp <= 0) {
@@ -891,7 +917,6 @@
             player.gold += finalGold; player.exp = Math.floor(player.exp + finalExp);
             addLog(`🎉 戰鬥勝利！獲得金幣 ${finalGold} G，經驗值 +${finalExp}。`); checkLevelUp();
             
-            // 🆕 🛠️ 核心變更：判斷是否成功突破 B100F 終極魔王
             if (isBoss) {
                 if (dungeonFloor === 100) {
                     gameState = "GAMECLEAR";
@@ -914,24 +939,25 @@
             { name: "🧪 巨型生命活力水", desc: "雙刃劍：最大生命永久暴增 +50 點，但藥物麻痺降低基礎攻擊 -4", cost: 120, run: () => { player.maxHp += 50; player.hp += 50; player.atk -= 4; } },
             { name: "🐢 石化泰坦核心", desc: "雙刃劍：固定減傷永久 +12，但沉重軀殼令攻擊力 -8", cost: 260, run: () => { player.perkFlatBlock += 12; player.atk -= 8; } },
             { name: "🛡️ 庇護巨盾徽章", desc: "雙刃劍：開局直接武裝 +300 護盾，但舉盾令閃避率大跌 -10%", cost: 280, run: () => { player.perkShieldStart += 300; player.dodgeChance -= 10; } },
-            { name: "🎰 破產惡魔契約", desc: "雙刃劍：金幣獲取率大增 +60%，但代價是經驗獲取率 -30%", cost: 340, run: () => { player.goldBonus += 0.60; player.perkExpBonus -= 0.30; } },
+            { name: "🎰 破產惡魔契約", desc: "雙刃劍：金幣獲取率大增 +60%，幕後代價是經驗獲取率 -30%", cost: 340, run: () => { player.goldBonus += 0.60; player.perkExpBonus -= 0.30; } },
             { name: "🪙 貪婪地精金幣", desc: "雙刃劍：金幣加成固定提升 +25%，但因分心導致暴擊率降低 -8%", cost: 160, run: () => { player.goldBonus += 0.25; player.critChance -= 8; } },
-            { name: "📖 先知智慧古卷", desc: "雙刃劍：經驗獲取永久提升 +25%，但因不修邊幅降低金幣加成 -15%", cost: 160, run: () => { player.perkExpBonus += 0.25; player.goldBonus -= 0.15; } },
+            { name: "📖 先知智慧古卷", desc: "雙刃劍：經驗獲取永久提升 +25%，因不修邊幅降低金幣加成 -15%", cost: 160, run: () => { player.perkExpBonus += 0.25; player.goldBonus -= 0.15; } },
             { name: "🎒 幽靈敏捷斗篷", desc: "雙刃劍：閃避率永久提升 +12%，但靈體化削減最大生命 -25", cost: 200, run: () => { player.dodgeChance += 12; player.maxHp -= 25; } },
             { name: "🦅 孤狼鷹眼銳鏡", desc: "雙刃劍：暴擊率固定提升 +15%，慢速觀察降低攻擊力 -5", cost: 180, run: () => { player.critChance += 15; player.atk -= 5; } },
             { name: "🧛 吸血鬼撕裂齒", desc: "雙刃劍：攻擊吸血比例暴增 +15%，但最大生命遭受反噬 -40", cost: 300, run: () => { player.vampRate += 15; player.maxHp -= 40; } },
             { name: "🌱 超頻細胞活劑", desc: "雙刃劍：每回合再生大幅 +12 HP，但細胞超頻削減最大生命 -25", cost: 250, run: () => { player.regenPower += 12; player.maxHp -= 25; } },
             { name: "⚔️ 疾風連擊殘影", desc: "雙刃劍：雙段連擊機率永久 +25%，但專注進攻令固定減傷 -6", cost: 310, run: () => { player.perkDoubleStrike += 25; player.perkFlatBlock -= 6; } },
-            { name: "🔨 重型震盪碎擊", desc: "雙刃劍：擊暈魔物機率永久 +15%，但武器過重降低閃避率 -8%", cost: 230, run: () => { player.perkStunChance += 15; player.dodgeChance -= 8; } },
-            { name: "🔥 烈焰附魔卷軸", desc: "雙刃劍：攻擊永久附加40%烈焰燃燒，但代價是削減最大生命 -25", cost: 240, run: () => { player.perkBurnAttack = true; player.maxHp -= 25; } },
-            { name: "🧪 劇毒淬火毒素", desc: "雙刃劍：攻擊永久附加40%劇毒瘴氣，但慢性中毒削減基礎攻擊 -5", cost: 240, run: () => { player.perkPoisonAttack = true; player.atk -= 5; } },
-            { name: "🔮 奧術撕裂魔晶", desc: "雙刃劍：解鎖暴擊 3 倍極限粉碎傷，但魔能震盪削減最大生命 -50", cost: 270, run: () => { player.perkCritMult3 = true; player.maxHp -= 50; } },
-            { name: "🌋 熔岩烈火內丹", desc: "雙刃劍：戰鬥補償對敵灼燒 +25 點，但內火攻心削減最大生命 -35", cost: 260, run: () => { player.perkImmolate = (player.perkImmolate || 0) + 25; player.maxHp -= 35; } },
+            { name: "🔨 重型震盪碎擊", desc: "雙刃劍：擊暈魔物機率永久 +15%，武器過重降低閃避率 -8%", cost: 230, run: () => { player.perkStunChance += 15; player.dodgeChance -= 8; } },
+            { name: "🔥 烈焰附魔卷軸", desc: "雙刃劍：攻擊永久附加40%烈焰燃燒，代價是削減最大生命 -25", cost: 240, run: () => { player.perkBurnAttack = true; player.maxHp -= 25; } },
+            { name: "🧪 劇毒淬火毒素", desc: "雙刃劍：攻擊永久附加40%劇毒瘴氣，慢性中毒削減基礎攻擊 -5", cost: 240, run: () => { player.perkPoisonAttack = true; player.atk -= 5; } },
+            { name: "🔮 奧術撕裂魔晶", desc: "雙刃劍：解鎖暴擊 3 倍極限粉碎傷，魔能震盪削減最大生命 -50", cost: 270, run: () => { player.perkCritMult3 = true; player.maxHp -= 50; } },
+            { name: "🌋 熔岩烈火內丹", desc: "雙刃劍：戰鬥補償對敵灼燒 +25 點，內火攻心削減最大生命 -35", cost: 260, run: () => { player.perkImmolate = (player.perkImmolate || 0) + 25; player.maxHp -= 35; } },
             { name: "💪 皇家高階特訓", desc: "純正面：花費重金接受微型特訓，基礎攻擊 +6，且最大生命 +20", cost: 140, run: () => { player.atk += 6; player.maxHp += 20; player.hp += 20; } }
         ];
 
         let shuffled = items.sort(() => 0.5 - Math.random()); 
-        let onSale = shuffled.slice(0, 2);
+        // 🛠️ 🆕 【修正黑市選擇：由原先抽取 3 個改回抽取 2 個】
+        let onSale = shuffled.slice(0, 2); 
         
         const container = document.getElementById('merchant-choices-container'); 
         container.innerHTML = "";
@@ -983,12 +1009,10 @@
         updateUI();
     }
 
-    // 👑 🆕 2.4 傳奇通關上傳與結算功能回調
     function confirmVictoryAndUpload() {
         let inputWords = document.getElementById('player-clear-words-input').value.trim();
         if (inputWords === "") { inputWords = "百層深淵終歸我手！不朽血脈長存於世！"; }
 
-        // 傳奇爆機：享有特權 40% 的巨額遺產金幣轉化率！
         let legacyGold = Math.floor(player.gold * 0.40);
         let legacyAtk = Math.floor(dungeonFloor * 0.8);
         let legacyHp = Math.floor(dungeonFloor * 5);
