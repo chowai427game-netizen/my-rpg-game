@@ -909,32 +909,32 @@
                 player.atk = Math.max(5, Math.floor(player.atk * 0.75));
                 addLog(`🔮 領主施放「秘術壓制」！勇者大腦受縛，基礎攻擊力被永久閹割破壞 -25%！`);
             } else if (dungeonFloor === 30) {
-                pStatus.burnStacks += 3;
-                addLog(`🌋 領主施放「烈焰風暴」！紅蓮獄火焚體，勇者開局直接負載 3 層爆烈火傷！`);
+                pStatus.burnStacks += 4;
+                addLog(`🌋 領主施放「烈焰風暴」！紅蓮獄火焚體，勇者開局直接負載 4 層爆烈火傷！`);
             } else if (dungeonFloor === 40) {
-                let cut = Math.floor(player.hp * 0.30); player.hp = Math.max(1, player.hp - cut);
-                addLog(`💀 領主施放「靈魂收割」！死神鐮刀揮下，直接強制活生生抽走勇者 30% 當前生命值 (-${cut} HP)！`);
+                let cut = Math.floor(player.hp * 0.50); player.hp = Math.max(1, player.hp - cut);
+                addLog(`💀 領主施放「靈魂收割」！死神鐮刀揮下，直接強制活生生抽走勇者 50% 當前生命值 (-${cut} HP)！`);
             } else if (dungeonFloor === 50) {
-                player.rage = 0; player.dodgeChance = Math.max(0, player.dodgeChance - 15);
-                addLog(`👁️ 領主施放「精神崩潰」！古神低語干擾，勇者怒氣強洗歸零，且完美閃避率暴跌 -15%！`);
+                player.rage = 0; player.dodgeChance = Math.max(0, player.dodgeChance - 40);
+                addLog(`👁️ 領主施放「精神崩潰」！古神低語干擾，勇者怒氣強洗歸零，且完美閃避率暴跌 -40%！`);
             } else if (dungeonFloor === 60) {
                 let cut = Math.floor(player.hp * 0.35); player.hp = Math.max(1, player.hp - cut);
-                player.atk = Math.max(5, Math.floor(player.atk * 0.8));
-                addLog(`👼 領主施放「神魔天譴」！晨星之暗割裂肉身，強制削減 35% HP 並衰減 20% 基礎破壞力！`);
+                player.atk = Math.max(5, Math.floor(player.atk * 0.4));
+                addLog(`👼 領主施放「神魔天譴」！晨星之暗割裂肉身，強制削減 35% HP 並衰減 60% 基礎破壞力！`);
             } else if (dungeonFloor === 70) {
-                player.dodgeChance = Math.max(0, player.dodgeChance - 15);
-                addLog(`🐺 領主施放「諸神黃昏」！魔狼煞氣震懾，勇者閃避率降低 15%，且戰鬥吸血與再生效率永續減半！`);
+                player.dodgeChance = Math.max(0, player.dodgeChance - 60);
+                addLog(`🐺 領主施放「諸神黃昏」！魔狼煞氣震懾，勇者閃避率降低 60%，且戰鬥吸血與再生效率永續減半！`);
             } else if (dungeonFloor === 80) {
                 pStatus.stunned = 1; pStatus.shield = 0;
                 addLog(`🔱 領主施放「深海潮汐」！驚天巨浪狂嘯，勇者開局盾瞬間被震碎，且強行陷入 **1 回合暈眩**！`);
             } else if (dungeonFloor === 90) {
-                player.perkFlatBlock = 0; player.critChance = Math.max(0, player.critChance - 20);
-                addLog(`⚔️ 領主施放「戰意威壓」！不敗殺氣擴張，勇者固定減傷甲當場碎裂歸零，且暴擊率遭壓制 -20%！`);
+                player.perkFlatBlock = 0; player.critChance = Math.max(0, player.critChance - 100);
+                addLog(`⚔️ 領主施放「戰意威壓」！不敗殺氣擴張，勇者固定減傷甲當場碎裂歸零，且暴擊率遭壓制 -100%！`);
             } else if (dungeonFloor === 100) {
-                let cut = Math.floor(player.hp * 0.40); player.hp = Math.max(1, player.hp - cut);
+                let cut = Math.floor(player.hp * 0.20); player.hp = Math.max(1, player.hp - cut);
                 player.permanentBurn = true; player.permanentPoison = true;
                 player.goldBonus = 0.1; player.perkExpBonus = 0.1; player.perkDoubleStrike = 0;
-                addLog(`🌌 領主施放「終焉輪迴」！混沌初開，勇者痛失 40% 核心生命，陷入永久毒火自燃，且所有戰鬥增幅全數被剝奪！`);
+                addLog(`🌌 領主施放「終焉輪迴」！混沌初開，勇者痛失 80% 核心生命，陷入永久毒火自燃，且所有戰鬥增幅全數被剝奪！`);
             }
             safetyCheck(); updateUI();
         }
