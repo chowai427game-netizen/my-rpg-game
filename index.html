@@ -154,7 +154,7 @@
             <strong style="color: #ffd700;">📢 深淵維護公告 (v2.20 MMORPG版)：</strong><br>
             • 【👑 百層通關】最終深淵大門實裝！Boss 全面擴充至 B100F，擊敗終焉主宰解鎖 GAME CLEAR 傳奇慶典！<br>
             • 【🌀 傳送解鎖】時空傳送門上限同步拓寬！降臨點全面支援解鎖至 B91F，越戰越勇！<br>
-            • 【🧙 黑市狂歡】流浪黑市全面實裝 20 種完全獨立的博弈道具！隨機刷出 3 款供挑選！<br>
+            • 【🧙 黑市狂歡】流浪黑市全面實裝 20 種完全獨立的博弈道具！隨機刷出 2 款供挑選！<br>
             • 【🪶 鳳凰涅槃】黑市全新引進「鳳凰羽毛」，戰死時自動消耗並原地回覆 35% 生命復活！<br>
             • 【🧱 數值修復】全面修正並解鎖顯示「固定減傷」、「連擊機率」、「經驗加成」看板，修復狀態不跳字Bug！
         </div>
@@ -931,7 +931,7 @@
         ];
 
         let shuffled = items.sort(() => 0.5 - Math.random()); 
-        let onSale = shuffled.slice(0, 3);
+        let onSale = shuffled.slice(0, 2);
         
         const container = document.getElementById('merchant-choices-container'); 
         container.innerHTML = "";
